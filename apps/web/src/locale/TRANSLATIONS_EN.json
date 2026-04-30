@@ -1,0 +1,103 @@
+{
+  "search": "Search",
+  "loading": "Loading",
+  "save": "Save",
+  "cancel": "Cancel",
+  "page": {
+    "back": "Back"
+  },
+  "state": {
+    "loading": {
+      "title": "Loading data"
+    }
+  },
+  "paging": {
+    "first": "First",
+    "last": "Last",
+    "previous": "Previous",
+    "next": "Next",
+    "showFromToText": "Showing {{start}} - {{end}} of {{total}}"
+  },
+  "fhir-questionnaire": {
+    "null-title": "[No Title]",
+    "search-questions": "Search Questionnaire",
+    "question-lists": "Questionnaires"
+  },
+  "wizard": {
+    "title": "Selected Item",
+    "type-group": "Group",
+    "type-question": "Question",
+    "no-items-found": "No items found",
+    "categorie": "RESOURCE TYPE",
+    "path": "RESOURCE ELEMENT",
+    "medical-code": "SNOMED CT CODE",
+    "no-resource-type": "Not mapped",
+    "label-tooltip": "Text of the question",
+    "resourcetype-tooltip": "FHIR resource type that corresponds to this questionnaire item",
+    "resourceelement-tooltip": "FHIR element that corresponds to this questionnaire item",
+    "group-hint": "Group: only definitionExtract on resourceType level",
+    "reread-qr": "Re-read the QuestionnaireResponse from the form",
+    "refresh-qr": "Fill in the form above, then click Refresh QR",
+    "save-success": "Saved",
+    "save-error": "Error during saving",
+    "sct-search": "Search in SCT browser",
+    "fixed-values": {
+      "group": "Inject fixed values into the extracted resource (e.g. Observation.status = final, category, subject). Observation.code is auto-wired from the SNOMED code above.",
+      "no-group": "Inject fixed companion values alongside the answer (e.g. valueQuantity.system / code for unit metadata)."
+    },
+    "alert": {
+      "no-resource-categories": {
+        "title": "Step 1 - Configure this group",
+        "body": "Select a Resource Type below. Each time this group appears in a filled-in form, one FHIR resource of that type will be extracted. Child items inside this group map their answers into fields of that resource."
+      },
+      "resource-categories": {
+        "title": "This group extracts into: {{resourceCategories}}",
+        "body": "Child items annotated with an Element Path will be written into the {{resourceCategories}} resource."
+      },
+      "flat-mode": {
+        "title": "Flat mapping",
+        "body": "This item is directly extracted into a {{resourceCategories}} resource (no parent group required)."
+      },
+      "no-parent-extract": {
+        "title": "Parent group not configured",
+        "parentgrouplabel": "The parent group {{parentGroupLabel}} has no Resource Type set. Click that group first, assign a Resource Type (e.g. Observation) and save — otherwise this item's mapping will be silently ignored during extraction.",
+        "no-parentgrouplabel": "No ancestor group with a Resource Type was found. Annotations on this item will be ignored until a parent group is configured."
+      },
+      "parent-extract": {
+        "title": "Parent group:",
+        "body": "Select an Element Path below to map this answer into {{parentResourceType}}.[path] during extraction."
+      }
+    }
+  },
+  "extraction": {
+    "title": "Extraction Preview",
+    "disclaimer": "This preview is computed locally by this tool — it is not the FHIR server's native $extract operation. Output may differ from a conformant FHIR server implementation.",
+    "preview-btn": "Generate preview",
+    "preview-error": "Error with preview: ",
+    "save-btn": "Save extracted resources",
+    "save-error": "Saving error: ",
+    "save-success": "Resources successfully saved",
+    "no-lforms-data": "No LForms data found. Fill in the form first.",
+    "warnings": "Warning on extracting resources",
+    "bundle-title": "Preview Bundle (local extraction)",
+    "resources": "Resources",
+    "modal-title": "Confirm saving",
+    "modal-body-1": "Are you sure you want to save this?",
+    "modal-body-2": "Resources will be saved in the FHIR store.",
+    "warning": "Check carefully!",
+    "confirm": "Confirm"
+  },
+  "questions": {
+    "title": "Questionnaire",
+    "example": "Show sample data"
+  },
+  "mappingwizard-help": {
+    "title": "How to map this questionnaire?"
+  },
+  "no-extraction-groups": {
+    "error": "No extraction groups configured. Click a GROUP item in the form, select a Resource Type (e.g. Observation) and save it before extracting."
+  },
+  "no-ancestor-groups": {
+    "warning": "Item {{leafId}} has a FHIR path configured but none of its ancestor groups has a Resource Type set. Its answer will be ignored during extraction."
+  }
+}

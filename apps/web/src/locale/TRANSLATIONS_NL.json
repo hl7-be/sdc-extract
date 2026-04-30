@@ -1,0 +1,102 @@
+{
+  "search": "Zoeken",
+  "loading": "Laden",
+  "save": "Bewaren",
+  "cancel": "Annuleer",
+  "page": {
+    "back": "Terug"
+  },
+  "state": {
+    "loading": {
+      "title": "Data wordt geladen"
+    }
+  },
+  "paging": {
+    "first": "Eerste",
+    "last": "Laatste",
+    "previous": "Vorige",
+    "next": "Volgende",
+    "showFromToText": "{{start}} - {{end}} van {{total}}"
+  },
+  "fhir-questionnaire": {
+    "null-title": "(geen titel)",
+    "search-questions": "Zoek vragenlijst",
+    "question-lists": "Vragenlijsten"
+  },
+  "wizard": {
+    "title": "Geselecteerd Item",
+    "type-group": "Groep",
+    "type-question": "Vraag",
+    "no-items-found": "Geen items gevonden",
+    "categorie": "RESOURCE TYPE",
+    "path": "RESOURCE ELEMENT",
+    "medical-code": "SNOMED CT CODE",
+    "no-resource-type": "Niet gemapt",
+    "label-tooltip": "Vraagstelling",
+    "resourcetype-tooltip": "FHIR resourcetype dat overeenkomt met dit vragenlijst item",
+    "resourceelement-tooltip": "FHIR element dat overeenkomt met dit vragenlijst item",
+    "group-hint": "Group: enkel definitionExtract op resourceType niveau",
+    "reread-qr": "Lees de vragenlijst en het antwoord op het formulier opnieuw in.",
+    "refresh-qr": "Vul het bovenstaande formulier in en klik vervolgens op Refresh QR",
+    "save-success": "Opgeslagen",
+    "save-error": "Fout bij opslaan",
+    "sct-search": "Zoek in SCT browser",
+    "fixed-values": {
+      "group": "Voeg vaste waarden toe aan de geextraheerde bron (bijv. Observation.status = final, category, subject). Observation.code wordt automatisch gekoppeld vanuit de parent SNOMED-code.",
+      "no-group": "Voeg vaste waarden toe naast het antwoord (bijv. valueQuantity.system / code voor eenheidsmetadata)."
+    },
+    "alert": {
+      "no-resource-categories": {
+        "title": "Stap 1 - Configureer deze groep",
+        "body": "Selecteer hieronder een resourcetype. Telkens wanneer deze groep in een ingevuld formulier voorkomt, wordt een FHIR-resource van dat type opgehaald. Subitems binnen deze groep koppelen hun antwoorden aan velden van die resource."
+      },
+      "resource-categories": {
+        "title": "Deze groep extraheert naar: {{resourceCategories}}",
+        "body": "Childitems die zijn voorzien van een Element Path-annotatie worden in de resource {{resourceCategories}} geschreven."
+      },
+      "flat-mode": {
+        "title": "Flat mapping",
+        "body": "Dit item wordt direct geextraheerd naar een {{resourceCategories}} resource (geen parent groep nodig)."
+      },
+      "no-parent-extract": {
+        "title": "Parent groep is niet geconfigureerd",
+        "parentgrouplabel": "De bovenliggende groep {{parentGroupLabel}} heeft geen resourcetype ingesteld. Klik eerst op die groep, wijs een resourcetype toe (bijv. Observatie) en sla op. Anders wordt de toewijzing van dit item stilzwijgend genegeerd tijdens het extraheren.",
+        "no-parentgrouplabel": "Er is geen ancestor met een resourcetype gevonden. Annotaties bij dit item worden genegeerd totdat een parent groep is geconfigureerd."
+      },
+      "parent-extract": {
+        "title": "Parent groep:",
+        "body": "Selecteer hieronder een elementpad om dit antwoord tijdens de extractie te koppelen aan {{parentResourceType}}.[path]."
+      }
+    }
+  },
+  "extraction": {
+    "title": "Preview Extractie",
+    "preview-btn": "Genereer preview",
+    "preview-error": "Fout bij preview: ",
+    "save-btn": "Sla geextraheerde resources op",
+    "save-error": "Fout bij opslaan: ",
+    "save-success": "Resources succesvol opgeslagen",
+    "no-lforms-data": "Geen LForms data gevonden. Vul het formulier eerst in.",
+    "warnings": "Foutmelding bij extractie resources",
+    "bundle-title": "Geextraheerde Bundle",
+    "resources": "Resources",
+    "modal-title": "Bevestig opslaan",
+    "modal-body-1": "Weet je zeker dat je dit wilt opslaan?",
+    "modal-body-2": "Resources worden opgeslagen in de FHIR store.",
+    "warning": "Kijk goed na!",
+    "confirm": "Bevestig"
+  },
+  "questions": {
+    "title": "Vragenlijst",
+    "example": "Toon voorbeelddata"
+  },
+  "mappingwizard-help": {
+    "title": "Hoe map ik deze vragenlijst?"
+  },
+  "no-extraction-groups": {
+    "error": "Er zijn geen extractiegroepen geconfigureerd. Klik op een GROEP-item in het formulier, selecteer een resourcetype (bijv. Observatie) en sla de wijzigingen op voordat u de extractie uitvoert."
+  },
+  "no-ancestor-groups": {
+    "warning": "Item {{leafId}} heeft een definitiepad maar geen ancestor extractie-groep."
+  }
+}

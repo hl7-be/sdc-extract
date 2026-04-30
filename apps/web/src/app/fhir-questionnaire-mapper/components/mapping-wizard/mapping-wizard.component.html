@@ -1,0 +1,192 @@
+<div *ngIf="selectedId" class="card shadow-sm">
+  <div class="card-header bg-light d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">{{ 'wizard.title' | translate }}:</h5>
+    <span class="badge" [class.bg-primary]="isGroup" [class.bg-secondary]="!isGroup">{{
+      isGroup
+        ? ('wizard.type-group' | translate)
+        : ('wizard.type-question' | translate)
+    }}</span>
+  </div>
+
+  <div class="px-3 pt-3 pb-0">
+    <!-- GROUP alert -->
+    <div *ngIf="isGroup" class="alert py-2 small mb-2" [class.alert-success]="resourceCategories" [class.alert-info]="!resourceCategories">
+      <div *ngIf="!resourceCategories">
+        <strong>&#128203; {{ 'wizard.alert.no-resource-categories.title' | translate }}</strong><br />
+        {{ 'wizard.alert.no-resource-categories.body' | translate }}
+      </div>
+      <div *ngIf="resourceCategories">
+        <strong>&#10003; {{ 'wizard.alert.resource-categories.title' | translate : { resourceCategories: resourceCategories } }}</strong><br />
+        {{ 'wizard.alert.resource-categories.body' | translate : { resourceCategories: resourceCategories } }}
+      </div>
+    </div>
+
+    <!-- LEAF alerts -->
+    <div *ngIf="!isGroup">
+      <div *ngIf="!parentHasExtract && resourceCategories" class="alert alert-info py-2 small mb-2">
+        <strong>&#9432; {{ 'wizard.alert.flat-mode.title' | translate : { defaultValue: 'Flat mapping' } }}</strong><br />
+        {{ 'wizard.alert.flat-mode.body' | translate : { resourceCategories: resourceCategories } }}
+      </div>
+      <div *ngIf="!parentHasExtract && !resourceCategories" class="alert alert-danger py-2 small mb-2">
+        <strong>&#9888; {{ 'wizard.alert.no-parent-extract.title' | translate }}</strong><br />
+        <span *ngIf="parentGroupLabel">{{ 'wizard.alert.no-parent-extract.parentgrouplabel' | translate : { parentGroupLabel: parentGroupLabel } }}</span>
+        <span *ngIf="!parentGroupLabel">{{ 'wizard.alert.no-parent-extract.no-parentgrouplabel' | translate }}</span>
+      </div>
+      <div *ngIf="parentHasExtract" class="alert alert-success py-2 small mb-2">
+        <strong>&#10003; {{ 'wizard.alert.parent-extract.title' | translate }} "{{ parentGroupLabel }}" &rarr; {{ parentResourceType }}</strong><br />
+        {{ 'wizard.alert.parent-extract.body' | translate : { parentResourceType: parentResourceType } }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading overlay -->
+  <div *ngIf="isInitializing" class="card-body d-flex flex-column align-items-center justify-content-center py-5 text-muted">
+    <div class="spinner-border text-primary mb-3" role="status"></div>
+    <span class="small">{{ 'loading' | translate }}</span>
+  </div>
+
+  <ng-container *ngIf="!isInitializing">
+    <div class="card-body wizard-content">
+      <div class="mb-3">
+        <label class="form-label text-muted small fw-bold">ID</label>
+        <div class="form-control-plaintext mb-0">[ {{ selectedId }} ]</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-muted small fw-bold" style="cursor: pointer"
+          [ngbTooltip]="'wizard.label-tooltip' | translate" container="body" placement="top">
+          LABEL <span class="ms-1" style="font-size: 0.75em">&#9432;</span>
+        </label>
+        <input type="text" class="form-control" [(ngModel)]="_label" (ngModelChange)="updateLiveJson()" [placeholder]="label || selectedId || 'no value'" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-muted small fw-bold" style="cursor: pointer"
+          [ngbTooltip]="'wizard.resourcetype-tooltip' | translate" container="body" placement="top">
+          {{ 'wizard.categorie' | translate }}
+          <span class="ms-1" style="font-size: 0.75em">&#9432;</span>
+        </label>
+        <select class="form-select" [(ngModel)]="resourceCategories" (ngModelChange)="onResourceTypeUserChange()">
+          <option value="">-- {{ 'wizard.no-resource-type' | translate : { defaultValue: 'Not mapped' } }} --</option>
+          <option *ngIf="savedResourceCategory && !resourceTypeOptions.includes(savedResourceCategory)" [value]="savedResourceCategory">{{ savedResourceCategory }}</option>
+          <option *ngFor="let option of resourceTypeOptions" [value]="option">{{ option }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3" *ngIf="!isGroup">
+        <label class="form-label text-muted small fw-bold" style="cursor: pointer"
+          [ngbTooltip]="'wizard.resourceelement-tooltip' | translate" container="body" placement="top">
+          {{ 'wizard.path' | translate }}
+          <span class="ms-1" style="font-size: 0.75em">&#9432;</span>
+        </label>
+        <select class="form-select" [(ngModel)]="targetPath" (ngModelChange)="updateLiveJson()">
+          <option value=""></option>
+          <option *ngIf="savedTargetPath && !fhirElements.includes(savedTargetPath)" [value]="savedTargetPath">{{ savedTargetPath }}</option>
+          <option *ngFor="let path of fhirElements" [value]="path">{{ path }}</option>
+        </select>
+      </div>
+
+      <div class="alert alert-info py-2 small mb-3" *ngIf="isGroup">
+        {{ 'wizard.group-hint' | translate }}
+      </div>
+
+      <div class="mb-3 position-relative">
+        <label class="form-label text-muted small fw-bold">
+          {{ 'wizard.medical-code' | translate }}
+        </label>
+        <input type="text" class="form-control" [formControl]="snomedControl" [placeholder]="snomedControl.value || 'no value'" autocomplete="off" />
+
+        <div *ngIf="isSearchingSnomed" class="text-muted small mt-1 ps-1">
+          <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+          {{ 'loading' | translate }}
+        </div>
+
+        <ul class="list-group position-absolute w-100 shadow-sm" style="z-index: 1000; max-height: 250px; overflow-y: auto"
+          *ngIf="snomedControl.value && snomedControl.value.length >= 2">
+          <li class="list-group-item list-group-item-action" style="cursor: pointer" *ngFor="let item of snomedItems" (mousedown)="selectSnomedItem(item)">
+            {{ item.display }} <small class="text-muted">({{ item.id }})</small>
+          </li>
+          <li class="list-group-item text-muted italic" *ngIf="hasSearched && snomedItems.length === 0">
+            {{ 'wizard.no-items-found' | translate }}
+          </li>
+        </ul>
+        <div *ngIf="snomedId" class="mt-1">
+          <small class="text-muted">Selected: <code>{{ snomedId }}</code>
+            <a [href]="getSnomedBrowserUrl(snomedId)" target="_blank" rel="noopener" class="ms-2 small">Browse ↗</a>
+          </small>
+        </div>
+      </div>
+
+      <!-- Fixed values -->
+      <div class="mb-3" *ngIf="resourceCategories">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <label class="form-label text-muted small fw-bold mb-0" style="cursor: pointer"
+            [ngbTooltip]="isGroup ? ('wizard.fixed-values.group' | translate) : ('wizard.fixed-values.no-group' | translate)"
+            container="body" placement="top"></label>
+          <span *ngIf="isGroup && snomedId" class="badge bg-light text-secondary border small fw-normal"
+            ngbTooltip="Observation.code is automatically injected from the SNOMED code above." container="body">
+            code auto-wired
+          </span>
+        </div>
+
+        <div *ngFor="let fv of fixedValues; let i = index" class="border rounded p-2 mb-2 bg-light">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="small fw-semibold text-secondary">{{ fv.elementPath || '(no path set)' }}</span>
+            <button type="button" class="btn btn-sm btn-outline-danger px-2 py-0 lh-1" (click)="removeFixedValue(i)" title="Remove">&#x2715;</button>
+          </div>
+
+          <div class="mb-1">
+            <label class="form-label small text-muted mb-0">Element path</label>
+            <select class="form-select form-select-sm" [(ngModel)]="fv.elementPath" (ngModelChange)="updateLiveJson()">
+              <option *ngIf="fv.elementPath && !fhirElements.includes(fv.elementPath)" [value]="fv.elementPath">{{ fv.elementPath }}</option>
+              <option value="" disabled *ngIf="isFetchingElements">Laden...</option>
+              <option *ngFor="let path of fhirElements" [value]="path">{{ path }}</option>
+            </select>
+          </div>
+
+          <div class="mb-1">
+            <label class="form-label small text-muted mb-0">Value type</label>
+            <select class="form-select form-select-sm" [(ngModel)]="fv.valueType" (ngModelChange)="updateLiveJson()">
+              <option value="valueCodeableConcept">CodeableConcept (SNOMED)</option>
+              <option value="valueCode">Code</option>
+              <option value="valueString">String</option>
+              <option value="valueUri">URI</option>
+              <option value="valueReference">Reference</option>
+            </select>
+          </div>
+
+          <div *ngIf="fv.valueType !== 'valueCodeableConcept'" class="mb-1">
+            <label class="form-label small text-muted mb-0">Value</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="fv.valueSimple" (ngModelChange)="updateLiveJson()" [placeholder]="getValuePlaceholder(fv.valueType)" />
+          </div>
+
+          <div *ngIf="fv.valueType === 'valueCodeableConcept'">
+            <label class="form-label small text-muted mb-0">{{ 'wizard.sct-search' | translate }}</label>
+            <div class="position-relative mb-1">
+              <input type="text" class="form-control form-control-sm" [ngModel]="fv.snomedQuery" (ngModelChange)="onFixedValueSnomedInput(i, $event)" placeholder="Type to search SNOMED CT…" autocomplete="off" />
+              <ul class="list-group position-absolute w-100 shadow-sm" style="z-index: 1100; max-height: 200px; overflow-y: auto" *ngIf="fv.snomedResults && fv.snomedResults.length > 0">
+                <li class="list-group-item list-group-item-action small" style="cursor: pointer" *ngFor="let result of fv.snomedResults" (mousedown)="selectFixedValueSnomedItem(i, result)">
+                  {{ result.display }} <span class="text-muted">({{ result.id }})</span>
+                </li>
+              </ul>
+            </div>
+            <label class="form-label small text-muted mb-0">System</label>
+            <input type="text" class="form-control form-control-sm mb-1" [(ngModel)]="fv.valueSystem" (ngModelChange)="updateLiveJson()" placeholder="e.g. http://snomed.info/sct" />
+            <label class="form-label small text-muted mb-0">Code</label>
+            <input type="text" class="form-control form-control-sm mb-1" [(ngModel)]="fv.valueCodingCode" (ngModelChange)="updateLiveJson()" placeholder="SNOMED code" />
+            <label class="form-label small text-muted mb-0">Display</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="fv.valueDisplay" (ngModelChange)="updateLiveJson()" placeholder="display name" />
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-outline-secondary btn-sm w-100 mt-1" (click)="addFixedValue()">
+          + Add fixed value
+        </button>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="card-footer bg-white border-top-0 py-3 text-end">
+    <button class="btn btn-primary" (click)="save()">{{ 'save' | translate }}</button>
+  </div>
+</div>

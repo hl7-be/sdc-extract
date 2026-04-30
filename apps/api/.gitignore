@@ -1,0 +1,26 @@
+# Dependencies
+/.venv/
+
+# Local dev config (contains credentials)
+/.env
+
+# FHIR StructureDefinition cache (generated at runtime)
+.fhir_cache/
+
+# Python generated
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE / tooling
+/.idea/
+/.claude/
+/CLAUDE.md
+
+# Git submodule artifacts from previous repo
+/.gitmodules
+
+# Test artifacts
+.pytest_cache/
+
+/src/cert/

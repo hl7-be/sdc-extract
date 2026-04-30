@@ -1,0 +1,50 @@
+:host {
+  display: block;
+}
+
+:host ::ng-deep {
+  #lhcFormsContainer {
+    .lhc-form-question,
+    .lhc-question,
+    lhc-item {
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-left-color 0.15s ease;
+      border-left: 3px solid transparent;
+      padding-left: 8px;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: rgba(25, 118, 210, 0.05);
+        border-left-color: #dee2e6;
+      }
+
+      &.lforms-row-selected {
+        background-color: rgba(25, 118, 210, 0.1) !important;
+        border-left-color: var(--primary-color, #1976d2) !important;
+      }
+    }
+
+    .lforms-row {
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-left-color 0.15s ease;
+      border-left: 3px solid transparent;
+      padding-left: 8px;
+
+      &:hover {
+        background-color: rgba(25, 118, 210, 0.05);
+        border-left-color: #dee2e6;
+      }
+
+      &.lforms-row-selected {
+        background-color: rgba(25, 118, 210, 0.1) !important;
+        border-left-color: var(--primary-color, #1976d2) !important;
+      }
+    }
+
+    input,
+    select,
+    textarea {
+      cursor: text;
+    }
+  }
+}
