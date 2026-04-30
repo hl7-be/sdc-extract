@@ -1,0 +1,36 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "id": "sdc-test-response-uri",
+  "status": "completed",
+  "questionnaire": "Questionnaire/sdc-test-questionnaire-uri",
+  "subject": {
+    "reference": "Patient/example"
+  },
+  "authored": "2026-02-23T12:00:00Z",
+  "item": [
+    {
+      "linkId": "patient-gender",
+      "answer": [
+        { "valueString": "male" }
+      ]
+    },
+    {
+      "linkId": "patient-birthDate",
+      "answer": [
+        { "valueDate": "1985-05-20" }
+      ]
+    },
+    {
+      "linkId": "heart-rate",
+      "answer": [
+        { "valueDecimal": 75 }
+      ]
+    },
+    {
+      "linkId": "procedure-colonoscopy",
+      "answer": [
+        { "valueBoolean": true }
+      ]
+    }
+  ]
+}

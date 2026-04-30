@@ -1,0 +1,49 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "id": "vital-signs-response-sdc",
+  "questionnaire": "http://example.org/fhir/Questionnaire/vital-signs-sdc",
+  "status": "completed",
+  "authored": "2026-02-23T11:00:00Z",
+  "subject": {
+    "reference": "Patient/123"
+  },
+  "item": [
+    {
+      "linkId": "heart-rate",
+      "answer": [
+        {
+          "valueInteger": 80
+        }
+      ]
+    },
+    {
+      "linkId": "body-temperature",
+      "answer": [
+        {
+          "valueDecimal": 36.8
+        }
+      ]
+    },
+    {
+      "linkId": "blood-pressure",
+      "item": [
+        {
+          "linkId": "bp-systolic",
+          "answer": [
+            {
+              "valueInteger": 120
+            }
+          ]
+        },
+        {
+          "linkId": "bp-diastolic",
+          "answer": [
+            {
+              "valueInteger": 80
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
