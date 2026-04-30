@@ -4,6 +4,10 @@
   </div>
 
   <div class="card-body">
+    <div class="alert alert-info py-2 small mb-3">
+      <strong>&#9432; Local preview only.</strong> {{ 'extraction.disclaimer' | translate }}
+    </div>
+
     <div class="mb-3">
       <button class="btn btn-primary" (click)="preview()" [disabled]="isPreviewing">
         <span *ngIf="isPreviewing" class="spinner-border spinner-border-sm me-1" role="status"></span>

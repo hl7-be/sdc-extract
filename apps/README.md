@@ -62,6 +62,18 @@ Use the **⚙ Settings** button in the UI to switch servers at runtime without r
 
 See [`api/README.md`](api/README.md) for authentication details (`FHIR_API_KEY`, `GOOGLE_SERVICE_ACCOUNT_FILE`).
 
+## Extraction preview — important note
+
+The **$extract preview** in this tool is computed locally by the Python backend (`api/src/core/extractor.py`). It is **not** a call to the FHIR server's native `$extract` operation.
+
+This means:
+
+- The preview shows what the extraction logic *in this tool* would produce, based on the SDC definition-based extraction rules implemented here.
+- A real FHIR server that natively supports `$extract` (e.g. HAPI FHIR, Google Healthcare API) may produce different output — different Bundle structure, different handling of edge cases, or additional validation errors.
+- Use the preview to validate your questionnaire mapping and verify that the right FHIR elements are being targeted. Do not assume the preview output is identical to what a conformant FHIR server would return.
+
+When you click **Save extracted resources**, the locally-computed Bundle is POSTed as a transaction to the configured FHIR store — the server is not asked to run `$extract` itself.
+
 ## API endpoints
 
 All endpoints are prefixed with `/api/v1`.
