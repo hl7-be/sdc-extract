@@ -121,6 +121,21 @@ api/
 
 ---
 
+## Extraction implementation — local, not server-native
+
+The `/questionnaire-response/extract` endpoints implement **definition-based extraction in Python** (`src/core/extractor.py`). This is **not** a proxy to the FHIR server's native `$extract` operation.
+
+### What this means in practice
+
+| Aspect | This tool | Native FHIR `$extract` |
+|---|---|---|
+| Who runs the logic | Python backend (this repo) | The FHIR server itself |
+| SDC conformance | Best-effort implementation of SDC v4 definition-based extraction | Server-specific (may vary) |
+| Output Bundle | Transaction Bundle built locally, then optionally POSTed | Server-generated Bundle |
+| Validation | Structural validation only | Full server-side validation |
+
+The preview result is useful for verifying that your questionnaire mapping targets the right FHIR elements. However, the exact Bundle structure, error handling, and resource content produced by a real FHIR server's `$extract` operation may differ.
+
 ## API endpoints
 
 | Method | Endpoint | Description |

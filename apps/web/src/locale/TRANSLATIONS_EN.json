@@ -70,7 +70,8 @@
     }
   },
   "extraction": {
-    "title": "Preview Extraction",
+    "title": "Extraction Preview",
+    "disclaimer": "This preview is computed locally by this tool — it is not the FHIR server's native $extract operation. Output may differ from a conformant FHIR server implementation.",
     "preview-btn": "Generate preview",
     "preview-error": "Error with preview: ",
     "save-btn": "Save extracted resources",
@@ -78,7 +79,7 @@
     "save-success": "Resources successfully saved",
     "no-lforms-data": "No LForms data found. Fill in the form first.",
     "warnings": "Warning on extracting resources",
-    "bundle-title": "Extracted Bundle",
+    "bundle-title": "Preview Bundle (local extraction)",
     "resources": "Resources",
     "modal-title": "Confirm saving",
     "modal-body-1": "Are you sure you want to save this?",
