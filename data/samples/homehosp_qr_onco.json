@@ -1,0 +1,414 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "questionnaire": "Questionnaire/TrastuzumabV1",
+  "status": "completed",
+  "subject": {
+    "reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"
+  },
+  "authored": "2026-01-08T13:45:38.6348994+01:00",
+  "item": [
+    {
+      "linkId": "Verpleegkundigassessment",
+      "text": "Verpleegkundig assessment",
+      "item": [
+        {
+          "linkId": "Bewaring",
+          "text": "Bewaring",
+          "item": [
+            {
+              "linkId": "A1_Bewaring",
+              "text": "Zijn er opmerkingen of bezorgdheden omtrent de (correcte) thuisbewaring van de medicatie?",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "710977001",
+                    "display": "Safe storage of medication"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "Observatieparameters",
+          "text": "Observatie parameters",
+          "item": [
+            {
+              "linkId": "B1_Temperatuur",
+              "text": "Lichaamstemperatuur:",
+              "answer": [
+                {
+                  "valueDecimal": 0
+                }
+              ]
+            },
+            {
+              "linkId": "B2_Pols",
+              "text": "Pols:",
+              "answer": [
+                {
+                  "valueDecimal": 0
+                }
+              ]
+            },
+            {
+              "linkId": "B3_BloeddrukSystolisch",
+              "text": "Bloeddruk systolisch:",
+              "answer": [
+                {
+                  "valueDecimal": 0
+                }
+              ]
+            },
+            {
+              "linkId": "B4_BloeddrukDiastolisch",
+              "text": "Bloeddruk diastolisch:",
+              "answer": [
+                {
+                  "valueDecimal": 0
+                }
+              ]
+            },
+            {
+              "linkId": "B5_Lichaamsgewicht",
+              "text": "Lichaamsgewicht:",
+              "answer": [
+                {
+                  "valueDecimal": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "Tegenindicaties",
+          "text": "Tegenindicaties",
+          "item": [
+            {
+              "linkId": "C1_Tegenindicatie",
+              "text": "Zijn er tegenindicaties voor toediening?",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "C3_KoortsRillingen",
+              "text": "Koorts , koude rillingen, zich ziek voelen",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373067005",
+                    "display": "No (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "C4_LageBloeddruk",
+              "text": "Bloeddruk bij herhaling lager dan 100/60 mmHg",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373067005",
+                    "display": "No (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "C5_HartslagVerhoogdOfOnregelmatig",
+              "text": "Hartslag hoger dan 100 bpm in rust of onregelmatig hartritme, tenzij chronisch gekend probleem.",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373067005",
+                    "display": "No (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "C6_Gewichtstoename",
+              "text": "Een toename van het lichaamsgewicht van 3 kg / 3 weken of 5 kg / 6 weken, zeker in combinatie met toegenomen oedeem.",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373067005",
+                    "display": "No (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "C7_Oedeem",
+              "text": "Toegenomen oedemen ter hoogte van handen en/of voeten.",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373067005",
+                    "display": "No (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "C8_KortademigheidErnstig",
+              "text": "Toegenomen kortademigheid en/of ernstige kortademigheid (dwz kortademigheid in rust/zonder inspanning en/of kortademigheid die hindert bij de dagelijkse activiteiten) (Trastuzumab, Azacitidine)",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "C11_Beslissing",
+              "text": "Beslissing na overleg ziekenhuis",
+              "answer": [
+                {
+                  "valueString": "toediening"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "Symptoomlast",
+          "text": "Symptoomlast",
+          "item": [
+            {
+              "linkId": "D1_Misselijkheid",
+              "text": "Misselijkheid",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "444431007",
+                    "display": "Grade 0 on a scale of 0 to 3 (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "D2_Braken",
+              "text": "Braken",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "444431007",
+                    "display": "Grade 0 on a scale of 0 to 3 (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "D3_VerminderdeEetlust",
+              "text": "Verminderde eetlust of smaakverandering",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "444431007",
+                    "display": "Grade 0 on a scale of 0 to 3 (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "D4_Buikloop",
+              "text": "Buikloop",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "444431007",
+                    "display": "Grade 0 on a scale of 0 to 3 (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "D5_Verstopping",
+              "text": "Verstopping",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "444431007",
+                    "display": "Grade 0 on a scale of 0 to 3 (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "D6_Vermoeidheid",
+              "text": "Vermoeidheid/futloosheid",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "444431007",
+                    "display": "Grade 0 on a scale of 0 to 3 (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "D7_Pijn",
+              "text": "Pijn",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "444431007",
+                    "display": "Grade 0 on a scale of 0 to 3 (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "D8_Huiduitslag",
+              "text": "Huiduitslag",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "444431007",
+                    "display": "Grade 0 on a scale of 0 to 3 (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "D9_Psychosociaal",
+              "text": "Psychosociale belasting",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "444431007",
+                    "display": "Grade 0 on a scale of 0 to 3 (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "D10_Kortademigheid",
+              "text": "Kortademigheid",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "444431007",
+                    "display": "Grade 0 on a scale of 0 to 3 (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "D11_Oedeem",
+              "text": "Oedeem",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "444431007",
+                    "display": "Grade 0 on a scale of 0 to 3 (qualifier value)"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "Opdracht",
+      "text": "Opdracht",
+      "item": [
+        {
+          "linkId": "Voorbereidingmedicatietoediening",
+          "text": "Voorbereiding medicatietoediening",
+          "item": [
+            {
+              "linkId": "E1_BereidingCorrect",
+              "text": "Kon de medicatie worden bereid volgens de procedure?",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "Medicatietoediening",
+          "text": "Medicatietoediening",
+          "item": [
+            {
+              "linkId": "E3_ToedieningCorrect",
+              "text": "Kon de medicatie exact volgens de procedure worden toegediend (er waren geen afwijkingen)?",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "Nazorg",
+          "text": "Nazorg",
+          "item": [
+            {
+              "linkId": "E5_ReactieTijdensObservatieThuis",
+              "text": "Was er een reactie tijdens de observatieperiode aan huis?",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "E6_SpecifieerJa",
+              "text": "> Indien 'ja': specifieer",
+              "answer": [
+                {
+                  "valueString": "Benauwd gevoel"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

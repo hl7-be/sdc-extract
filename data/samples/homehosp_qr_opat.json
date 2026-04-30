@@ -1,0 +1,678 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "questionnaire": "Questionnaire/OPATContinuInfuusV1",
+  "status": "completed",
+  "subject": {
+    "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
+  },
+  "authored": "2026-02-26T15:43:29.4033293+01:00",
+  "item": [
+    {
+      "linkId": "Verpleegkundigassessment",
+      "text": "Verpleegkundig assessment",
+      "item": [
+        {
+          "linkId": "Bewaring",
+          "text": "Bewaring",
+          "item": [
+            {
+              "linkId": "A1_Bewaring",
+              "text": "Zijn er opmerkingen of bezorgdheden omtrent de (correcte) thuisbewaring van de medicatie?",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "710977001",
+                    "display": "Safe storage of medication"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "A2_BewaringSpecifieer",
+              "text": "> Indien opmerkingen of bezorgdheid: specifieer",
+              "answer": [
+                {
+                  "valueString": "Geen idee, dit is een test maar je kan hier veel zeggen."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "Voorbereidingmedicatietoediening",
+          "text": "Voorbereiding medicatietoediening",
+          "item": [
+            {
+              "linkId": "B1_MedicatieVolledigOpgelost",
+              "text": "De medicatie werd volledig opgelost tot een heldere oplossing zonder zichtbare deeltjes",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "B3_GewichtVolleInfusor",
+              "text": "Gewicht van volle Infusor net voor nieuwe toediening",
+              "answer": [
+                {
+                  "valueDecimal": 1
+                }
+              ]
+            },
+            {
+              "linkId": "B4_GewichtLegeInfusor",
+              "text": "Gewicht bij afkoppelen van lege infusor",
+              "answer": [
+                {
+                  "valueDecimal": 2
+                }
+              ]
+            },
+            {
+              "linkId": "B5_BijkomendeObservatie",
+              "text": "Bijkomende observatie:(indien van toepassing)",
+              "answer": [
+                {
+                  "valueString": "Test"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "Medicatietoediening",
+          "text": "Medicatietoediening",
+          "item": [
+            {
+              "linkId": "C1_ToedieningCorrect",
+              "text": "Kon de medicatie exact volgens de procedure worden toegediend  (er waren geen afwijkingen)?",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "C2_SpecifieerNee",
+              "text": "> Indien neen: specifieer",
+              "answer": [
+                {
+                  "valueString": "Nee want dit is een test dus das niet gelukt he"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "Vitaleparameters",
+          "text": "Vitale parameters",
+          "item": [
+            {
+              "linkId": "D1_Temperatuur",
+              "text": "Lichaamstemperatuur:",
+              "answer": [
+                {
+                  "valueDecimal": 3
+                }
+              ]
+            },
+            {
+              "linkId": "D2_Pols",
+              "text": "Pols:",
+              "answer": [
+                {
+                  "valueDecimal": 4
+                }
+              ]
+            },
+            {
+              "linkId": "D3_BloeddrukSystolisch",
+              "text": "Bloeddruk - systolisch",
+              "answer": [
+                {
+                  "valueDecimal": 5
+                }
+              ]
+            },
+            {
+              "linkId": "D4_BloeddrukDiastolisch",
+              "text": "Bloeddruk - diastolisch",
+              "answer": [
+                {
+                  "valueDecimal": 6
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "Observatieverbandinsteekplaats",
+          "text": "Observatie verband insteekplaats",
+          "item": [
+            {
+              "linkId": "E1_VerbandObservatie",
+              "text": "Observatie verband insteekplaats",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "263654008",
+                    "display": "Abnormal (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "E3_Bloederig",
+              "text": "Bloederig",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "E4_Etterig",
+              "text": "Etterig",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "E5_Los",
+              "text": "Los",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "E6_Sereus",
+              "text": "Sereus",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "E7_Vochtig",
+              "text": "Vochtig",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "E8_Andere",
+              "text": "Andere: (indien van toepassing)",
+              "answer": [
+                {
+                  "valueString": "Test"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "Observatieinsteekplaats",
+          "text": "Observatie insteekplaats",
+          "item": [
+            {
+              "linkId": "F1_InsteekplaatsObservatie",
+              "text": "Observatie insteekplaats",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "263654008",
+                    "display": "Abnormal (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "F3_Blaarvorming",
+              "text": "Blaarvorming",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "F4_Rood",
+              "text": "Rood",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373067005",
+                    "display": "No (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "F5_Haematoom",
+              "text": "Haematoom",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "F6_Etter",
+              "text": "Etter",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373067005",
+                    "display": "No (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "F7_Korstvorming",
+              "text": "Korstvorming",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "F8_Zwelling",
+              "text": "Zwelling",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373067005",
+                    "display": "No (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "F9_Extravasatie",
+              "text": "Extravasatie/infiltratie",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "F10_Andere",
+              "text": "Andere: (indien van toepassing)",
+              "answer": [
+                {
+                  "valueString": "Test"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "Observatiekatheter",
+          "text": "Observatie katheter",
+          "item": [
+            {
+              "linkId": "G1_KatheterObservatie",
+              "text": "Observatie katheter",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "17621005",
+                    "display": "Normal (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "G3_Bloedaspiratie",
+              "text": "Bloedaspiratie",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "36203004",
+                    "display": "Easy"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "G4_Infusie",
+              "text": "Infusie",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "36203004",
+                    "display": "Easy"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "G5_BeschadigdeKatheter",
+              "text": "Beschadigde katheter",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "G6_Andere",
+              "text": "Andere: (indien van toepassing)",
+              "answer": [
+                {
+                  "valueString": "Test, tsjoepke van katheter ziet er vreemd uit"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "Nevenwerkingen",
+          "text": "Nevenwerkingen",
+          "item": [
+            {
+              "linkId": "H1_Huiduitslag",
+              "text": "Huiduitslag",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "2667000",
+                    "display": "Absent (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H2_Jeuk",
+              "text": "Jeuk",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "255604002",
+                    "display": "Mild (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H3_BlarenOfHuidloslaten",
+              "text": "Blaren/loslaten van de huid",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "6736007",
+                    "display": "Moderate (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H4_Misselijkheid",
+              "text": "Misselijkheid",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "24484000",
+                    "display": "Severe (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H5_Braken",
+              "text": "Braken",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "255604002",
+                    "display": "Mild (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H6_Diarree",
+              "text": "Diarree",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "6736007",
+                    "display": "Moderate (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H7_Obstipatie",
+              "text": "Obstipatie",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "255604002",
+                    "display": "Mild (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H8_VerminderdeEetlust",
+              "text": "Verminderde eetlust",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "2667000",
+                    "display": "Absent (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H9_PijnBijToediening",
+              "text": "Pijn bij toediening",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "6736007",
+                    "display": "Moderate (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H10_PijnAlgemeen",
+              "text": "Pijn (algemeen)",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "2667000",
+                    "display": "Absent (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H11_Moe",
+              "text": "Moe",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "6736007",
+                    "display": "Moderate (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H12_Rillingen",
+              "text": "Rillingen",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "6736007",
+                    "display": "Moderate (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H13_Candidiasis",
+              "text": "Candidiase (schimmelinfectie)",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "255604002",
+                    "display": "Mild (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H14_Gewrichtspijn",
+              "text": "Gewrichtspijn",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "24484000",
+                    "display": "Severe (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H15_Ademhalingsproblemen",
+              "text": "Ademhalingsproblemen",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "2667000",
+                    "display": "Absent (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H16_ZwellingGezichtTong",
+              "text": "Zwelling gezicht/tong",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "2667000",
+                    "display": "Absent (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "H17_AndereObservaties",
+              "text": "Is er andere symptoomlast of zijn er andere relevante klinische en/of psychosociale observaties? \n(gelieve bij klinische bezorgdheid contact te nemen met het zorgteam in het ziekenhuis)",
+              "answer": [
+                {
+                  "valueString": "Testtest, patient lijkt neerslachtig"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "Kwaliteitsopvolging",
+      "text": "(Kwaliteits)opvolging",
+      "item": [
+        {
+          "linkId": "I1_OpmerkingenAanmelding",
+          "text": "Zijn er opmerkingen of bezorgdheden omtrent de aanmelding van deze patient, de gegevensdeling vanuit het ziekenhuis, de communicatie door en het contact met het ziekenhuis, de beschikbaarheid van de medicatie en materialen, of andere aspecten van de transmurale samenwerking rond thuishospitalisatie OPAT, we vragen je graag ze met ons te delen. Alvast dank.",
+          "answer": [
+            {
+              "valueString": "Testtest, patient leek zichzelf niet goed meer te verzorgen"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
