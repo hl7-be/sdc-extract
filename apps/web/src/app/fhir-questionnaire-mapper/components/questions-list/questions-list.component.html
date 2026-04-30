@@ -1,0 +1,119 @@
+<div class="mb-4">
+  <a [routerLink]="['/fhirquestionnairemapper']" class="btn btn-outline-primary">
+    <fa-icon [icon]="'arrow-left'" class="me-2"></fa-icon>
+    {{ 'page.back' | translate }}
+  </a>
+</div>
+
+<!-- How-to instructions (collapsible) -->
+<div class="card shadow-sm mb-3 border-info" *ngIf="data">
+  <div
+    class="card-header d-flex justify-content-between align-items-center"
+    style="cursor: pointer; background: #e8f4fd"
+    (click)="showHelp = !showHelp"
+  >
+    <span class="small fw-bold text-info-emphasis"
+      >&#9432; {{ 'mappingwizard-help.title' | translate }}</span
+    >
+    <small class="text-muted">{{ showHelp ? '&#9650;' : '&#9660;' }}</small>
+  </div>
+  <div *ngIf="showHelp" class="card-body py-2 small">
+    <p class="mb-2">
+      Annotating a questionnaire links each question to a field in a structured FHIR resource (e.g. an Observation). Two
+      steps are required:
+    </p>
+    <ol class="mb-2 ps-3">
+      <li class="mb-1">
+        <strong>Configure a Group (Step 1 — Resource Type)</strong><br />
+        Click a <span class="badge bg-primary">Group</span> row in the form panel. In the wizard, select the FHIR
+        Resource Type this group should extract into (e.g. <em>Observation</em>) and click <strong>Save</strong>.<br />
+        <span class="text-muted">A green dot &#9679; will appear next to the group once configured.</span>
+      </li>
+      <li class="mb-1">
+        <strong>Configure each Question (Step 2 — Element Path)</strong><br />
+        Click a <span class="badge bg-secondary">Question</span> row inside that group. Select the same Resource Type
+        and choose the <strong>Element Path</strong> where the answer should be written (e.g.
+        <em>Observation.valueCodeableConcept</em>). Click <strong>Save</strong>.<br />
+        <span class="text-muted">A green dot &#9679; appears when both Resource Type and Element Path are set.</span>
+      </li>
+    </ol>
+    <p class="mb-2">
+      When you press <strong>Preview</strong>, the tool checks for missing configuration and explains exactly what still
+      needs to be done.
+    </p>
+  </div>
+</div>
+
+<!-- toggle preview -->
+<div class="mt-3" *ngIf="data">
+  <div class="d-flex align-items-center gap-2 mb-3">
+    <div class="form-check form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="toggle"
+        (change)="togglePreview($event)"
+        [disabled]="isCheckingResponse || !fetchedResponse"
+      />
+      <label class="form-check-label" for="toggle" [ngClass]="{ 'text-muted': isCheckingResponse || !fetchedResponse }">
+        {{ 'questions.example' | translate }}
+        <span
+          *ngIf="isCheckingResponse"
+          class="spinner-border spinner-border-sm ms-2"
+          role="status"
+          aria-hidden="true"
+        ></span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- questions list -->
+<section class="d-flex gap-3 align-items-stretch mb-4" *ngIf="data">
+  <div class="flex-grow-1">
+    <div class="card shadow-sm h-100">
+      <div class="card-header bg-light d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">{{ 'questions.title' | translate }} [{{ data.id }}]</h5>
+        <small class="text-muted">LHC Forms Render</small>
+      </div>
+      <div class="card-body p-0">
+        <div id="lhcFormsContainer" class="p-3 overflow-auto" style="max-height: 500px"></div>
+
+        <div
+          *ngIf="!data.item || data.item.length === 0"
+          class="p-4 text-center text-muted border-top small font-italic"
+        >
+          <fa-icon [icon]="'info-circle'" class="me-2"></fa-icon>
+          {{ 'wizard.no-items-found' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-shrink-0 d-flex flex-column" style="width: 400px">
+    <app-mapping-wizard
+      *ngIf="selectedId"
+      [selectedId]="selectedId"
+      [label]="selectedLabel"
+      [itemType]="selectedItemType"
+      [questions]="data.item"
+      [fullQuestionnaire]="data"
+    />
+  </div>
+</section>
+
+<!-- no results -->
+<ng-template #noResults>
+  <div class="p-4 text-center text-muted border-top small font-italic">
+    <fa-icon [icon]="'info-circle'" class="me-2"></fa-icon>
+    {{ 'wizard.no-items-found' | translate }}
+  </div>
+</ng-template>
+
+<!-- loading -->
+<div class="text-center p-5 bg-light border border-2 border-dashed rounded mt-4" *ngIf="!data">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">{{ 'loading' | translate }}</span>
+  </div>
+  <h4 class="text-secondary mt-3">{{ 'state.loading.title' | translate }}</h4>
+</div>

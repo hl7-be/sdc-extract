@@ -1,0 +1,133 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "vital-signs-sdc",
+  "url": "http://example.org/fhir/Questionnaire/vital-signs-sdc",
+  "status": "active",
+  "item": [
+    {
+      "linkId": "heart-rate",
+      "text": "Heart Rate",
+      "type": "integer",
+      "code": [
+        {
+          "system": "http://loinc.org",
+          "code": "8867-4",
+          "display": "Heart rate"
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+          "valueBoolean": true
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+          "valueCoding": {
+            "system": "http://unitsofmeasure.org",
+            "code": "/min",
+            "display": "beats/minute"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "body-temperature",
+      "text": "Body Temperature",
+      "type": "decimal",
+      "code": [
+        {
+          "system": "http://loinc.org",
+          "code": "8310-5",
+          "display": "Body temperature"
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+          "valueBoolean": true
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+          "valueCoding": {
+            "system": "http://unitsofmeasure.org",
+            "code": "Cel",
+            "display": "Celsius"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "blood-pressure",
+      "text": "Blood Pressure",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+          "valueBoolean": true
+        }
+      ],
+      "item": [
+        {
+          "linkId": "bp-systolic",
+          "text": "Systolic Blood Pressure",
+          "type": "integer",
+          "code": [
+            {
+              "system": "http://loinc.org",
+              "code": "8480-6",
+              "display": "Systolic blood pressure"
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueCode": "component"
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "mm[Hg]",
+                "display": "millimeter of mercury"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "bp-diastolic",
+          "text": "Diastolic Blood Pressure",
+          "type": "integer",
+          "code": [
+            {
+              "system": "http://loinc.org",
+              "code": "8462-4",
+              "display": "Diastolic blood pressure"
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueCode": "component"
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "mm[Hg]",
+                "display": "millimeter of mercury"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

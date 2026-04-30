@@ -1,0 +1,140 @@
+<app-page>
+  <div class="mb-4">
+    <label for="typeahead-basic" class="form-label">
+      {{ 'fhir-questionnaire.search-questions' | translate }}</label
+    >
+    <div class="input-group">
+      <span class="input-group-text">
+        <fa-icon [icon]="'search'"></fa-icon>
+      </span>
+      <input
+        #typeahead="ngbTypeahead"
+        id="typeahead-basic"
+        type="text"
+        class="form-control"
+        [(ngModel)]="searchTerm"
+        [ngbTypeahead]="suggest"
+        [resultFormatter]="formatter"
+        [inputFormatter]="formatter"
+        [resultTemplate]="rt"
+        (keydown.enter)="typeahead.dismissPopup(); onSearchSubmit()"
+        (selectItem)="$event.preventDefault()"
+        placeholder="{{ 'search' | translate }}..."
+      />
+      <button class="btn btn-primary" (click)="onSearchSubmit()">{{ 'search' | translate }}</button>
+      <button class="btn btn-outline-secondary" (click)="openSettings(settingsModal)">
+        <fa-icon [icon]="'cog'"></fa-icon>
+      </button>
+    </div>
+  </div>
+
+  <ng-template #rt let-r="result">
+    <span *ngIf="r.id !== 'NO_RESULT'" (mousedown)="onSuggestionClick(r)">{{ r.title }}</span>
+    <span *ngIf="r.id === 'NO_RESULT'" class="text-muted italic small font-italic">{{ r.title }}</span>
+  </ng-template>
+
+  <div class="card shadow-sm" *ngIf="!loading || showNoResultsTimeout">
+    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">{{ 'fhir-questionnaire.question-lists' | translate }}</h5>
+      <span class="badge bg-primary rounded-pill">{{ filteredDatasets.length }}</span>
+    </div>
+
+    <div class="list-group" *ngIf="displayDatasets.length > 0; else noResults">
+      <a
+        *ngFor="let item of displayDatasets"
+        class="list-group-item list-group-item-action d-flex align-items-center"
+        [routerLink]="['questionnaireeditor']"
+        (click)="setDataset(item.id)"
+      >
+        <div class="me-3">
+          <fa-icon [icon]="'file-alt'" class="text-primary fs-4"></fa-icon>
+        </div>
+
+        <div class="flex-grow-1">
+          <div class="d-flex w-100 justify-content-between">
+            <h6 class="mb-1 fw-bold">{{ item.title }}</h6>
+            <small class="text-muted">ID: {{ item.id }}</small>
+          </div>
+          <div class="d-flex w-100 justify-content-start">
+            <p class="mb-1 small text-secondary" *ngIf="item.mappingtag">
+              <span
+                class="badge me-1 text-uppercase"
+                [ngClass]="{
+                  'bg-success': item.mappingtag === 'DONE',
+                  'bg-warning text-dark': item.mappingtag === 'partial',
+                  'bg-danger': item.mappingtag !== 'DONE' && item.mappingtag !== 'partial'
+                }"
+                >{{ item.mappingtag }}</span
+              >
+            </p>
+          </div>
+        </div>
+
+        <div class="ms-2">
+          <fa-icon [icon]="'chevron-right'" class="text-muted small"></fa-icon>
+        </div>
+      </a>
+    </div>
+
+    <ng-template #noResults>
+      <div class="p-4 text-center text-muted border-top small font-italic">
+        <fa-icon [icon]="'info-circle'" class="me-2"></fa-icon>
+        {{ 'wizard.no-items-found' | translate }}
+      </div>
+    </ng-template>
+
+    <div class="card-footer bg-white border-top-0 py-3">
+      <app-paging [pagingService]="pagingService" [withPageNumbers]="true"></app-paging>
+    </div>
+  </div>
+
+  <div class="text-center p-5 bg-light border border-2 border-dashed rounded mt-4" *ngIf="loading && !showNoResultsTimeout">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'loading' | translate }}</span>
+    </div>
+    <h4 class="text-secondary mt-3">{{ 'state.loading.title' | translate }}</h4>
+  </div>
+
+  <!-- Settings Modal -->
+  <ng-template #settingsModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">FHIR Settings</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="mb-3" *ngIf="availableServers.length > 0">
+          <label for="serverPreset" class="form-label">Quick select</label>
+          <select id="serverPreset" class="form-select" (change)="selectPreset($event)">
+            <option value="">— custom —</option>
+            <option *ngFor="let s of availableServers" [value]="s.url" [selected]="isPresetSelected(s.url)">{{ s.name }}</option>
+          </select>
+        </div>
+        <div class="mb-3" *ngIf="isEHealthServer">
+          <label for="tenantId" class="form-label">Tenant ID</label>
+          <input type="text" id="tenantId" class="form-control" [ngModel]="tenantId" (ngModelChange)="updateTenantId($event)" name="tenantId" placeholder="e.g. CDplugin-test" />
+          <div class="form-text">Constructs: <code>https://hapi.fhir-testserver.be/fhir/{{tenantId || '&lt;tenantId&gt;'}}</code></div>
+        </div>
+        <div class="mb-3" *ngIf="!isEHealthServer">
+          <label for="baseUrl" class="form-label">FHIR Server Base URL</label>
+          <input type="text" id="baseUrl" class="form-control" [ngModel]="settings.baseUrl" (ngModelChange)="updateSettings({ baseUrl: $event })" name="baseUrl" placeholder="https://your-fhir-server/fhir" />
+          <div class="form-text">Base URL of the FHIR server. Selecting a preset above fills this field.</div>
+        </div>
+        <div class="mb-3" *ngIf="!isGoogleServer">
+          <label for="apiKey" class="form-label">API Key <span class="text-muted">(optional)</span></label>
+          <input type="password" id="apiKey" class="form-control" [(ngModel)]="apiKey" name="apiKeyLocal" placeholder="Sent as ?api_key=... on every request" />
+          <div class="form-text" *ngIf="isEHealthServer">Required for the eHealth test server.</div>
+        </div>
+        <div class="alert alert-info small mb-0 py-2" *ngIf="isGoogleServer">
+          <strong>Google Cloud Healthcare API</strong> uses service account authentication.
+          Set <code>GOOGLE_SERVICE_ACCOUNT_FILE</code> in <code>apps/api/.env</code> and restart the backend.
+          The API Key field is not used for this server.
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="modal.close('save')">Save & Reload</button>
+    </div>
+  </ng-template>
+</app-page>

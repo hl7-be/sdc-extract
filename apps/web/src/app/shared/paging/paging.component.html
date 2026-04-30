@@ -1,0 +1,34 @@
+<div [hidden]="totalCollectionSize && totalCollectionSize <= pageSize">
+  <div class="d-flex justify-content-between align-items-center">
+    <ngb-pagination
+      *ngIf="totalCollectionSize && withPageNumbers; else simplePager"
+      [collectionSize]="totalCollectionSize"
+      [pageSize]="pageSize"
+      [(page)]="page"
+      [maxSize]="5"
+      [rotate]="true"
+      [boundaryLinks]="true"
+      [size]="size"
+      (pageChange)="pageChange($event)"
+    >
+      <ng-template ngbPaginationFirst><span>{{ 'paging.first' | translate }}</span></ng-template>
+      <ng-template ngbPaginationLast><span>{{ 'paging.last' | translate }}</span></ng-template>
+      <ng-template ngbPaginationPrevious><span>{{ 'paging.previous' | translate }}</span></ng-template>
+      <ng-template ngbPaginationNext><span>{{ 'paging.next' | translate }}</span></ng-template>
+      <ng-template ngbPaginationEllipsis>...</ng-template>
+    </ngb-pagination>
+
+    <ng-template #simplePager>
+      <div *ngIf="currentPageSize > 0">
+        <ul class="pagination pagination-sm">
+          <li class="page-item" [class.disabled]="prevDisabled$ | async">
+            <a class="page-link" (click)="prev(); $event.preventDefault()" href="#">{{ 'paging.previous' | translate }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="nextDisabled$ | async">
+            <a class="page-link" (click)="next(); $event.preventDefault()" href="#">{{ 'paging.next' | translate }}</a>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+  </div>
+</div>
