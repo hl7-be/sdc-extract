@@ -99,6 +99,14 @@ sdc-extract/
 
 ---
 
+## FSE (Frequent stupid errors) to avoid
+- `Failed to call access method: java.lang.IllegalArgumentException: Unable to retrieve Questionnaire code map for Observation based extraction`
+  - You need sdc-questionnaire-definitionExtract and a definition attribute on *every single leaf item*, not just the one you want to extract. Otherwise the server thinks you're using `sdc-questionnaire-observationExtract`.
+  - Apparently it is also not allowed to have code elements on the leaves themselves. With definition-based extraction, the code on the item is redundant anyway - the Observation.code is supposed to come from your `sdc-questionnaire-definitionExtractValue` fixed-value extensions on the group.
+  - This is a known HAPI FHIR bug. In HAPI's SDC implementation, $extract checks for the presence of sdc-questionnaire-definitionExtract but still routes through the observation code map builder first in certain versions. The fix is to inline the Questionnaire into the QuestionnaireResponse request using the contained resource pattern, which bypasses the server's Questionnaire lookup entirely and forces definition-based processing.
+    Try sending the QuestionnaireResponse with the Questionnaire contained inside it, and add the questionnaire reference as a fragment
+    --> this does work -_-
+  
 ## Contact
 
 - [axel.vanraes@tiro.health](mailto:axel.vanraes@tiro.health)
