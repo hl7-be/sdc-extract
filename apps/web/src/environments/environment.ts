@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  // TODO: change this to your own SNOMED CT browser instance if needed
   snomedBrowserBaseUrl: 'https://snomedbrowser.uz.kuleuven.ac.be/?perspective=full&edition=MAIN/2026-03-01&release=&languages=en',
   fhir: {
     baseUrl: 'https://hapi.fhir-testserver.be/fhir/tenantID',
