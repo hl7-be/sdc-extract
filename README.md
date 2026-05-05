@@ -100,13 +100,41 @@ sdc-extract/
 ---
 
 ## FSE (Frequent stupid errors) to avoid
-- `Failed to call access method: java.lang.IllegalArgumentException: Unable to retrieve Questionnaire code map for Observation based extraction`
-  - You need sdc-questionnaire-definitionExtract and a definition attribute on *every single leaf item*, not just the one you want to extract. Otherwise the server thinks you're using `sdc-questionnaire-observationExtract`.
-  - Apparently it is also not allowed to have code elements on the leaves themselves. With definition-based extraction, the code on the item is redundant anyway - the Observation.code is supposed to come from your `sdc-questionnaire-definitionExtractValue` fixed-value extensions on the group.
-  - This is a known HAPI FHIR bug. In HAPI's SDC implementation, $extract checks for the presence of sdc-questionnaire-definitionExtract but still routes through the observation code map builder first in certain versions. The fix is to inline the Questionnaire into the QuestionnaireResponse request using the contained resource pattern, which bypasses the server's Questionnaire lookup entirely and forces definition-based processing.
-    Try sending the QuestionnaireResponse with the Questionnaire contained inside it, and add the questionnaire reference as a fragment
-    --> this does work -_-
-  
+
+### `IllegalArgumentException: Unable to retrieve Questionnaire code map for Observation based extraction`
+This error means HAPI's `$extract` tried to fall through to **observation-based** extraction (the legacy `sdc-questionnaire-observationLinkPeriod` / "code map" path) instead of the definition-based path you intended. To force definition-based processing, ensure **at least one leaf item carries `sdc-questionnaire-definitionExtract`** with a target `valueCanonical` (e.g. `http://hl7.org/fhir/StructureDefinition/Observation`). It does *not* need to be on every single leaf — `inline-q` in `scripts/curls/working-extraction.sh` is a working example with the extension only on the leaves that should produce values.
+
+> ℹ️ Earlier wisdom suggested that having `code` elements on leaves was forbidden under definition-based extraction. That turns out **not** to be the case — the SDC code path doesn't reject it. The leaf `code` is simply redundant: under definition-based extraction the extracted `Observation.code` comes from a `sdc-questionnaire-definitionExtractValue` fixed-value extension on the **group**, not from `Questionnaire.item.code`.
+
+### `NullPointerException` deep in `ItemPair.getItem(...)`
+Symptom: `$extract` returns 500 with a stack trace pointing at `org.opencds.cqf.fhir.cr.questionnaireresponse.extract.ProcessDefinitionItem` (or a similarly-named CR class), with the NPE on `ItemPair.getItem()`.
+
+Real cause: **a linkId in the `QuestionnaireResponse` does not resolve to any item in the `Questionnaire`.** HAPI's CR builds an `ItemPair` for every QR leaf, and if it can't find the matching Q item, the pair's `getItem()` returns null, and the next access throws.
+
+> 🔍 This is the actual reason the published OPAT sample previously failed — the standalone Q used long mangled linkIds (e.g. `87Zijneropmerkingenofbezorgdhedenomtrent…`) while the QR used short ones (e.g. `A1_Bewaring`). Only 10 of 61 QR linkIds resolved. The "contained-Q" workaround appeared to fix it only because the inline-Q in `working-extraction.sh` had been hand-aligned with the QR linkIds — not because containment bypasses any HAPI bug.
+
+**How to fix:** make sure every `QuestionnaireResponse.item.linkId` (recursively) is also present in the referenced `Questionnaire`. Diff the linkId sets first whenever you see this NPE.
+
+### Extracted `Observation`s have an empty `code`
+`status`, `category`, `subject`, `value[x]` come out fine but `Observation.code` is `{}`. That's not a bug — the Q is missing a `sdc-questionnaire-definitionExtractValue` for `Observation.code` on the group. Add one with a coded fixed value, e.g.:
+
+```json
+{
+  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+  "extension": [
+    {"url": "definition",
+     "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"},
+    {"url": "fixed-value",
+     "valueCodeableConcept": {
+       "coding": [{"system": "http://loinc.org", "code": "8716-3", "display": "Vital signs"}]
+     }}
+  ]
+}
+```
+
+### `valueExpression` on `definitionExtract` / `definitionExtractValue` is silently ignored
+The SDC IG documents both `valueCanonical` and `valueExpression` as permitted forms. HAPI's CR reads these primitives via `IPrimitiveType` and only the canonical/URI forms parse — `valueExpression` is silently dropped, which makes the dispatch fall through to observation-based extraction (and you end up at the first FSE in this list). **Use `valueCanonical` (for `definitionExtract`) and `valueUri` (for the `definition` sub-extension), not `valueExpression`, until HAPI's CR adds expression support.**
+
 ## Contact
 
 - [axel.vanraes@tiro.health](mailto:axel.vanraes@tiro.health)
