@@ -789,6 +789,27 @@
                   }
                 }
               ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "fixed-value",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://loinc.org",
+                        "code": "8716-3",
+                        "display": "Vital signs"
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
