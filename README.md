@@ -7,11 +7,15 @@
 
 ## 🚧 Status — Work in Progress
 
-| # | TODO                                                                                                                                | Status     |
-|---|-------------------------------------------------------------------------------------------------------------------------------------|------------|
-| 1 | Test extraction against the **Tiro test server**                                                                                    | 🔲 pending |
-| 2 | Create per-test **tutorial markdown files** in `tutorials/` with step-by-step instructions and references to relevant code and data | 🔲 pending |
-| 3 | Update apps for correct mapping of definitions                                                                                      | 🔲 pending |
+| # | TODO                                                                                                  | 
+|---|-------------------------------------------------------------------------------------------------------|
+| 1 | Test extraction against the **Tiro test server**                                                      | 
+| 2 | Axel: test3 pre-population verder uitschrijven                                                        |  
+| 3 | Annabel: Update apps for correct mapping of definitions                                               | 
+| 4 | Annabel: Logical models van opat en onco                                                              | 
+| 5 | Axel: logical models en testscripts voor kankerregistratie                                            | 
+| 6 | ? nog een extra testscenario toevoegen om zelf definities te inputten? voor de echte advanced mensen? | 
+| 7 | ? kleine sdc quiz toevoegen bij tutorials?                                                            | 
 
 ---
 
@@ -52,46 +56,11 @@ Two Belgian use cases anchor the atelier:
 
 ## Test Scenarios
 
-### Test 1 — Definition-based Extraction to FHIR Resources *(core)*
-
-**Objective**: Transform a completed `QuestionnaireResponse` into discrete, searchable FHIR resources using the
-`.definition` element and the `$extract` operation.
-
-1. **Setup**: Participants receive a FHIR `Questionnaire` where items are linked to profiled FHIR resources via
-   `.definition` (e.g., items mapping to elements of an `Observation`, `Condition`, or `Procedure` profile).
-2. **Input**: A completed `QuestionnaireResponse` (e.g., a home care nursing assessment or a registry submission) —
-   see [`data/samples/`](data/samples/).
-3. **The Challenge**:
-    - Call the `$extract` operation (using Tiro.health's public API or a participant's own implementation) to transform
-      the `QuestionnaireResponse` into a FHIR Transaction Bundle.
-    - Verify that fixed values, slicing, and patterns defined in the target profiles are correctly applied in the
-      extracted resources.
-4. **Success Criteria**: The generated Bundle is successfully POSTed to the eHealth Test Server, and individual
-   resources can be retrieved via standard FHIR search (e.g., `GET /Observation?patient=[ID]&code=[LOINC]`).
-
-### Test 2 — Extraction to Logical Models *(advanced)*
-
-**Objective**: Extract data from a `QuestionnaireResponse` into a custom data model defined as a FHIR logical model (
-`StructureDefinition` with `kind: logical`).
-
-1. **Setup**: Participants receive (or define) a logical model representing a registry-specific data structure, and a
-   `Questionnaire` with `.definition` elements pointing to paths in that logical model.
-2. **Input**: A completed `QuestionnaireResponse` for the registry form.
-3. **The Challenge**:
-    - Call the `$extract` operation with an `Accept: application/json` header to trigger logical model extraction.
-    - Validate that the returned `Binary` resource contains JSON that conforms to the logical model structure.
-4. **Success Criteria**: The extracted JSON matches the logical model's element structure and can be consumed by a
-   registry-specific system.
-
-### Test 3 — Pre-population *(bonus, if time permits)*
-
-**Objective**: Automatically populate a `Questionnaire` with existing patient data to reduce clinician data entry.
-
-1. **Source Data**: Participants use the eHealth Test Server or their own FHIR server as the data source.
-2. **The Challenge**: Use SDC expressions such as `initialExpression` or `launchContext` to define how existing data
-   should be fetched and mapped to `Questionnaire` items.
-3. **Success Criteria**: A `QuestionnaireResponse` is generated in `"in-progress"` status with fields correctly
-   pre-filled from existing patient data.
+| # | Title                                         | Difficulty | Tutorial                                                                                       |
+|---|-----------------------------------------------|------------|------------------------------------------------------------------------------------------------|
+| 1 | Definition-based Extraction to FHIR Resources | Core       | [`tutorials/test1-definition-based-extraction/`](tutorials/test1-definition-based-extraction/) |
+| 2 | Extraction to Logical Models                  | Advanced   | [`tutorials/test2-logical-model-extraction/`](tutorials/test2-logical-model-extraction/)       |
+| 3 | Pre-population                                | Bonus      | [`tutorials/test3-pre-population/`](tutorials/test3-pre-population/)                           |
 
 ---
 
@@ -110,11 +79,17 @@ sdc-extract/
 │       └── homehosp_qr_opat.json
 ├── scripts/
 │   └── curls/              # Shell scripts for calling the eHealth test server
-│       ├── working-extraction.sh          # End-to-end $extract (Q + QR as Parameters)
+│       ├── working_extraction_opat.sh             # Test 1 — $extract OPAT (FHIR resources)
+│       ├── working_extraction_onco.sh             # Test 1 — $extract Oncology (FHIR resources)
+│       ├── working_extraction_opat_logicalmodel.sh  # Test 2 — $extract OPAT (logical model)
+│       ├── working_extraction_onco_logicalmodel.sh  # Test 2 — $extract Oncology (logical model)
 │       ├── extract_questionnaireresponse_ehtestserver.sh
 │       ├── get_questionnaire_ehtestserver.sh
 │       └── post_questionnaire_ehtestserver.sh
-└── tutorials/              # Step-by-step test guides (to be created — see TODOs)
+└── tutorials/              # Step-by-step test guides
+    ├── test1-definition-based-extraction/
+    ├── test2-logical-model-extraction/
+    └── test3-pre-population/
 ```
 
 ---
@@ -132,7 +107,7 @@ single leaf — the Questionnaire in `data/samples/homehosp_q_opat_definitions.j
 produce values.
 
 > ℹ️ Earlier wisdom suggested that having `code` elements on leaves was forbidden under definition-based extraction.
-> That turns out **not** to be the case — the SDC code path doesn't reject it. The leaf `code` is simply redundant: under
+> That turns out **not** to be the case — the SDC code path doesn't reject it. The leaf `code` is simply redundant:under
 > definition-based extraction the extracted `Observation.code` comes from a `sdc-questionnaire-definitionExtractValue`
 > fixed-value extension on the **group**, not from `Questionnaire.item.code`.
 
@@ -163,12 +138,22 @@ value, e.g.:
 {
   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
   "extension": [
-    {"url": "definition",
-     "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"},
-    {"url": "fixed-value",
-     "valueCodeableConcept": {
-       "coding": [{"system": "http://loinc.org", "code": "8716-3", "display": "Vital signs"}]
-     }}
+    {
+      "url": "definition",
+      "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+    },
+    {
+      "url": "fixed-value",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "8716-3",
+            "display": "Vital signs"
+          }
+        ]
+      }
+    }
   ]
 }
 ```
