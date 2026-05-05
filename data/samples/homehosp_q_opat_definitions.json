@@ -1,22 +1,22 @@
 {
   "resourceType": "Questionnaire",
   "id": "OPATContinuInfuusV1",
-  "title": "OPAT - continu infuus",
+  "title": "OPAT - continuous infusion",
   "status": "active",
   "item": [
     {
-      "linkId": "Verpleegkundigassessment",
-      "text": "Verpleegkundig assessment",
+      "linkId": "NursingAssessment",
+      "text": "Nursing Assessment",
       "type": "group",
       "item": [
         {
-          "linkId": "Bewaring",
-          "text": "Bewaring",
+          "linkId": "MedicationStorage",
+          "text": "Medication Storage",
           "type": "group",
           "item": [
             {
-              "linkId": "A1_Bewaring",
-              "text": "Zijn er opmerkingen of bezorgdheden omtrent de (correcte) thuisbewaring van de medicatie?",
+              "linkId": "A1_MedicationStorage",
+              "text": "Are there any comments or concerns regarding the (correct) home storage of the medication?",
               "type": "choice",
               "required": true,
               "code": [
@@ -45,12 +45,12 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "A2_BewaringSpecifieer",
-              "text": "> Indien opmerkingen of bezorgdheid: specifieer",
+              "linkId": "A2_MedicationStorageSpecify",
+              "text": "> If there are comments or concerns: specify",
               "type": "string",
               "enableWhen": [
                 {
-                  "question": "A1_Bewaring",
+                  "question": "A1_MedicationStorage",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -119,13 +119,13 @@
           ]
         },
         {
-          "linkId": "Voorbereidingmedicatietoediening",
-          "text": "Voorbereiding medicatietoediening",
+          "linkId": "MedicationPreparation",
+          "text": "Medication Preparation",
           "type": "group",
           "item": [
             {
-              "linkId": "B1_MedicatieVolledigOpgelost",
-              "text": "De medicatie werd volledig opgelost tot een heldere oplossing zonder zichtbare deeltjes",
+              "linkId": "B1_MedicationFullyDissolved",
+              "text": "The medication was fully dissolved into a clear solution without visible particles",
               "type": "choice",
               "code": [
                 {
@@ -153,12 +153,12 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "B2_IndienNeeContact",
-              "text": "> Indien nee: gelieve contact op te nemen met het zorgteam in het ziekenhuis",
+              "linkId": "B2_IfNoContact",
+              "text": "> If no: please contact the care team at the hospital",
               "type": "display",
               "enableWhen": [
                 {
-                  "question": "B1_MedicatieVolledigOpgelost",
+                  "question": "B1_MedicationFullyDissolved",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -169,8 +169,8 @@
               ]
             },
             {
-              "linkId": "B3_GewichtVolleInfusor",
-              "text": "Gewicht van volle Infusor net voor nieuwe toediening",
+              "linkId": "B3_WeightFullInfusor",
+              "text": "Weight of full Infusor just before new administration",
               "type": "decimal",
               "required": true,
               "code": [
@@ -191,7 +191,7 @@
                 },
                 {
                   "url": "http://fhir.wgk.com/StructureDefinition/wgk-ext-helptext",
-                  "valueString": "Enkel in te vullen indien continu infuus"
+                  "valueString": "Only to be filled in for continuous infusion"
                 },
                 {
                   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
@@ -236,8 +236,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueQuantity.value"
             },
             {
-              "linkId": "B4_GewichtLegeInfusor",
-              "text": "Gewicht bij afkoppelen van lege infusor",
+              "linkId": "B4_WeightEmptyInfusor",
+              "text": "Weight when disconnecting empty infusor",
               "type": "decimal",
               "required": true,
               "code": [
@@ -258,7 +258,7 @@
                 },
                 {
                   "url": "http://fhir.wgk.com/StructureDefinition/wgk-ext-helptext",
-                  "valueString": "Enkel in te vullen indien continu infuus"
+                  "valueString": "Only to be filled in for continuous infusion"
                 },
                 {
                   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
@@ -303,8 +303,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueQuantity.value"
             },
             {
-              "linkId": "B5_BijkomendeObservatie",
-              "text": "Bijkomende observatie:(indien van toepassing)",
+              "linkId": "B5_AdditionalObservation",
+              "text": "Additional observation: (if applicable)",
               "type": "string",
               "code": [
                 {
@@ -373,13 +373,13 @@
           ]
         },
         {
-          "linkId": "Medicatietoediening",
-          "text": "Medicatietoediening",
+          "linkId": "MedicationAdministration",
+          "text": "Medication Administration",
           "type": "group",
           "item": [
             {
-              "linkId": "C1_ToedieningCorrect",
-              "text": "Kon de medicatie exact volgens de procedure worden toegediend  (er waren geen afwijkingen)?",
+              "linkId": "C1_AdministrationCorrect",
+              "text": "Could the medication be administered exactly according to the procedure (there were no deviations)?",
               "type": "choice",
               "required": true,
               "code": [
@@ -408,12 +408,12 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "C2_SpecifieerNee",
-              "text": "> Indien neen: specifieer",
+              "linkId": "C2_SpecifyNo",
+              "text": "> If no: specify",
               "type": "string",
               "enableWhen": [
                 {
-                  "question": "C1_ToedieningCorrect",
+                  "question": "C1_AdministrationCorrect",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -482,13 +482,13 @@
           ]
         },
         {
-          "linkId": "Vitaleparameters",
-          "text": "Vitale parameters",
+          "linkId": "VitalParameters",
+          "text": "Vital Parameters",
           "type": "group",
           "item": [
             {
-              "linkId": "D1_Temperatuur",
-              "text": "Lichaamstemperatuur:",
+              "linkId": "D1_BodyTemperature",
+              "text": "Body temperature:",
               "type": "decimal",
               "required": true,
               "code": [
@@ -550,8 +550,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueQuantity.value"
             },
             {
-              "linkId": "D2_Pols",
-              "text": "Pols:",
+              "linkId": "D2_HeartRate",
+              "text": "Heart rate:",
               "type": "decimal",
               "code": [
                 {
@@ -612,8 +612,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueQuantity.value"
             },
             {
-              "linkId": "D3_BloeddrukSystolisch",
-              "text": "Bloeddruk - systolisch",
+              "linkId": "D3_SystolicBloodPressure",
+              "text": "Blood pressure - systolic",
               "type": "decimal",
               "code": [
                 {
@@ -674,8 +674,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueQuantity.value"
             },
             {
-              "linkId": "D4_BloeddrukDiastolisch",
-              "text": "Bloeddruk - diastolisch",
+              "linkId": "D4_DiastolicBloodPressure",
+              "text": "Blood pressure - diastolic",
               "type": "decimal",
               "code": [
                 {
@@ -814,13 +814,13 @@
           ]
         },
         {
-          "linkId": "Observatieverbandinsteekplaats",
-          "text": "Observatie verband insteekplaats",
+          "linkId": "DressingObservation",
+          "text": "Dressing observation at insertion site",
           "type": "group",
           "item": [
             {
-              "linkId": "E1_VerbandObservatie",
-              "text": "Observatie verband insteekplaats",
+              "linkId": "E1_DressingObservation",
+              "text": "Dressing observation at insertion site",
               "type": "choice",
               "required": true,
               "code": [
@@ -849,12 +849,12 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "E2_IndienAfwijkendSpecifieer",
-              "text": "> Indien 'afwijkend': specifieer",
+              "linkId": "E2_IfAbnormalSpecify",
+              "text": "> If 'abnormal': specify",
               "type": "display",
               "enableWhen": [
                 {
-                  "question": "E1_VerbandObservatie",
+                  "question": "E1_DressingObservation",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -865,8 +865,8 @@
               ]
             },
             {
-              "linkId": "E3_Bloederig",
-              "text": "Bloederig",
+              "linkId": "E3_Bloody",
+              "text": "Bloody",
               "type": "choice",
               "code": [
                 {
@@ -894,8 +894,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "E4_Etterig",
-              "text": "Etterig",
+              "linkId": "E4_Purulent",
+              "text": "Purulent",
               "type": "choice",
               "code": [
                 {
@@ -923,8 +923,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "E5_Los",
-              "text": "Los",
+              "linkId": "E5_Loose",
+              "text": "Loose",
               "type": "choice",
               "code": [
                 {
@@ -952,8 +952,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "E6_Sereus",
-              "text": "Sereus",
+              "linkId": "E6_Serous",
+              "text": "Serous",
               "type": "choice",
               "code": [
                 {
@@ -981,8 +981,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "E7_Vochtig",
-              "text": "Vochtig",
+              "linkId": "E7_Moist",
+              "text": "Moist",
               "type": "choice",
               "code": [
                 {
@@ -1010,8 +1010,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "E8_Andere",
-              "text": "Andere: (indien van toepassing)",
+              "linkId": "E8_Other",
+              "text": "Other: (if applicable)",
               "type": "string",
               "code": [
                 {
@@ -1080,13 +1080,13 @@
           ]
         },
         {
-          "linkId": "Observatieinsteekplaats",
-          "text": "Observatie insteekplaats",
+          "linkId": "InsertionSiteObservation",
+          "text": "Insertion site observation",
           "type": "group",
           "item": [
             {
-              "linkId": "F1_InsteekplaatsObservatie",
-              "text": "Observatie insteekplaats",
+              "linkId": "F1_InsertionSiteObservation",
+              "text": "Insertion site observation",
               "type": "choice",
               "required": true,
               "code": [
@@ -1115,12 +1115,12 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "F2_IndienAfwijkendSpecifieer",
-              "text": "> Indien 'afwijkend': specifieer",
+              "linkId": "F2_IfAbnormalSpecify",
+              "text": "> If 'abnormal': specify",
               "type": "display",
               "enableWhen": [
                 {
-                  "question": "F1_InsteekplaatsObservatie",
+                  "question": "F1_InsertionSiteObservation",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -1131,8 +1131,8 @@
               ]
             },
             {
-              "linkId": "F3_Blaarvorming",
-              "text": "Blaarvorming",
+              "linkId": "F3_Blistering",
+              "text": "Blistering",
               "type": "choice",
               "code": [
                 {
@@ -1160,8 +1160,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "F4_Rood",
-              "text": "Rood",
+              "linkId": "F4_Redness",
+              "text": "Redness",
               "type": "choice",
               "code": [
                 {
@@ -1189,8 +1189,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "F5_Haematoom",
-              "text": "Haematoom",
+              "linkId": "F5_Hematoma",
+              "text": "Hematoma",
               "type": "choice",
               "code": [
                 {
@@ -1218,8 +1218,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "F6_Etter",
-              "text": "Etter",
+              "linkId": "F6_Pus",
+              "text": "Pus",
               "type": "choice",
               "code": [
                 {
@@ -1247,8 +1247,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "F7_Korstvorming",
-              "text": "Korstvorming",
+              "linkId": "F7_Crusting",
+              "text": "Crusting",
               "type": "choice",
               "code": [
                 {
@@ -1276,8 +1276,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "F8_Zwelling",
-              "text": "Zwelling",
+              "linkId": "F8_Swelling",
+              "text": "Swelling",
               "type": "choice",
               "code": [
                 {
@@ -1305,8 +1305,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "F9_Extravasatie",
-              "text": "Extravasatie/infiltratie",
+              "linkId": "F9_Extravasation",
+              "text": "Extravasation/infiltration",
               "type": "choice",
               "code": [
                 {
@@ -1334,8 +1334,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "F10_Andere",
-              "text": "Andere: (indien van toepassing)",
+              "linkId": "F10_Other",
+              "text": "Other: (if applicable)",
               "type": "string",
               "code": [
                 {
@@ -1404,13 +1404,13 @@
           ]
         },
         {
-          "linkId": "Observatiekatheter",
-          "text": "Observatie katheter",
+          "linkId": "CatheterObservation",
+          "text": "Catheter observation",
           "type": "group",
           "item": [
             {
-              "linkId": "G1_KatheterObservatie",
-              "text": "Observatie katheter",
+              "linkId": "G1_CatheterObservation",
+              "text": "Catheter observation",
               "type": "choice",
               "required": true,
               "code": [
@@ -1439,12 +1439,12 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "G2_IndienAfwijkendSpecifieer",
-              "text": "> Indien 'afwijkend': specifieer",
+              "linkId": "G2_IfAbnormalSpecify",
+              "text": "> If 'abnormal': specify",
               "type": "display",
               "enableWhen": [
                 {
-                  "question": "G1_KatheterObservatie",
+                  "question": "G1_CatheterObservation",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -1455,8 +1455,8 @@
               ]
             },
             {
-              "linkId": "G2b_KatheterType",
-              "text": "Kies kathetertype",
+              "linkId": "G2b_CatheterType",
+              "text": "Select catheter type",
               "type": "choice",
               "code": [
                 {
@@ -1470,28 +1470,56 @@
                   "valueCoding": {
                     "system": "http://snomed.info/sct",
                     "code": "52124006",
-                    "display": "Central venous catheter"
+                    "display": "Port catheter"
                   }
                 },
                 {
                   "valueCoding": {
                     "system": "http://snomed.info/sct",
-                    "code": "445085009",
-                    "display": "Tunneled central venous catheter"
+                    "code": "1396546006",
+                    "display": "1-lumen tunneled catheter"
                   }
                 },
                 {
                   "valueCoding": {
                     "system": "http://snomed.info/sct",
-                    "code": "1344705000",
-                    "display": "Midline catheter"
+                    "code": "1396570005",
+                    "display": "2-lumen tunneled catheter"
                   }
                 },
                 {
                   "valueCoding": {
                     "system": "http://snomed.info/sct",
-                    "code": "398176008",
-                    "display": "Peripherally inserted central catheter"
+                    "code": "1396538005",
+                    "display": "3-lumen tunneled catheter"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "1396531004",
+                    "display": "Single lumen midline catheter"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "1396527005",
+                    "display": "Double lumen midline catheter"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "1396526001",
+                    "display": "Single lumen PICC"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "1396489007",
+                    "display": "Double lumen PICC"
                   }
                 },
                 {
@@ -1505,80 +1533,128 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/DeviceUseStatement#DeviceUseStatement.device"
             },
             {
-              "linkId": "G3_Bloedaspiratie",
-              "text": "Bloedaspiratie",
-              "type": "choice",
-              "code": [
+              "linkId": "G_Lumen",
+              "text": "Per-lumen observation",
+              "type": "group",
+              "repeats": true,
+              "item": [
                 {
-                  "system": "http://snomed.info/sct",
-                  "code": "25797006",
-                  "display": "Pulmonary aspiration of blood (finding)"
-                }
-              ],
-              "answerOption": [
-                {
-                  "valueCoding": {
-                    "system": "http://snomed.info/sct",
-                    "code": "36203004",
-                    "display": "Easy"
-                  }
+                  "linkId": "G_LumenColor",
+                  "text": "Lumen color",
+                  "type": "choice",
+                  "code": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "1396483008",
+                      "display": "Color of lumen (observable entity)"
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "371253002",
+                        "display": "Gray color (qualifier value)"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "371251000",
+                        "display": "White color (qualifier value)"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "371240000",
+                        "display": "Red color (qualifier value)"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "371250004",
+                        "display": "Purple color (qualifier value)"
+                      }
+                    }
+                  ]
                 },
                 {
-                  "valueCoding": {
-                    "system": "http://snomed.info/sct",
-                    "code": "52925006",
-                    "display": "Difficult"
-                  }
+                  "linkId": "G3_BloodAspiration",
+                  "text": "Blood aspiration",
+                  "type": "choice",
+                  "code": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "25797006",
+                      "display": "Pulmonary aspiration of blood (finding)"
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "36203004",
+                        "display": "Easy"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "52925006",
+                        "display": "Difficult"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "385671000",
+                        "display": "Unsuccessful"
+                      }
+                    }
+                  ]
                 },
                 {
-                  "valueCoding": {
-                    "system": "http://snomed.info/sct",
-                    "code": "385671000",
-                    "display": "Unsuccessful"
-                  }
+                  "linkId": "G4_Infusion",
+                  "text": "Infusion",
+                  "type": "choice",
+                  "code": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "36576007",
+                      "display": "Infusion (procedure)"
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "36203004",
+                        "display": "Easy"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "52925006",
+                        "display": "Difficult"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "385671000",
+                        "display": "Unsuccessful"
+                      }
+                    }
+                  ]
                 }
-              ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
+              ]
             },
             {
-              "linkId": "G4_Infusie",
-              "text": "Infusie",
-              "type": "choice",
-              "code": [
-                {
-                  "system": "http://snomed.info/sct",
-                  "code": "36576007",
-                  "display": "Infusion (procedure)"
-                }
-              ],
-              "answerOption": [
-                {
-                  "valueCoding": {
-                    "system": "http://snomed.info/sct",
-                    "code": "36203004",
-                    "display": "Easy"
-                  }
-                },
-                {
-                  "valueCoding": {
-                    "system": "http://snomed.info/sct",
-                    "code": "52925006",
-                    "display": "Difficult"
-                  }
-                },
-                {
-                  "valueCoding": {
-                    "system": "http://snomed.info/sct",
-                    "code": "385671000",
-                    "display": "Unsuccessful"
-                  }
-                }
-              ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
-            },
-            {
-              "linkId": "G5_BeschadigdeKatheter",
-              "text": "Beschadigde katheter",
+              "linkId": "G5_DamagedCatheter",
+              "text": "Damaged catheter",
               "type": "choice",
               "code": [
                 {
@@ -1606,8 +1682,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "G6_Andere",
-              "text": "Andere: (indien van toepassing)",
+              "linkId": "G6_Other",
+              "text": "Other: (if applicable)",
               "type": "string",
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             }
@@ -1669,13 +1745,13 @@
           ]
         },
         {
-          "linkId": "Nevenwerkingen",
-          "text": "Nevenwerkingen",
+          "linkId": "SideEffects",
+          "text": "Side Effects",
           "type": "group",
           "item": [
             {
-              "linkId": "H1_Huiduitslag",
-              "text": "Huiduitslag",
+              "linkId": "H1_SkinRash",
+              "text": "Skin rash",
               "type": "choice",
               "code": [
                 {
@@ -1717,8 +1793,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H2_Jeuk",
-              "text": "Jeuk",
+              "linkId": "H2_Itching",
+              "text": "Itching",
               "type": "choice",
               "code": [
                 {
@@ -1760,8 +1836,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H3_BlarenOfHuidloslaten",
-              "text": "Blaren/loslaten van de huid",
+              "linkId": "H3_BlistersOrSkinPeeling",
+              "text": "Blisters/skin peeling",
               "type": "choice",
               "code": [
                 {
@@ -1803,8 +1879,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H4_Misselijkheid",
-              "text": "Misselijkheid",
+              "linkId": "H4_Nausea",
+              "text": "Nausea",
               "type": "choice",
               "code": [
                 {
@@ -1846,8 +1922,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H5_Braken",
-              "text": "Braken",
+              "linkId": "H5_Vomiting",
+              "text": "Vomiting",
               "type": "choice",
               "code": [
                 {
@@ -1889,8 +1965,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H6_Diarree",
-              "text": "Diarree",
+              "linkId": "H6_Diarrhea",
+              "text": "Diarrhea",
               "type": "choice",
               "code": [
                 {
@@ -1932,8 +2008,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H7_Obstipatie",
-              "text": "Obstipatie",
+              "linkId": "H7_Constipation",
+              "text": "Constipation",
               "type": "choice",
               "code": [
                 {
@@ -1975,8 +2051,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H8_VerminderdeEetlust",
-              "text": "Verminderde eetlust",
+              "linkId": "H8_DecreasedAppetite",
+              "text": "Decreased appetite",
               "type": "choice",
               "code": [
                 {
@@ -2018,8 +2094,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H9_PijnBijToediening",
-              "text": "Pijn bij toediening",
+              "linkId": "H9_PainDuringAdministration",
+              "text": "Pain during administration",
               "type": "choice",
               "code": [
                 {
@@ -2061,8 +2137,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H10_PijnAlgemeen",
-              "text": "Pijn (algemeen)",
+              "linkId": "H10_GeneralPain",
+              "text": "Pain (general)",
               "type": "choice",
               "code": [
                 {
@@ -2104,8 +2180,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H11_Moe",
-              "text": "Moe",
+              "linkId": "H11_Fatigue",
+              "text": "Fatigue",
               "type": "choice",
               "code": [
                 {
@@ -2147,8 +2223,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H12_Rillingen",
-              "text": "Rillingen",
+              "linkId": "H12_Chills",
+              "text": "Chills",
               "type": "choice",
               "code": [
                 {
@@ -2191,7 +2267,7 @@
             },
             {
               "linkId": "H13_Candidiasis",
-              "text": "Candidiase (schimmelinfectie)",
+              "text": "Candidiasis (fungal infection)",
               "type": "choice",
               "code": [
                 {
@@ -2233,8 +2309,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H14_Gewrichtspijn",
-              "text": "Gewrichtspijn",
+              "linkId": "H14_JointPain",
+              "text": "Joint pain",
               "type": "choice",
               "code": [
                 {
@@ -2276,8 +2352,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H15_Ademhalingsproblemen",
-              "text": "Ademhalingsproblemen",
+              "linkId": "H15_RespiratoryProblems",
+              "text": "Respiratory problems",
               "type": "choice",
               "code": [
                 {
@@ -2319,8 +2395,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H16_ZwellingGezichtTong",
-              "text": "Zwelling gezicht/tong",
+              "linkId": "H16_FacialTongueSwell",
+              "text": "Facial/tongue swelling",
               "type": "choice",
               "code": [
                 {
@@ -2362,8 +2438,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "H17_AndereObservaties",
-              "text": "Is er andere symptoomlast of zijn er andere relevante klinische en/of psychosociale observaties? \n(gelieve bij klinische bezorgdheid contact te nemen met het zorgteam in het ziekenhuis)",
+              "linkId": "H17_OtherObservations",
+              "text": "Are there other symptoms or other relevant clinical and/or psychosocial observations?\n(please contact the care team at the hospital if there are clinical concerns)",
               "type": "string",
               "code": [
                 {
@@ -2435,13 +2511,13 @@
       "extension": []
     },
     {
-      "linkId": "Kwaliteitsopvolging",
-      "text": "(Kwaliteits)opvolging",
+      "linkId": "QualityMonitoring",
+      "text": "Quality Monitoring",
       "type": "group",
       "item": [
         {
-          "linkId": "I1_OpmerkingenAanmelding",
-          "text": "Zijn er opmerkingen of bezorgdheden omtrent de aanmelding van deze patient, de gegevensdeling vanuit het ziekenhuis, de communicatie door en het contact met het ziekenhuis, de beschikbaarheid van de medicatie en materialen, of andere aspecten van de transmurale samenwerking rond thuishospitalisatie OPAT, we vragen je graag ze met ons te delen. Alvast dank.",
+          "linkId": "I1_CommentsRegistration",
+          "text": "Are there any comments or concerns regarding the registration of this patient, the data sharing from the hospital, the communication and contact with the hospital, the availability of medication and materials, or other aspects of the transmurale collaboration regarding home hospitalization OPAT, we would appreciate if you share them with us. Thank you in advance.",
           "type": "string",
           "code": [
             {

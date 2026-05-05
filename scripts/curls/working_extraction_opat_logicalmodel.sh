@@ -1,4 +1,5 @@
 #!/bin/bash
+# Prerequisite: run upload_logicalmodel_structuredefinitions.sh first to register the StructureDefinitions on the server.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$SCRIPT_DIR/../.."

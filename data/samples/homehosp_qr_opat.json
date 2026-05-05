@@ -8,16 +8,16 @@
   "authored": "2026-02-26T15:43:29.4033293+01:00",
   "item": [
     {
-      "linkId": "Verpleegkundigassessment",
-      "text": "Verpleegkundig assessment",
+      "linkId": "NursingAssessment",
+      "text": "Nursing Assessment",
       "item": [
         {
-          "linkId": "Bewaring",
-          "text": "Bewaring",
+          "linkId": "MedicationStorage",
+          "text": "Medication Storage",
           "item": [
             {
-              "linkId": "A1_Bewaring",
-              "text": "Zijn er opmerkingen of bezorgdheden omtrent de (correcte) thuisbewaring van de medicatie?",
+              "linkId": "A1_MedicationStorage",
+              "text": "Are there any comments or concerns regarding the (correct) home storage of the medication?",
               "answer": [
                 {
                   "valueCoding": {
@@ -29,23 +29,23 @@
               ]
             },
             {
-              "linkId": "A2_BewaringSpecifieer",
-              "text": "> Indien opmerkingen of bezorgdheid: specifieer",
+              "linkId": "A2_MedicationStorageSpecify",
+              "text": "> If there are comments or concerns: specify",
               "answer": [
                 {
-                  "valueString": "Geen idee, dit is een test maar je kan hier veel zeggen."
+                  "valueString": "No idea, this is a test but you can write a lot here."
                 }
               ]
             }
           ]
         },
         {
-          "linkId": "Voorbereidingmedicatietoediening",
-          "text": "Voorbereiding medicatietoediening",
+          "linkId": "MedicationPreparation",
+          "text": "Medication Preparation",
           "item": [
             {
-              "linkId": "B1_MedicatieVolledigOpgelost",
-              "text": "De medicatie werd volledig opgelost tot een heldere oplossing zonder zichtbare deeltjes",
+              "linkId": "B1_MedicationFullyDissolved",
+              "text": "The medication was fully dissolved into a clear solution without visible particles",
               "answer": [
                 {
                   "valueCoding": {
@@ -57,8 +57,8 @@
               ]
             },
             {
-              "linkId": "B3_GewichtVolleInfusor",
-              "text": "Gewicht van volle Infusor net voor nieuwe toediening",
+              "linkId": "B3_WeightFullInfusor",
+              "text": "Weight of full Infusor just before new administration",
               "answer": [
                 {
                   "valueDecimal": 1
@@ -66,8 +66,8 @@
               ]
             },
             {
-              "linkId": "B4_GewichtLegeInfusor",
-              "text": "Gewicht bij afkoppelen van lege infusor",
+              "linkId": "B4_WeightEmptyInfusor",
+              "text": "Weight when disconnecting empty infusor",
               "answer": [
                 {
                   "valueDecimal": 2
@@ -75,8 +75,8 @@
               ]
             },
             {
-              "linkId": "B5_BijkomendeObservatie",
-              "text": "Bijkomende observatie:(indien van toepassing)",
+              "linkId": "B5_AdditionalObservation",
+              "text": "Additional observation: (if applicable)",
               "answer": [
                 {
                   "valueString": "Test"
@@ -86,12 +86,12 @@
           ]
         },
         {
-          "linkId": "Medicatietoediening",
-          "text": "Medicatietoediening",
+          "linkId": "MedicationAdministration",
+          "text": "Medication Administration",
           "item": [
             {
-              "linkId": "C1_ToedieningCorrect",
-              "text": "Kon de medicatie exact volgens de procedure worden toegediend  (er waren geen afwijkingen)?",
+              "linkId": "C1_AdministrationCorrect",
+              "text": "Could the medication be administered exactly according to the procedure (there were no deviations)?",
               "answer": [
                 {
                   "valueCoding": {
@@ -103,23 +103,23 @@
               ]
             },
             {
-              "linkId": "C2_SpecifieerNee",
-              "text": "> Indien neen: specifieer",
+              "linkId": "C2_SpecifyNo",
+              "text": "> If no: specify",
               "answer": [
                 {
-                  "valueString": "Nee want dit is een test dus das niet gelukt he"
+                  "valueString": "No, because this is a test so that didn't work"
                 }
               ]
             }
           ]
         },
         {
-          "linkId": "Vitaleparameters",
-          "text": "Vitale parameters",
+          "linkId": "VitalParameters",
+          "text": "Vital Parameters",
           "item": [
             {
-              "linkId": "D1_Temperatuur",
-              "text": "Lichaamstemperatuur:",
+              "linkId": "D1_BodyTemperature",
+              "text": "Body temperature:",
               "answer": [
                 {
                   "valueDecimal": 3
@@ -127,8 +127,8 @@
               ]
             },
             {
-              "linkId": "D2_Pols",
-              "text": "Pols:",
+              "linkId": "D2_HeartRate",
+              "text": "Heart rate:",
               "answer": [
                 {
                   "valueDecimal": 4
@@ -136,8 +136,8 @@
               ]
             },
             {
-              "linkId": "D3_BloeddrukSystolisch",
-              "text": "Bloeddruk - systolisch",
+              "linkId": "D3_SystolicBloodPressure",
+              "text": "Blood pressure - systolic",
               "answer": [
                 {
                   "valueDecimal": 5
@@ -145,8 +145,8 @@
               ]
             },
             {
-              "linkId": "D4_BloeddrukDiastolisch",
-              "text": "Bloeddruk - diastolisch",
+              "linkId": "D4_DiastolicBloodPressure",
+              "text": "Blood pressure - diastolic",
               "answer": [
                 {
                   "valueDecimal": 6
@@ -156,12 +156,12 @@
           ]
         },
         {
-          "linkId": "Observatieverbandinsteekplaats",
-          "text": "Observatie verband insteekplaats",
+          "linkId": "DressingObservation",
+          "text": "Dressing observation at insertion site",
           "item": [
             {
-              "linkId": "E1_VerbandObservatie",
-              "text": "Observatie verband insteekplaats",
+              "linkId": "E1_DressingObservation",
+              "text": "Dressing observation at insertion site",
               "answer": [
                 {
                   "valueCoding": {
@@ -173,8 +173,8 @@
               ]
             },
             {
-              "linkId": "E3_Bloederig",
-              "text": "Bloederig",
+              "linkId": "E3_Bloody",
+              "text": "Bloody",
               "answer": [
                 {
                   "valueCoding": {
@@ -186,8 +186,8 @@
               ]
             },
             {
-              "linkId": "E4_Etterig",
-              "text": "Etterig",
+              "linkId": "E4_Purulent",
+              "text": "Purulent",
               "answer": [
                 {
                   "valueCoding": {
@@ -199,8 +199,8 @@
               ]
             },
             {
-              "linkId": "E5_Los",
-              "text": "Los",
+              "linkId": "E5_Loose",
+              "text": "Loose",
               "answer": [
                 {
                   "valueCoding": {
@@ -212,8 +212,8 @@
               ]
             },
             {
-              "linkId": "E6_Sereus",
-              "text": "Sereus",
+              "linkId": "E6_Serous",
+              "text": "Serous",
               "answer": [
                 {
                   "valueCoding": {
@@ -225,8 +225,8 @@
               ]
             },
             {
-              "linkId": "E7_Vochtig",
-              "text": "Vochtig",
+              "linkId": "E7_Moist",
+              "text": "Moist",
               "answer": [
                 {
                   "valueCoding": {
@@ -238,8 +238,8 @@
               ]
             },
             {
-              "linkId": "E8_Andere",
-              "text": "Andere: (indien van toepassing)",
+              "linkId": "E8_Other",
+              "text": "Other: (if applicable)",
               "answer": [
                 {
                   "valueString": "Test"
@@ -249,12 +249,12 @@
           ]
         },
         {
-          "linkId": "Observatieinsteekplaats",
-          "text": "Observatie insteekplaats",
+          "linkId": "InsertionSiteObservation",
+          "text": "Insertion site observation",
           "item": [
             {
-              "linkId": "F1_InsteekplaatsObservatie",
-              "text": "Observatie insteekplaats",
+              "linkId": "F1_InsertionSiteObservation",
+              "text": "Insertion site observation",
               "answer": [
                 {
                   "valueCoding": {
@@ -266,8 +266,8 @@
               ]
             },
             {
-              "linkId": "F3_Blaarvorming",
-              "text": "Blaarvorming",
+              "linkId": "F3_Blistering",
+              "text": "Blistering",
               "answer": [
                 {
                   "valueCoding": {
@@ -279,8 +279,8 @@
               ]
             },
             {
-              "linkId": "F4_Rood",
-              "text": "Rood",
+              "linkId": "F4_Redness",
+              "text": "Redness",
               "answer": [
                 {
                   "valueCoding": {
@@ -292,8 +292,8 @@
               ]
             },
             {
-              "linkId": "F5_Haematoom",
-              "text": "Haematoom",
+              "linkId": "F5_Hematoma",
+              "text": "Hematoma",
               "answer": [
                 {
                   "valueCoding": {
@@ -305,8 +305,8 @@
               ]
             },
             {
-              "linkId": "F6_Etter",
-              "text": "Etter",
+              "linkId": "F6_Pus",
+              "text": "Pus",
               "answer": [
                 {
                   "valueCoding": {
@@ -318,8 +318,8 @@
               ]
             },
             {
-              "linkId": "F7_Korstvorming",
-              "text": "Korstvorming",
+              "linkId": "F7_Crusting",
+              "text": "Crusting",
               "answer": [
                 {
                   "valueCoding": {
@@ -331,8 +331,8 @@
               ]
             },
             {
-              "linkId": "F8_Zwelling",
-              "text": "Zwelling",
+              "linkId": "F8_Swelling",
+              "text": "Swelling",
               "answer": [
                 {
                   "valueCoding": {
@@ -344,8 +344,8 @@
               ]
             },
             {
-              "linkId": "F9_Extravasatie",
-              "text": "Extravasatie/infiltratie",
+              "linkId": "F9_Extravasation",
+              "text": "Extravasation/infiltration",
               "answer": [
                 {
                   "valueCoding": {
@@ -357,8 +357,8 @@
               ]
             },
             {
-              "linkId": "F10_Andere",
-              "text": "Andere: (indien van toepassing)",
+              "linkId": "F10_Other",
+              "text": "Other: (if applicable)",
               "answer": [
                 {
                   "valueString": "Test"
@@ -368,12 +368,12 @@
           ]
         },
         {
-          "linkId": "Observatiekatheter",
-          "text": "Observatie katheter",
+          "linkId": "CatheterObservation",
+          "text": "Catheter observation",
           "item": [
             {
-              "linkId": "G1_KatheterObservatie",
-              "text": "Observatie katheter",
+              "linkId": "G1_CatheterObservation",
+              "text": "Catheter observation",
               "answer": [
                 {
                   "valueCoding": {
@@ -385,34 +385,53 @@
               ]
             },
             {
-              "linkId": "G3_Bloedaspiratie",
-              "text": "Bloedaspiratie",
-              "answer": [
+              "linkId": "G_Lumen",
+              "text": "Per-lumen observation",
+              "item": [
                 {
-                  "valueCoding": {
-                    "system": "http://snomed.info/sct",
-                    "code": "36203004",
-                    "display": "Easy"
-                  }
+                  "linkId": "G_LumenColor",
+                  "text": "Lumen color",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "371253002",
+                        "display": "Gray color (qualifier value)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "G3_BloodAspiration",
+                  "text": "Blood aspiration",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "36203004",
+                        "display": "Easy"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "G4_Infusion",
+                  "text": "Infusion",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "36203004",
+                        "display": "Easy"
+                      }
+                    }
+                  ]
                 }
               ]
             },
             {
-              "linkId": "G4_Infusie",
-              "text": "Infusie",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "system": "http://snomed.info/sct",
-                    "code": "36203004",
-                    "display": "Easy"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "G5_BeschadigdeKatheter",
-              "text": "Beschadigde katheter",
+              "linkId": "G5_DamagedCatheter",
+              "text": "Damaged catheter",
               "answer": [
                 {
                   "valueCoding": {
@@ -424,23 +443,23 @@
               ]
             },
             {
-              "linkId": "G6_Andere",
-              "text": "Andere: (indien van toepassing)",
+              "linkId": "G6_Other",
+              "text": "Other: (if applicable)",
               "answer": [
                 {
-                  "valueString": "Test, tsjoepke van katheter ziet er vreemd uit"
+                  "valueString": "Test, the catheter tip looks strange"
                 }
               ]
             }
           ]
         },
         {
-          "linkId": "Nevenwerkingen",
-          "text": "Nevenwerkingen",
+          "linkId": "SideEffects",
+          "text": "Side Effects",
           "item": [
             {
-              "linkId": "H1_Huiduitslag",
-              "text": "Huiduitslag",
+              "linkId": "H1_SkinRash",
+              "text": "Skin rash",
               "answer": [
                 {
                   "valueCoding": {
@@ -452,8 +471,8 @@
               ]
             },
             {
-              "linkId": "H2_Jeuk",
-              "text": "Jeuk",
+              "linkId": "H2_Itching",
+              "text": "Itching",
               "answer": [
                 {
                   "valueCoding": {
@@ -465,8 +484,8 @@
               ]
             },
             {
-              "linkId": "H3_BlarenOfHuidloslaten",
-              "text": "Blaren/loslaten van de huid",
+              "linkId": "H3_BlistersOrSkinPeeling",
+              "text": "Blisters/skin peeling",
               "answer": [
                 {
                   "valueCoding": {
@@ -478,8 +497,8 @@
               ]
             },
             {
-              "linkId": "H4_Misselijkheid",
-              "text": "Misselijkheid",
+              "linkId": "H4_Nausea",
+              "text": "Nausea",
               "answer": [
                 {
                   "valueCoding": {
@@ -491,8 +510,8 @@
               ]
             },
             {
-              "linkId": "H5_Braken",
-              "text": "Braken",
+              "linkId": "H5_Vomiting",
+              "text": "Vomiting",
               "answer": [
                 {
                   "valueCoding": {
@@ -504,8 +523,8 @@
               ]
             },
             {
-              "linkId": "H6_Diarree",
-              "text": "Diarree",
+              "linkId": "H6_Diarrhea",
+              "text": "Diarrhea",
               "answer": [
                 {
                   "valueCoding": {
@@ -517,8 +536,8 @@
               ]
             },
             {
-              "linkId": "H7_Obstipatie",
-              "text": "Obstipatie",
+              "linkId": "H7_Constipation",
+              "text": "Constipation",
               "answer": [
                 {
                   "valueCoding": {
@@ -530,8 +549,8 @@
               ]
             },
             {
-              "linkId": "H8_VerminderdeEetlust",
-              "text": "Verminderde eetlust",
+              "linkId": "H8_DecreasedAppetite",
+              "text": "Decreased appetite",
               "answer": [
                 {
                   "valueCoding": {
@@ -543,8 +562,8 @@
               ]
             },
             {
-              "linkId": "H9_PijnBijToediening",
-              "text": "Pijn bij toediening",
+              "linkId": "H9_PainDuringAdministration",
+              "text": "Pain during administration",
               "answer": [
                 {
                   "valueCoding": {
@@ -556,8 +575,8 @@
               ]
             },
             {
-              "linkId": "H10_PijnAlgemeen",
-              "text": "Pijn (algemeen)",
+              "linkId": "H10_GeneralPain",
+              "text": "Pain (general)",
               "answer": [
                 {
                   "valueCoding": {
@@ -569,8 +588,8 @@
               ]
             },
             {
-              "linkId": "H11_Moe",
-              "text": "Moe",
+              "linkId": "H11_Fatigue",
+              "text": "Fatigue",
               "answer": [
                 {
                   "valueCoding": {
@@ -582,8 +601,8 @@
               ]
             },
             {
-              "linkId": "H12_Rillingen",
-              "text": "Rillingen",
+              "linkId": "H12_Chills",
+              "text": "Chills",
               "answer": [
                 {
                   "valueCoding": {
@@ -596,7 +615,7 @@
             },
             {
               "linkId": "H13_Candidiasis",
-              "text": "Candidiase (schimmelinfectie)",
+              "text": "Candidiasis (fungal infection)",
               "answer": [
                 {
                   "valueCoding": {
@@ -608,8 +627,8 @@
               ]
             },
             {
-              "linkId": "H14_Gewrichtspijn",
-              "text": "Gewrichtspijn",
+              "linkId": "H14_JointPain",
+              "text": "Joint pain",
               "answer": [
                 {
                   "valueCoding": {
@@ -621,8 +640,8 @@
               ]
             },
             {
-              "linkId": "H15_Ademhalingsproblemen",
-              "text": "Ademhalingsproblemen",
+              "linkId": "H15_RespiratoryProblems",
+              "text": "Respiratory problems",
               "answer": [
                 {
                   "valueCoding": {
@@ -634,8 +653,8 @@
               ]
             },
             {
-              "linkId": "H16_ZwellingGezichtTong",
-              "text": "Zwelling gezicht/tong",
+              "linkId": "H16_FacialTongueSwell",
+              "text": "Facial/tongue swelling",
               "answer": [
                 {
                   "valueCoding": {
@@ -647,11 +666,11 @@
               ]
             },
             {
-              "linkId": "H17_AndereObservaties",
-              "text": "Is er andere symptoomlast of zijn er andere relevante klinische en/of psychosociale observaties? \n(gelieve bij klinische bezorgdheid contact te nemen met het zorgteam in het ziekenhuis)",
+              "linkId": "H17_OtherObservations",
+              "text": "Are there other symptoms or other relevant clinical and/or psychosocial observations?\n(please contact the care team at the hospital if there are clinical concerns)",
               "answer": [
                 {
-                  "valueString": "Testtest, patient lijkt neerslachtig"
+                  "valueString": "Test, patient appears dejected"
                 }
               ]
             }
@@ -660,15 +679,15 @@
       ]
     },
     {
-      "linkId": "Kwaliteitsopvolging",
-      "text": "(Kwaliteits)opvolging",
+      "linkId": "QualityMonitoring",
+      "text": "Quality Monitoring",
       "item": [
         {
-          "linkId": "I1_OpmerkingenAanmelding",
-          "text": "Zijn er opmerkingen of bezorgdheden omtrent de aanmelding van deze patient, de gegevensdeling vanuit het ziekenhuis, de communicatie door en het contact met het ziekenhuis, de beschikbaarheid van de medicatie en materialen, of andere aspecten van de transmurale samenwerking rond thuishospitalisatie OPAT, we vragen je graag ze met ons te delen. Alvast dank.",
+          "linkId": "I1_CommentsRegistration",
+          "text": "Are there any comments or concerns regarding the registration of this patient, the data sharing from the hospital, the communication and contact with the hospital, the availability of medication and materials, or other aspects of the transmurale collaboration regarding home hospitalization OPAT, we would appreciate if you share them with us. Thank you in advance.",
           "answer": [
             {
-              "valueString": "Testtest, patient leek zichzelf niet goed meer te verzorgen"
+              "valueString": "Test, patient appeared to no longer care for themselves properly"
             }
           ]
         }

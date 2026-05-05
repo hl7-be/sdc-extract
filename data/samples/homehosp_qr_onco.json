@@ -8,16 +8,16 @@
   "authored": "2026-01-08T13:45:38.6348994+01:00",
   "item": [
     {
-      "linkId": "Verpleegkundigassessment",
-      "text": "Verpleegkundig assessment",
+      "linkId": "NursingAssessment",
+      "text": "Nursing Assessment",
       "item": [
         {
-          "linkId": "Bewaring",
-          "text": "Bewaring",
+          "linkId": "MedicationStorage",
+          "text": "Medication Storage",
           "item": [
             {
-              "linkId": "A1_Bewaring",
-              "text": "Zijn er opmerkingen of bezorgdheden omtrent de (correcte) thuisbewaring van de medicatie?",
+              "linkId": "A1_MedicationStorage",
+              "text": "Are there any comments or concerns regarding the (correct) home storage of the medication?",
               "answer": [
                 {
                   "valueCoding": {
@@ -31,12 +31,12 @@
           ]
         },
         {
-          "linkId": "Observatieparameters",
-          "text": "Observatie parameters",
+          "linkId": "ObservationParameters",
+          "text": "Observation Parameters",
           "item": [
             {
-              "linkId": "B1_Temperatuur",
-              "text": "Lichaamstemperatuur:",
+              "linkId": "B1_BodyTemperature",
+              "text": "Body temperature:",
               "answer": [
                 {
                   "valueDecimal": 0
@@ -44,8 +44,8 @@
               ]
             },
             {
-              "linkId": "B2_Pols",
-              "text": "Pols:",
+              "linkId": "B2_HeartRate",
+              "text": "Heart rate:",
               "answer": [
                 {
                   "valueDecimal": 0
@@ -53,8 +53,8 @@
               ]
             },
             {
-              "linkId": "B3_BloeddrukSystolisch",
-              "text": "Bloeddruk systolisch:",
+              "linkId": "B3_SystolicBloodPressure",
+              "text": "Systolic blood pressure:",
               "answer": [
                 {
                   "valueDecimal": 0
@@ -62,8 +62,8 @@
               ]
             },
             {
-              "linkId": "B4_BloeddrukDiastolisch",
-              "text": "Bloeddruk diastolisch:",
+              "linkId": "B4_DiastolicBloodPressure",
+              "text": "Diastolic blood pressure:",
               "answer": [
                 {
                   "valueDecimal": 0
@@ -71,8 +71,8 @@
               ]
             },
             {
-              "linkId": "B5_Lichaamsgewicht",
-              "text": "Lichaamsgewicht:",
+              "linkId": "B5_BodyWeight",
+              "text": "Body weight:",
               "answer": [
                 {
                   "valueDecimal": 0
@@ -82,12 +82,12 @@
           ]
         },
         {
-          "linkId": "Tegenindicaties",
-          "text": "Tegenindicaties",
+          "linkId": "Contraindications",
+          "text": "Contraindications",
           "item": [
             {
-              "linkId": "C1_Tegenindicatie",
-              "text": "Zijn er tegenindicaties voor toediening?",
+              "linkId": "C1_ContraindicationPresent",
+              "text": "Are there any contraindications for administration?",
               "answer": [
                 {
                   "valueCoding": {
@@ -99,8 +99,8 @@
               ]
             },
             {
-              "linkId": "C3_KoortsRillingen",
-              "text": "Koorts , koude rillingen, zich ziek voelen",
+              "linkId": "C3_FeverChills",
+              "text": "Fever, cold chills, feeling sick",
               "answer": [
                 {
                   "valueCoding": {
@@ -112,8 +112,8 @@
               ]
             },
             {
-              "linkId": "C4_LageBloeddruk",
-              "text": "Bloeddruk bij herhaling lager dan 100/60 mmHg",
+              "linkId": "C4_LowBloodPressure",
+              "text": "Blood pressure repeatedly lower than 100/60 mmHg",
               "answer": [
                 {
                   "valueCoding": {
@@ -125,8 +125,8 @@
               ]
             },
             {
-              "linkId": "C5_HartslagVerhoogdOfOnregelmatig",
-              "text": "Hartslag hoger dan 100 bpm in rust of onregelmatig hartritme, tenzij chronisch gekend probleem.",
+              "linkId": "C5_ElevatedOrIrregularHeartRate",
+              "text": "Heart rate above 100 bpm at rest or irregular heart rhythm, unless a chronically known problem.",
               "answer": [
                 {
                   "valueCoding": {
@@ -138,8 +138,8 @@
               ]
             },
             {
-              "linkId": "C6_Gewichtstoename",
-              "text": "Een toename van het lichaamsgewicht van 3 kg / 3 weken of 5 kg / 6 weken, zeker in combinatie met toegenomen oedeem.",
+              "linkId": "C6_WeightGain",
+              "text": "An increase in body weight of 3 kg / 3 weeks or 5 kg / 6 weeks, especially in combination with increased edema.",
               "answer": [
                 {
                   "valueCoding": {
@@ -151,8 +151,8 @@
               ]
             },
             {
-              "linkId": "C7_Oedeem",
-              "text": "Toegenomen oedemen ter hoogte van handen en/of voeten.",
+              "linkId": "C7_Edema",
+              "text": "Increased edema at the level of hands and/or feet.",
               "answer": [
                 {
                   "valueCoding": {
@@ -164,8 +164,8 @@
               ]
             },
             {
-              "linkId": "C8_KortademigheidErnstig",
-              "text": "Toegenomen kortademigheid en/of ernstige kortademigheid (dwz kortademigheid in rust/zonder inspanning en/of kortademigheid die hindert bij de dagelijkse activiteiten) (Trastuzumab, Azacitidine)",
+              "linkId": "C8_SevereDyspnea",
+              "text": "Increased dyspnea and/or severe dyspnea (i.e. dyspnea at rest/without exertion and/or dyspnea that interferes with daily activities) (Trastuzumab, Azacitidine)",
               "answer": [
                 {
                   "valueCoding": {
@@ -177,23 +177,23 @@
               ]
             },
             {
-              "linkId": "C11_Beslissing",
-              "text": "Beslissing na overleg ziekenhuis",
+              "linkId": "C11_Decision",
+              "text": "Decision after consultation with hospital",
               "answer": [
                 {
-                  "valueString": "toediening"
+                  "valueString": "administration"
                 }
               ]
             }
           ]
         },
         {
-          "linkId": "Symptoomlast",
-          "text": "Symptoomlast",
+          "linkId": "SymptomBurden",
+          "text": "Symptom Burden",
           "item": [
             {
-              "linkId": "D1_Misselijkheid",
-              "text": "Misselijkheid",
+              "linkId": "D1_Nausea",
+              "text": "Nausea",
               "answer": [
                 {
                   "valueCoding": {
@@ -205,8 +205,8 @@
               ]
             },
             {
-              "linkId": "D2_Braken",
-              "text": "Braken",
+              "linkId": "D2_Vomiting",
+              "text": "Vomiting",
               "answer": [
                 {
                   "valueCoding": {
@@ -218,8 +218,8 @@
               ]
             },
             {
-              "linkId": "D3_VerminderdeEetlust",
-              "text": "Verminderde eetlust of smaakverandering",
+              "linkId": "D3_DecreasedAppetite",
+              "text": "Decreased appetite or taste change",
               "answer": [
                 {
                   "valueCoding": {
@@ -231,8 +231,8 @@
               ]
             },
             {
-              "linkId": "D4_Buikloop",
-              "text": "Buikloop",
+              "linkId": "D4_Diarrhea",
+              "text": "Diarrhea",
               "answer": [
                 {
                   "valueCoding": {
@@ -244,8 +244,8 @@
               ]
             },
             {
-              "linkId": "D5_Verstopping",
-              "text": "Verstopping",
+              "linkId": "D5_Constipation",
+              "text": "Constipation",
               "answer": [
                 {
                   "valueCoding": {
@@ -257,8 +257,8 @@
               ]
             },
             {
-              "linkId": "D6_Vermoeidheid",
-              "text": "Vermoeidheid/futloosheid",
+              "linkId": "D6_Fatigue",
+              "text": "Fatigue/listlessness",
               "answer": [
                 {
                   "valueCoding": {
@@ -270,8 +270,8 @@
               ]
             },
             {
-              "linkId": "D7_Pijn",
-              "text": "Pijn",
+              "linkId": "D7_Pain",
+              "text": "Pain",
               "answer": [
                 {
                   "valueCoding": {
@@ -283,8 +283,8 @@
               ]
             },
             {
-              "linkId": "D8_Huiduitslag",
-              "text": "Huiduitslag",
+              "linkId": "D8_SkinRash",
+              "text": "Skin rash",
               "answer": [
                 {
                   "valueCoding": {
@@ -296,8 +296,8 @@
               ]
             },
             {
-              "linkId": "D9_Psychosociaal",
-              "text": "Psychosociale belasting",
+              "linkId": "D9_PsychosocialBurden",
+              "text": "Psychosocial burden",
               "answer": [
                 {
                   "valueCoding": {
@@ -309,8 +309,8 @@
               ]
             },
             {
-              "linkId": "D10_Kortademigheid",
-              "text": "Kortademigheid",
+              "linkId": "D10_Dyspnea",
+              "text": "Dyspnea",
               "answer": [
                 {
                   "valueCoding": {
@@ -322,8 +322,8 @@
               ]
             },
             {
-              "linkId": "D11_Oedeem",
-              "text": "Oedeem",
+              "linkId": "D11_Edema",
+              "text": "Edema",
               "answer": [
                 {
                   "valueCoding": {
@@ -339,16 +339,16 @@
       ]
     },
     {
-      "linkId": "Opdracht",
-      "text": "Opdracht",
+      "linkId": "Assignment",
+      "text": "Assignment",
       "item": [
         {
-          "linkId": "Voorbereidingmedicatietoediening",
-          "text": "Voorbereiding medicatietoediening",
+          "linkId": "MedicationPreparation",
+          "text": "Medication Preparation",
           "item": [
             {
-              "linkId": "E1_BereidingCorrect",
-              "text": "Kon de medicatie worden bereid volgens de procedure?",
+              "linkId": "E1_PreparationCorrect",
+              "text": "Could the medication be prepared according to the procedure?",
               "answer": [
                 {
                   "valueCoding": {
@@ -362,12 +362,12 @@
           ]
         },
         {
-          "linkId": "Medicatietoediening",
-          "text": "Medicatietoediening",
+          "linkId": "MedicationAdministration",
+          "text": "Medication Administration",
           "item": [
             {
-              "linkId": "E3_ToedieningCorrect",
-              "text": "Kon de medicatie exact volgens de procedure worden toegediend (er waren geen afwijkingen)?",
+              "linkId": "E3_AdministrationCorrect",
+              "text": "Could the medication be administered exactly according to the procedure (there were no deviations)?",
               "answer": [
                 {
                   "valueCoding": {
@@ -381,12 +381,12 @@
           ]
         },
         {
-          "linkId": "Nazorg",
-          "text": "Nazorg",
+          "linkId": "Aftercare",
+          "text": "Aftercare",
           "item": [
             {
-              "linkId": "E5_ReactieTijdensObservatieThuis",
-              "text": "Was er een reactie tijdens de observatieperiode aan huis?",
+              "linkId": "E5_ReactionDuringHomeObservation",
+              "text": "Was there a reaction during the home observation period?",
               "answer": [
                 {
                   "valueCoding": {
@@ -398,8 +398,8 @@
               ]
             },
             {
-              "linkId": "E6a_Koorts",
-              "text": "Koorts",
+              "linkId": "E6a_Fever",
+              "text": "Fever",
               "answer": [
                 {
                   "valueCoding": {
@@ -424,8 +424,8 @@
               ]
             },
             {
-              "linkId": "E6c_BenauwdGevoel",
-              "text": "Benauwd gevoel",
+              "linkId": "E6c_TightnessSensation",
+              "text": "Tightness sensation",
               "answer": [
                 {
                   "valueCoding": {
@@ -437,8 +437,8 @@
               ]
             },
             {
-              "linkId": "E6d_Rillingen",
-              "text": "Rillingen",
+              "linkId": "E6d_Chills",
+              "text": "Chills",
               "answer": [
                 {
                   "valueCoding": {
@@ -450,8 +450,8 @@
               ]
             },
             {
-              "linkId": "E6e_GriepaalSyndroom",
-              "text": "Griepale syndromen",
+              "linkId": "E6e_InfluenzaLikeSyndrome",
+              "text": "Influenza-like syndromes",
               "answer": [
                 {
                   "valueCoding": {

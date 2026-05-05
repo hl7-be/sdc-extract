@@ -166,6 +166,36 @@ dispatch fall through to observation-based extraction (and you end up at the fir
 *Use `valueCanonical` (for `definitionExtract`) and `valueUri` (for the `definition` sub-extension),
 not `valueExpression`, until HAPI's CR adds expression support.**
 
+### `ClassNotFoundException: org.hl7.fhir.r4.model.<logical-model-URL>` when extracting to a Logical Model
+
+Symptom: `$extract` with a Questionnaire whose `sdc-questionnaire-definitionExtract` points to a **logical model**
+canonical URL returns an `OperationOutcome` like:
+
+```
+java.lang.IllegalArgumentException: java.lang.ClassNotFoundException:
+  org.hl7.fhir.r4.model.http://hl7belgium.org/fhir/patient-monitoring/StructureDefinition/onco-trastuzumab-questionnaire
+```
+
+Real cause: **HAPI's CR `$extract` implementation only supports core FHIR R4 resource types as extraction targets.** It
+derives the target type from the `definitionExtract` canonical URL and then attempts to load a Java class from the
+`org.hl7.fhir.r4.model` package. For standard types like `Observation` this resolves to `org.hl7.fhir.r4.model.Observation`
+— a real class. For a logical model URL it constructs an invalid class name and throws `ClassNotFoundException`.
+
+> ℹ️ This is **not** a StructureDefinition resolution problem. Uploading the `StructureDefinition` resource to the HAPI
+> server (so the canonical URL resolves within the store) does **not** fix it — HAPI's extraction code never reaches the
+> lookup step. Publishing the IG at the canonical URL makes no difference either. The failure is hardcoded in the Java
+> dispatch logic.
+
+**Workarounds:**
+
+- **StructureMap-based extraction**: author a `StructureMap` that transforms `QuestionnaireResponse` into the logical
+  model instance, reference it via `sdc-questionnaire-targetStructureMap`, and call `$extract`. HAPI does support
+  StructureMap-based extraction. Complex to author but spec-compliant.
+- **Client-side assembly**: use Test 1 (definition-based extraction to standard FHIR resources) to get a Bundle of
+  `Observation` resources, then reassemble into the logical model shape on the client using the same element mappings
+  that were defined in the logical model `StructureDefinition`.
+- **Different server**: Tiroserver???
+
 ## Contact
 
 - [axel.vanraes@tiro.health](mailto:axel.vanraes@tiro.health)

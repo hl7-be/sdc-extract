@@ -5,18 +5,18 @@
   "status": "active",
   "item": [
     {
-      "linkId": "Verpleegkundigassessment",
-      "text": "Verpleegkundig assessment",
+      "linkId": "NursingAssessment",
+      "text": "Nursing assessment",
       "type": "group",
       "item": [
         {
-          "linkId": "Bewaring",
-          "text": "Bewaring",
+          "linkId": "MedicationStorage",
+          "text": "Medication storage",
           "type": "group",
           "item": [
             {
-              "linkId": "A1_Bewaring",
-              "text": "Zijn er opmerkingen of bezorgdheden omtrent de (correcte) thuisbewaring van de medicatie?",
+              "linkId": "A1_MedicationStorage",
+              "text": "Are there any comments or concerns about the (correct) home storage of the medication?",
               "type": "choice",
               "required": true,
               "code": [
@@ -45,12 +45,12 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "A2_BewaringSpecifieer",
-              "text": "> Indien opmerkingen of bezorgdheid: specifieer",
+              "linkId": "A2_MedicationStorageSpecify",
+              "text": "> If comments or concerns: specify",
               "type": "string",
               "enableWhen": [
                 {
-                  "question": "A1_Bewaring",
+                  "question": "A1_MedicationStorage",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -119,13 +119,13 @@
           ]
         },
         {
-          "linkId": "Observatieparameters",
-          "text": "Observatie parameters",
+          "linkId": "ObservationParameters",
+          "text": "Observation parameters",
           "type": "group",
           "item": [
             {
-              "linkId": "B1_Temperatuur",
-              "text": "Lichaamstemperatuur:",
+              "linkId": "B1_BodyTemperature",
+              "text": "Body temperature:",
               "type": "decimal",
               "required": true,
               "code": [
@@ -187,8 +187,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueQuantity.value"
             },
             {
-              "linkId": "B2_Pols",
-              "text": "Pols:",
+              "linkId": "B2_HeartRate",
+              "text": "Heart rate:",
               "type": "decimal",
               "required": true,
               "code": [
@@ -250,8 +250,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueQuantity.value"
             },
             {
-              "linkId": "B3_BloeddrukSystolisch",
-              "text": "Bloeddruk systolisch:",
+              "linkId": "B3_SystolicBloodPressure",
+              "text": "Systolic blood pressure:",
               "type": "decimal",
               "required": true,
               "code": [
@@ -313,8 +313,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueQuantity.value"
             },
             {
-              "linkId": "B4_BloeddrukDiastolisch",
-              "text": "Bloeddruk diastolisch:",
+              "linkId": "B4_DiastolicBloodPressure",
+              "text": "Diastolic blood pressure:",
               "type": "decimal",
               "required": true,
               "code": [
@@ -376,8 +376,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueQuantity.value"
             },
             {
-              "linkId": "B5_Lichaamsgewicht",
-              "text": "Lichaamsgewicht:",
+              "linkId": "B5_BodyWeight",
+              "text": "Body weight:",
               "type": "decimal",
               "required": true,
               "code": [
@@ -496,13 +496,13 @@
           ]
         },
         {
-          "linkId": "Tegenindicaties",
-          "text": "Tegenindicaties",
+          "linkId": "Contraindications",
+          "text": "Contraindications",
           "type": "group",
           "item": [
             {
-              "linkId": "C1_Tegenindicatie",
-              "text": "Zijn er tegenindicaties voor toediening?",
+              "linkId": "C1_ContraindicationPresent",
+              "text": "Are there any contraindications for administration?",
               "type": "choice",
               "required": true,
               "code": [
@@ -531,12 +531,12 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "C2_SpecifieerTegenindicatie",
-              "text": "> Indien 'ja': specifieer",
+              "linkId": "C2_ContraindicationSpecify",
+              "text": "> If 'yes': specify",
               "type": "display",
               "enableWhen": [
                 {
-                  "question": "C1_Tegenindicatie",
+                  "question": "C1_ContraindicationPresent",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -547,8 +547,8 @@
               ]
             },
             {
-              "linkId": "C3_KoortsRillingen",
-              "text": "Koorts , koude rillingen, zich ziek voelen",
+              "linkId": "C3_FeverChills",
+              "text": "Fever, chills, feeling ill",
               "type": "choice",
               "required": true,
               "code": [
@@ -577,8 +577,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "C4_LageBloeddruk",
-              "text": "Bloeddruk bij herhaling lager dan 100/60 mmHg",
+              "linkId": "C4_LowBloodPressure",
+              "text": "Blood pressure repeatedly below 100/60 mmHg",
               "type": "choice",
               "required": true,
               "code": [
@@ -607,8 +607,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "C5_HartslagVerhoogdOfOnregelmatig",
-              "text": "Hartslag hoger dan 100 bpm in rust of onregelmatig hartritme, tenzij chronisch gekend probleem.",
+              "linkId": "C5_ElevatedOrIrregularHeartRate",
+              "text": "Heart rate above 100 bpm at rest or irregular heart rhythm, unless a chronically known problem.",
               "type": "choice",
               "required": true,
               "code": [
@@ -637,8 +637,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "C6_Gewichtstoename",
-              "text": "Een toename van het lichaamsgewicht van 3 kg / 3 weken of 5 kg / 6 weken, zeker in combinatie met toegenomen oedeem.",
+              "linkId": "C6_WeightGain",
+              "text": "A weight gain of 3 kg / 3 weeks or 5 kg / 6 weeks, especially in combination with increased edema.",
               "type": "choice",
               "required": true,
               "code": [
@@ -667,8 +667,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "C7_Oedeem",
-              "text": "Toegenomen oedemen ter hoogte van handen en/of voeten.",
+              "linkId": "C7_Edema",
+              "text": "Increased edema of the hands and/or feet.",
               "type": "choice",
               "required": true,
               "code": [
@@ -697,8 +697,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "C8_KortademigheidErnstig",
-              "text": "Toegenomen kortademigheid en/of ernstige kortademigheid (dwz kortademigheid in rust/zonder inspanning en/of kortademigheid die hindert bij de dagelijkse activiteiten) (Trastuzumab, Azacitidine)",
+              "linkId": "C8_SevereDyspnea",
+              "text": "Increased breathlessness and/or severe breathlessness (i.e. breathlessness at rest/without exertion and/or breathlessness that interferes with daily activities) (Trastuzumab, Azacitidine)",
               "type": "choice",
               "required": true,
               "code": [
@@ -727,8 +727,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "C9_Andere",
-              "text": "Andere: (indien van toepassing)",
+              "linkId": "C9_Other",
+              "text": "Other: (if applicable)",
               "type": "string",
               "code": [
                 {
@@ -740,12 +740,12 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             },
             {
-              "linkId": "C10_ContactZorgteam",
-              "text": "> Indien tegenindicatie(s): gelieve contact op te nemen met het zorgteam in het ziekenhuis",
+              "linkId": "C10_ContactCareTeam",
+              "text": "> If contraindication(s): please contact the hospital care team",
               "type": "display",
               "enableWhen": [
                 {
-                  "question": "C1_Tegenindicatie",
+                  "question": "C1_ContraindicationPresent",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -756,8 +756,8 @@
               ]
             },
             {
-              "linkId": "C11_Beslissing",
-              "text": "Beslissing na overleg ziekenhuis",
+              "linkId": "C11_Decision",
+              "text": "Decision after consultation with hospital",
               "type": "choice",
               "code": [
                 {
@@ -768,20 +768,20 @@
               ],
               "answerOption": [
                 {
-                  "valueString": "toediening"
+                  "valueString": "administration"
                 },
                 {
-                  "valueString": "geen toediening"
+                  "valueString": "no administration"
                 },
                 {
-                  "valueString": "andere"
+                  "valueString": "other"
                 }
               ],
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "C12_BeslissingSpecifieer",
-              "text": "> Indien 'andere': specifieer",
+              "linkId": "C12_DecisionSpecify",
+              "text": "> If 'other': specify",
               "type": "string",
               "code": [
                 {
@@ -792,9 +792,9 @@
               ],
               "enableWhen": [
                 {
-                  "question": "C11_Beslissing",
+                  "question": "C11_Decision",
                   "operator": "=",
-                  "answerString": "andere"
+                  "answerString": "other"
                 }
               ],
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
@@ -857,13 +857,13 @@
           ]
         },
         {
-          "linkId": "Symptoomlast",
-          "text": "Symptoomlast",
+          "linkId": "SymptomBurden",
+          "text": "Symptom burden",
           "type": "group",
           "item": [
             {
-              "linkId": "D1_Misselijkheid",
-              "text": "Misselijkheid",
+              "linkId": "D1_Nausea",
+              "text": "Nausea",
               "type": "choice",
               "code": [
                 {
@@ -905,8 +905,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "D2_Braken",
-              "text": "Braken",
+              "linkId": "D2_Vomiting",
+              "text": "Vomiting",
               "type": "choice",
               "code": [
                 {
@@ -948,8 +948,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "D3_VerminderdeEetlust",
-              "text": "Verminderde eetlust of smaakverandering",
+              "linkId": "D3_DecreasedAppetite",
+              "text": "Decreased appetite or taste change",
               "type": "choice",
               "code": [
                 {
@@ -991,8 +991,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "D4_Buikloop",
-              "text": "Buikloop",
+              "linkId": "D4_Diarrhea",
+              "text": "Diarrhea",
               "type": "choice",
               "code": [
                 {
@@ -1034,8 +1034,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "D5_Verstopping",
-              "text": "Verstopping",
+              "linkId": "D5_Constipation",
+              "text": "Constipation",
               "type": "choice",
               "code": [
                 {
@@ -1077,8 +1077,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "D6_Vermoeidheid",
-              "text": "Vermoeidheid/futloosheid",
+              "linkId": "D6_Fatigue",
+              "text": "Fatigue/lethargy",
               "type": "choice",
               "code": [
                 {
@@ -1120,8 +1120,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "D7_Pijn",
-              "text": "Pijn",
+              "linkId": "D7_Pain",
+              "text": "Pain",
               "type": "choice",
               "code": [
                 {
@@ -1163,8 +1163,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "D8_Huiduitslag",
-              "text": "Huiduitslag",
+              "linkId": "D8_SkinRash",
+              "text": "Skin rash",
               "type": "choice",
               "code": [
                 {
@@ -1206,8 +1206,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "D9_Psychosociaal",
-              "text": "Psychosociale belasting",
+              "linkId": "D9_PsychosocialBurden",
+              "text": "Psychosocial burden",
               "type": "choice",
               "code": [
                 {
@@ -1249,8 +1249,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "D10_Kortademigheid",
-              "text": "Kortademigheid",
+              "linkId": "D10_Dyspnea",
+              "text": "Dyspnea",
               "type": "choice",
               "code": [
                 {
@@ -1292,8 +1292,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "D11_Oedeem",
-              "text": "Oedeem",
+              "linkId": "D11_Edema",
+              "text": "Edema",
               "type": "choice",
               "code": [
                 {
@@ -1335,8 +1335,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "D12_AndereObservaties",
-              "text": "Andere nevenwerkingen of relevante klinische en psychosociale observaties\n(gelieve bij klinische bezorgdheid contact te nemen met het ziekenhuis voor bespreking)",
+              "linkId": "D12_OtherObservations",
+              "text": "Other side effects or relevant clinical and psychosocial observations\n(in case of clinical concerns, please contact the hospital for discussion)",
               "type": "string",
               "code": [
                 {
@@ -1408,18 +1408,18 @@
       "extension": []
     },
     {
-      "linkId": "Opdracht",
-      "text": "Opdracht",
+      "linkId": "Assignment",
+      "text": "Assignment",
       "type": "group",
       "item": [
         {
-          "linkId": "Voorbereidingmedicatietoediening",
-          "text": "Voorbereiding medicatietoediening",
+          "linkId": "MedicationPreparation",
+          "text": "Medication preparation",
           "type": "group",
           "item": [
             {
-              "linkId": "E1_BereidingCorrect",
-              "text": "Kon de medicatie worden bereid volgens de procedure?",
+              "linkId": "E1_PreparationCorrect",
+              "text": "Could the medication be prepared according to the procedure?",
               "type": "choice",
               "required": true,
               "code": [
@@ -1448,12 +1448,12 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "E2_ContactZorgteam",
-              "text": "> Indien 'nee': gelieve contact op te nemen met het zorgteam in het ziekenhuis",
+              "linkId": "E2_ContactCareTeam",
+              "text": "> If 'no': please contact the hospital care team",
               "type": "display",
               "enableWhen": [
                 {
-                  "question": "E1_BereidingCorrect",
+                  "question": "E1_PreparationCorrect",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -1521,20 +1521,20 @@
           ]
         },
         {
-          "linkId": "Medicatietoediening",
-          "text": "Medicatietoediening",
+          "linkId": "MedicationAdministration",
+          "text": "Medication administration",
           "type": "group",
           "item": [
             {
-              "linkId": "E3_ToedieningCorrect",
-              "text": "Kon de medicatie exact volgens de procedure worden toegediend (er waren geen afwijkingen)?",
+              "linkId": "E3_AdministrationCorrect",
+              "text": "Could the medication be administered exactly according to the procedure (there were no deviations)?",
               "type": "choice",
               "required": true,
               "code": [
                 {
                   "system": "http://snomed.info/sct",
-                  "code": "18629005",
-                  "display": "Administration of drug or medicament (procedure)"
+                  "code": "373149000",
+                  "display": "Medication administered following procedure (situation)"
                 }
               ],
               "answerOption": [
@@ -1556,12 +1556,12 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "E4_SpecifieerNee",
-              "text": "> Indien 'nee': specifieer",
+              "linkId": "E4_SpecifyNo",
+              "text": "> If 'no': specify",
               "type": "string",
               "enableWhen": [
                 {
-                  "question": "E3_ToedieningCorrect",
+                  "question": "E3_AdministrationCorrect",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -1630,13 +1630,13 @@
           ]
         },
         {
-          "linkId": "Nazorg",
-          "text": "Nazorg",
+          "linkId": "Aftercare",
+          "text": "Aftercare",
           "type": "group",
           "item": [
             {
-              "linkId": "E5_ReactieTijdensObservatieThuis",
-              "text": "Was er een reactie tijdens de observatieperiode aan huis?",
+              "linkId": "E5_ReactionDuringHomeObservation",
+              "text": "Was there a reaction during the home observation period?",
               "type": "choice",
               "required": true,
               "code": [
@@ -1665,8 +1665,8 @@
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
-              "linkId": "E6a_Koorts",
-              "text": "Koorts",
+              "linkId": "E6a_Fever",
+              "text": "Fever",
               "type": "choice",
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
               "code": [
@@ -1678,7 +1678,7 @@
               ],
               "enableWhen": [
                 {
-                  "question": "E5_ReactieTijdensObservatieThuis",
+                  "question": "E5_ReactionDuringHomeObservation",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -1718,7 +1718,7 @@
               ],
               "enableWhen": [
                 {
-                  "question": "E5_ReactieTijdensObservatieThuis",
+                  "question": "E5_ReactionDuringHomeObservation",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -1745,8 +1745,8 @@
               ]
             },
             {
-              "linkId": "E6c_BenauwdGevoel",
-              "text": "Benauwd gevoel",
+              "linkId": "E6c_TightnessSensation",
+              "text": "Tightness sensation",
               "type": "choice",
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
               "code": [
@@ -1758,7 +1758,7 @@
               ],
               "enableWhen": [
                 {
-                  "question": "E5_ReactieTijdensObservatieThuis",
+                  "question": "E5_ReactionDuringHomeObservation",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -1785,8 +1785,8 @@
               ]
             },
             {
-              "linkId": "E6d_Rillingen",
-              "text": "Rillingen",
+              "linkId": "E6d_Chills",
+              "text": "Chills",
               "type": "choice",
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
               "code": [
@@ -1798,7 +1798,7 @@
               ],
               "enableWhen": [
                 {
-                  "question": "E5_ReactieTijdensObservatieThuis",
+                  "question": "E5_ReactionDuringHomeObservation",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -1825,8 +1825,8 @@
               ]
             },
             {
-              "linkId": "E6e_GriepaalSyndroom",
-              "text": "Griepale syndromen",
+              "linkId": "E6e_InfluenzaLikeSyndrome",
+              "text": "Influenza-like syndromes",
               "type": "choice",
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
               "code": [
@@ -1838,7 +1838,7 @@
               ],
               "enableWhen": [
                 {
-                  "question": "E5_ReactieTijdensObservatieThuis",
+                  "question": "E5_ReactionDuringHomeObservation",
                   "operator": "=",
                   "answerCoding": {
                     "system": "http://snomed.info/sct",
@@ -1925,13 +1925,13 @@
       "extension": []
     },
     {
-      "linkId": "Kwaliteitsopvolging",
-      "text": "(Kwaliteits)opvolging",
+      "linkId": "QualityMonitoring",
+      "text": "(Quality) monitoring",
       "type": "group",
       "item": [
         {
-          "linkId": "F1_OpmerkingenAanmelding",
-          "text": "Zijn er opmerkingen of bezorgdheden omtrent de aanmelding van deze patient, de gegevensdeling vanuit het ziekenhuis, de communicatie door en het contact met het ziekenhuis, de beschikbaarheid van de materialen, of andere aspecten van de transmurale samenwerking rond thuishospitalisatie oncologie, dan kan je deze hier noteren. Alvast dank.",
+          "linkId": "F1_CommentsRegistration",
+          "text": "Please note any comments or concerns regarding the registration of this patient, the sharing of data from the hospital, the communication by and contact with the hospital, the availability of materials, or other aspects of the transmural collaboration around home hospitalization oncology. Thank you.",
           "type": "string",
           "code": [
             {
