@@ -9,9 +9,9 @@
 
 | # | TODO                                                                                                                                | Status     |
 |---|-------------------------------------------------------------------------------------------------------------------------------------|------------|
-| 1 | Test extraction against the **eHealth test server**                                                                                 | 🔲 pending |
-| 2 | Test extraction against the **Tiro test server**                                                                                    | 🔲 pending |
-| 3 | Create per-test **tutorial markdown files** in `tutorials/` with step-by-step instructions and references to relevant code and data | 🔲 pending |
+| 1 | Test extraction against the **Tiro test server**                                                                                    | 🔲 pending |
+| 2 | Create per-test **tutorial markdown files** in `tutorials/` with step-by-step instructions and references to relevant code and data | 🔲 pending |
+| 3 | Update apps for correct mapping of definitions                                                                                      | 🔲 pending |
 
 ---
 

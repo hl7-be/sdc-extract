@@ -398,11 +398,67 @@
               ]
             },
             {
-              "linkId": "E6_SpecifieerJa",
-              "text": "> Indien 'ja': specifieer",
+              "linkId": "E6a_Koorts",
+              "text": "Koorts",
               "answer": [
                 {
-                  "valueString": "Benauwd gevoel"
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373067005",
+                    "display": "No (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "E6b_Nausea",
+              "text": "Nausea",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373067005",
+                    "display": "No (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "E6c_BenauwdGevoel",
+              "text": "Benauwd gevoel",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373066001",
+                    "display": "Yes (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "E6d_Rillingen",
+              "text": "Rillingen",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373067005",
+                    "display": "No (qualifier value)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "E6e_GriepaalSyndroom",
+              "text": "Griepale syndromen",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "373067005",
+                    "display": "No (qualifier value)"
+                  }
                 }
               ]
             }
