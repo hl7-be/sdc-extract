@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # --- Configuration Variables ---
-TENANT_ID="your-tenant-id"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$SCRIPT_DIR/../.."
+source "$ROOT_DIR/.env"
 QUESTIONNAIRE_ID="your-questionnaire-id"
-API_KEY="your-secret-api-key"
 
 # --- API Execution ---
 curl --location "https://hapi.fhir-testserver.be/fhir/${TENANT_ID}/Questionnaire/${QUESTIONNAIRE_ID}?api_key=${API_KEY}"
