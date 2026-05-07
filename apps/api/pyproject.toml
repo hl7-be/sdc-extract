@@ -12,8 +12,18 @@ dependencies = [
     "uvicorn",
     "google-auth",
     "python-dotenv",
+    "fhir-sdc",
 ]
 
 [tool.uv]
 managed = true
+
+[tool.uv.sources]
+fhir-sdc = { git = "ssh://git@github.com/tiro-health/fhir-sdc-rs.git", tag = "v0.1.0-rc3" }
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.0.3",
+]
 
