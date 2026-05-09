@@ -1,0 +1,116 @@
+[
+  {
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/Observation"
+      ]
+    },
+    "note": [
+      {
+        "text": "No idea, this is a test but you can write a lot here."
+      }
+    ],
+    "resourceType": "Observation"
+  },
+  {
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/Observation"
+      ]
+    },
+    "note": [
+      {
+        "text": "Test"
+      }
+    ],
+    "resourceType": "Observation",
+    "valueQuantity": {
+      "value": 2
+    }
+  },
+  {
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/Observation"
+      ]
+    },
+    "note": [
+      {
+        "text": "No, because this is a test so that didn't work"
+      }
+    ],
+    "resourceType": "Observation"
+  },
+  {
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/Observation"
+      ]
+    },
+    "resourceType": "Observation",
+    "valueQuantity": {
+      "value": 6
+    }
+  },
+  {
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/Observation"
+      ]
+    },
+    "note": [
+      {
+        "text": "Test"
+      }
+    ],
+    "resourceType": "Observation"
+  },
+  {
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/Observation"
+      ]
+    },
+    "note": [
+      {
+        "text": "Test"
+      }
+    ],
+    "resourceType": "Observation"
+  },
+  {
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/Observation"
+      ]
+    },
+    "note": [
+      {
+        "text": "Test, the catheter tip looks strange"
+      }
+    ],
+    "resourceType": "Observation"
+  },
+  {
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/Observation"
+      ]
+    },
+    "note": [
+      {
+        "text": "Test, patient appears dejected"
+      }
+    ],
+    "resourceType": "Observation"
+  },
+  {
+    "conclusion": "Test, patient appeared to no longer care for themselves properly",
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/DiagnosticReport"
+      ]
+    },
+    "resourceType": "DiagnosticReport"
+  }
+]

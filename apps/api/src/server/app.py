@@ -28,6 +28,7 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 
 from src.server.routers import v1, v2
+from src.server.utils import OperationOutcomeException
 
 LOGGER = logging.getLogger(__name__)
 
@@ -40,6 +41,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.exception_handler(OperationOutcomeException)
+async def operation_outcome_exception_handler(request: Request, exc: OperationOutcomeException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content=exc.detail,
+        media_type="application/fhir+json",
+    )
 
 
 @app.exception_handler(Exception)

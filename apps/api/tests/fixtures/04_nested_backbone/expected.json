@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Alice",
+    "address": {
+      "street": "Rue de la Loi 16",
+      "city": "Brussels",
+      "zip": "1000"
+    }
+  }
+]
