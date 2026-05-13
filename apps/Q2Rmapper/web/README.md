@@ -6,7 +6,7 @@ Angular 18 application for annotating FHIR Questionnaires and extracting structu
 
 - [Node.js](https://nodejs.org/) 18 or higher
 - [npm](https://www.npmjs.com/) (bundled with Node.js)
-- A running backend (see `../api/README.md`)
+- A running backend (see `../api/README.md` or [`../../Q2Rmapper/api/README.md`](../api/README.md))
 
 ## Getting started
 
