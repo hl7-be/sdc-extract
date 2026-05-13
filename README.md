@@ -5,20 +5,6 @@
 
 ---
 
-## 🚧 Status — Work in Progress
-
-| # | TODO                                                                                                  | 
-|---|-------------------------------------------------------------------------------------------------------|
-| 1 | Test extraction against the **Tiro test server**                                                      | 
-| 2 | Axel: test3 pre-population verder uitschrijven                                                        |  
-| 3 | Annabel: Update apps for correct mapping of definitions                                               | 
-| 4 | Annabel: Logical models van opat en onco                                                              | 
-| 5 | Axel: logical models en testscripts voor kankerregistratie                                            | 
-| 6 | ? nog een extra testscenario toevoegen om zelf definities te inputten? voor de echte advanced mensen? | 
-| 7 | ? kleine sdc quiz toevoegen bij tutorials?                                                            | 
-
----
-
 ## Objective
 
 This repository demonstrates and tests **definition-based extraction** — a mechanism
@@ -35,9 +21,9 @@ and the extraction specification.
 
 Two Belgian use cases anchor the atelier:
 
-- **Thuishospitalisatie**: A home care nurse documents an OPAT treatment or antitumoral therapy. Extracted resources (
+- **Home hospitalization**: A home care nurse documents an OPAT treatment or antitumoral therapy. Extracted resources (
   `Observation`, `DiagnosticReport`, `MedicationStatement`) flow into the patient record. Directly linked to the
-  FOD-funded thuishospitalisatie pilot (UZ Leuven, Corilus, Wit-Gele Kruis, nexuzhealth — running since January 2026).
+  FOD-funded home hospitalization pilot (UZ Leuven, Wit-Gele Kruis, Corilus, nexuzhealth - running since January 2026).
 - **Registry population**: A clinician submits a QERMID implant registration or cancer notification (BCR). Output is
   validated against registry `StructureDefinition`s and forwarded to the receiving infrastructure. Relevant for
   Sciensano/HealthData.be (HD4DP), Belgian Cancer Registry, and BSP.
@@ -130,7 +116,7 @@ and the next access throws.
 
 ### Extracted `Observation`s have an empty `code`
 
-`status`, `category`, `subject`, `value[x]` come out fine but `Observation.code` is `{}`. That's not a bug — the Q is
+`status`, `category`, `subject`, `value[x]` come out fine but `Observation.code` is `{}`. That's not a bug - the Q is
 missing a `sdc-questionnaire-definitionExtractValue` for `Observation.code` on the group. Add one with a coded fixed
 value, e.g.:
 
@@ -161,7 +147,7 @@ value, e.g.:
 ### `valueExpression` on `definitionExtract` / `definitionExtractValue` is silently ignored
 
 The SDC IG documents both `valueCanonical` and `valueExpression` as permitted forms. HAPI's CR reads these primitives
-via `IPrimitiveType` and only the canonical/URI forms parse — `valueExpression` is silently dropped, which makes the
+via `IPrimitiveType` and only the canonical/URI forms parse - `valueExpression` is silently dropped, which makes the
 dispatch fall through to observation-based extraction (and you end up at the first FSE in this list). *
 *Use `valueCanonical` (for `definitionExtract`) and `valueUri` (for the `definition` sub-extension),
 not `valueExpression`, until HAPI's CR adds expression support.**
@@ -178,8 +164,9 @@ java.lang.IllegalArgumentException: java.lang.ClassNotFoundException:
 
 Real cause: **HAPI's CR `$extract` implementation only supports core FHIR R4 resource types as extraction targets.** It
 derives the target type from the `definitionExtract` canonical URL and then attempts to load a Java class from the
-`org.hl7.fhir.r4.model` package. For standard types like `Observation` this resolves to `org.hl7.fhir.r4.model.Observation`
-— a real class. For a logical model URL it constructs an invalid class name and throws `ClassNotFoundException`.
+`org.hl7.fhir.r4.model` package. For standard types like `Observation` this resolves to
+`org.hl7.fhir.r4.model.Observation` - a real class. For a logical model URL it constructs an invalid class name and
+throws `ClassNotFoundException`.
 
 > ℹ️ This is **not** a StructureDefinition resolution problem. Uploading the `StructureDefinition` resource to the HAPI
 > server (so the canonical URL resolves within the store) does **not** fix it — HAPI's extraction code never reaches the
