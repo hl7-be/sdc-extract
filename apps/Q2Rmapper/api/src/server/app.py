@@ -2,7 +2,7 @@ import logging
 import os
 from pathlib import Path
 
-# Load .env from apps/api/ regardless of working directory or which venv is active.
+# Load .env from apps/Q2Rmapper/api/ regardless of working directory or which venv is active.
 _ENV_FILE = Path(__file__).parent.parent.parent / ".env"
 try:
     from dotenv import load_dotenv
@@ -27,8 +27,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 
-from src.server.routers import v1, v2
-from src.server.utils import OperationOutcomeException
+from src.server.routers import v1
 
 LOGGER = logging.getLogger(__name__)
 
@@ -43,15 +42,6 @@ app.add_middleware(
 )
 
 
-@app.exception_handler(OperationOutcomeException)
-async def operation_outcome_exception_handler(request: Request, exc: OperationOutcomeException):
-    return JSONResponse(
-        status_code=exc.status_code,
-        content=exc.detail,
-        media_type="application/fhir+json",
-    )
-
-
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     LOGGER.exception("Unhandled exception")
@@ -59,7 +49,6 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 
 app.include_router(v1.router, prefix="/api/v1")
-app.include_router(v2.router, prefix="/api/v2")
 
 
 # uvicorn src.server.app:app --reload --port 8000

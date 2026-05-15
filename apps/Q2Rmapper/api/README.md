@@ -13,7 +13,7 @@ FastAPI backend for annotating FHIR Questionnaires with SNOMED CT codes and FHIR
 
 ## Running locally
 
-From the `api/` directory:
+From the `Q2Rmapper/api/` directory:
 
 ```bash
 uv run uvicorn src.server.app:app --reload --port 8000
@@ -106,10 +106,10 @@ The settings modal in the web UI exposes these fields. For curl or the `/docs` U
 ## Project structure
 
 ```
-api/
+Q2Rmapper/api/
 ├── src/
 │   ├── server/
-│   │   ├── app.py            # FastAPI routes
+│   │   ├── app.py            # FastAPI app entry point
 │   │   ├── fhir_client.py    # FHIR HTTP client
 │   │   └── fhir_validator.py # StructureDefinition fetching + caching
 │   └── core/
