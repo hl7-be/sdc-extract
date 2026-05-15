@@ -66,7 +66,11 @@ provided in `data/` and `scripts/` so any role can participate even without the 
 
 ```
 sdc-extract/
-├── apps/        # Q2R Mapper - Angular + FastAPI app for annotating Questionnaires and running $extract
+├── apps/        
+│   ├── Q2Rmapper/          # Interactive annotation tool (Angular + FastAPI)
+│   │   ├── web/            #   Angular 18 frontend
+│   │   └── api/            #   FastAPI backend (questionnaire mapping + preview extraction)
+│   └── tiro_sdc_extract/   # Standalone FHIR SDC $extract service (Python)
 ├── data/        # Sample Questionnaire and QuestionnaireResponse files
 ├── docs/        # Investigation notes, troubleshooting, and design documents
 ├── scripts/     # Shell scripts for calling FHIR servers
