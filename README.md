@@ -1,18 +1,18 @@
 # sdc-extract
 
-> **BE FHIR-a-thon — Test atelier: From forms to FHIR**
+> **BE FHIR-a-thon - Test atelier: From forms to FHIR**
 > Definition-based extraction in Belgian healthcare
 
 ---
 
 ## Objective
 
-This repository demonstrates and tests **definition-based extraction** — a mechanism
-in [FHIR SDC (Structured Data Capture)](https://hl7.org/fhir/uv/sdc/) that automatically transforms completed
+This repository demonstrates and tests **definition-based extraction** - a mechanism in
+[FHIR SDC (Structured Data Capture)](https://hl7.org/fhir/uv/sdc/) that automatically transforms completed
 `QuestionnaireResponse` resources into discrete, interoperable FHIR resources without custom per-vendor mapping code.
 
 By linking `Questionnaire` items to `StructureDefinition`s via the `.definition` element, the `$extract` operation
-converts form responses into Bundles of profiled FHIR resources — making the Questionnaire both the form specification
+converts form responses into Bundles of profiled FHIR resources - making the Questionnaire both the form specification
 and the extraction specification.
 
 ---
@@ -21,10 +21,10 @@ and the extraction specification.
 
 Two Belgian use cases anchor the atelier:
 
-- **Home hospitalization**: A home care nurse documents an OPAT treatment or antitumoral therapy. Extracted resources (
-  `Observation`, `DiagnosticReport`, `MedicationStatement`) flow into the patient record. Directly linked to the
+- **Home hospitalization:** a home care nurse documents an OPAT treatment or antitumoral therapy. Extracted resources
+  (`Observation`, `DiagnosticReport`, `MedicationStatement`) flow into the patient record. Directly linked to the
   FOD-funded home hospitalization pilot (UZ Leuven, Wit-Gele Kruis, Corilus, nexuzhealth - running since January 2026).
-- **Registry population**: A clinician submits a QERMID implant registration or cancer notification (BCR). Output is
+- **Registry population:** a clinician submits a QERMID implant registration or cancer notification (BCR). Output is
   validated against registry `StructureDefinition`s and forwarded to the receiving infrastructure. Relevant for
   Sciensano/HealthData.be (HD4DP), Belgian Cancer Registry, and BSP.
 
@@ -32,21 +32,31 @@ Two Belgian use cases anchor the atelier:
 
 ## Roles in the Data Flow
 
-| Role           | Actor                      | Responsibility                                                                                                               | Partner                    |
-|----------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------|----------------------------|
-| Domain expert  | Registries & institutions  | Publish StructureDefinitions (profiles / logical models); co-author Questionnaire `.definition` links                        | UZ Leuven                  |
-| Data provider  | EHR vendors, care software | Render Questionnaire, capture QuestionnaireResponse, call `$extract` (shared API available — no own implementation required) | Tiro.health, nexuzhealth   |
-| Data transport | FHIR server infrastructure | Receive Transaction Bundle, validate against StructureDefinitions, expose resources via standard FHIR search                 | Amaron, nexuzhealth, Axian |
+Each test scenario is a shared exercise - roles contribute different inputs to the same scenario rather than running
+separate tracks in parallel.
+
+| Role           | Actor                      | Contribution to the tests                                                                                                          | Partner                    |
+|----------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
+| Domain expert  | Registries & institutions  | Publish `StructureDefinition`s (profiles / logical models); co-author `Questionnaire` `.definition` links and extraction metadata | UZ Leuven                  |
+| Data provider  | EHR vendors, care software | Render the `Questionnaire`, capture the `QuestionnaireResponse`, call `$extract` (shared API available - no own server required)  | Tiro.health, nexuzhealth   |
+| Data transport | FHIR server infrastructure | Receive the transaction `Bundle`, validate against `StructureDefinition`s, expose resources via standard FHIR search              | Amaron, nexuzhealth, Axian |
+
+A single scenario run therefore requires at minimum: a `Questionnaire` + `StructureDefinition` (domain expert), a
+`QuestionnaireResponse` (data provider), and a receiving FHIR server (data transport). Sample files for all three are
+provided in `data/` and `scripts/` so any role can participate even without the others present on the day.
 
 ---
 
 ## Test Scenarios
 
-| # | Title                                         | Difficulty | Tutorial                                                                                       |
-|---|-----------------------------------------------|------------|------------------------------------------------------------------------------------------------|
-| 1 | Definition-based Extraction to FHIR Resources | Core       | [`tutorials/test1-definition-based-extraction/`](tutorials/test1-definition-based-extraction/) |
-| 2 | Extraction to Logical Models                  | Advanced   | [`tutorials/test2-logical-model-extraction/`](tutorials/test2-logical-model-extraction/)       |
-| 3 | Pre-population                                | Bonus      | [`tutorials/test3-pre-population/`](tutorials/test3-pre-population/)                           |
+> **TODO:** Detailed test scenario guides are under development in a separate branch. The table below lists the planned
+> scenarios; tutorial folder links will become active once that work is merged.
+
+| # | Title                                         | Difficulty |
+|---|-----------------------------------------------|------------|
+| 1 | Definition-based Extraction to FHIR Resources | Core       |
+| 2 | Extraction to Logical Models                  | Advanced   |
+| 3 | Pre-population                                | Bonus      |
 
 ---
 
@@ -54,136 +64,28 @@ Two Belgian use cases anchor the atelier:
 
 ```
 sdc-extract/
-├── apps/
+├── apps/        
 │   ├── Q2Rmapper/          # Interactive annotation tool (Angular + FastAPI)
 │   │   ├── web/            #   Angular 18 frontend
 │   │   └── api/            #   FastAPI backend (questionnaire mapping + preview extraction)
 │   └── tiro_sdc_extract/   # Standalone FHIR SDC $extract service (Python)
-├── data/
-│   └── samples/            # Sample Questionnaire and QuestionnaireResponse files
-│       ├── homehosp_q_onco_definitions.json
-│       ├── homehosp_q_opat_definitions.json
-│       ├── homehosp_qr_onco.json
-│       └── homehosp_qr_opat.json
-├── scripts/
-│   └── curls/              # Shell scripts for calling the eHealth test server
-│       ├── working_extraction_opat.sh             # Test 1 — $extract OPAT (FHIR resources)
-│       ├── working_extraction_onco.sh             # Test 1 — $extract Oncology (FHIR resources)
-│       ├── working_extraction_opat_logicalmodel.sh  # Test 2 — $extract OPAT (logical model)
-│       ├── working_extraction_onco_logicalmodel.sh  # Test 2 — $extract Oncology (logical model)
-│       ├── extract_questionnaireresponse_ehtestserver.sh
-│       ├── get_questionnaire_ehtestserver.sh
-│       └── post_questionnaire_ehtestserver.sh
-└── tutorials/              # Step-by-step test guides
-    ├── test1-definition-based-extraction/
-    ├── test2-logical-model-extraction/
-    └── test3-pre-population/
+├── data/        # Sample Questionnaire and QuestionnaireResponse files
+├── docs/        # Investigation notes, troubleshooting, and design documents
+├── scripts/     # Shell scripts for calling FHIR servers
+└── tutorials/   # Step-by-step test guides (in progress)
 ```
 
 ---
 
-## FSE (Frequent stupid errors) to avoid
+## Troubleshooting
 
-### `IllegalArgumentException: Unable to retrieve Questionnaire code map for Observation based extraction`
+Common errors and workarounds are collected in [`docs/fse-faq.md`](docs/fse-faq.md).
 
-This error means HAPI's `$extract` tried to fall through to **observation-based** extraction (the legacy
-`sdc-questionnaire-observationLinkPeriod` / "code map" path) instead of the definition-based path you intended. To force
-definition-based processing, ensure **at least one leaf item carries `sdc-questionnaire-definitionExtract`** with a
-target `valueCanonical` (e.g. `http://hl7.org/fhir/StructureDefinition/Observation`). It does *not* need to be on every
-single leaf — the Questionnaire in `data/samples/homehosp_q_opat_definitions.json` and the two-step
-`scripts/curls/working-extraction.sh` are working examples with the extension only on the group items that should
-produce values.
+For the known limitation with logical-model extraction targets on HAPI, see:
+- [`docs/hapi-extract-logical-model-root-cause.md`](docs/hapi-extract-logical-model-root-cause.md) - source-level root cause
+- [`docs/hapi-extract-logical-model-fork-guide.md`](docs/hapi-extract-logical-model-fork-guide.md) - forking approach (untested)
 
-> ℹ️ Earlier wisdom suggested that having `code` elements on leaves was forbidden under definition-based extraction.
-> That turns out **not** to be the case — the SDC code path doesn't reject it. The leaf `code` is simply redundant:under
-> definition-based extraction the extracted `Observation.code` comes from a `sdc-questionnaire-definitionExtractValue`
-> fixed-value extension on the **group**, not from `Questionnaire.item.code`.
-
-### `NullPointerException` deep in `ItemPair.getItem(...)`
-
-Symptom: `$extract` returns 500 with a stack trace pointing at
-`org.opencds.cqf.fhir.cr.questionnaireresponse.extract.ProcessDefinitionItem` (or a similarly-named CR class), with the
-NPE on `ItemPair.getItem()`.
-
-Real cause: **a linkId in the `QuestionnaireResponse` does not resolve to any item in the `Questionnaire`.** HAPI's CR
-builds an `ItemPair` for every QR leaf, and if it can't find the matching Q item, the pair's `getItem()` returns null,
-and the next access throws.
-
-> 🔍 This can happen with any Questionnaire/QuestionnaireResponse pair where the linkId sets diverge — for example, when
-> a Q was regenerated or hand-edited and the QR was authored against an earlier version. Only the linkIds that exist in
-> both resources will resolve correctly; any QR linkId absent from the Q will trigger this NPE.
-
-**How to fix:** make sure every `QuestionnaireResponse.item.linkId` (recursively) is also present in the referenced
-`Questionnaire`. Diff the linkId sets first whenever you see this NPE.
-
-### Extracted `Observation`s have an empty `code`
-
-`status`, `category`, `subject`, `value[x]` come out fine but `Observation.code` is `{}`. That's not a bug - the Q is
-missing a `sdc-questionnaire-definitionExtractValue` for `Observation.code` on the group. Add one with a coded fixed
-value, e.g.:
-
-```json
-{
-  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
-  "extension": [
-    {
-      "url": "definition",
-      "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
-    },
-    {
-      "url": "fixed-value",
-      "valueCodeableConcept": {
-        "coding": [
-          {
-            "system": "http://loinc.org",
-            "code": "8716-3",
-            "display": "Vital signs"
-          }
-        ]
-      }
-    }
-  ]
-}
-```
-
-### `valueExpression` on `definitionExtract` / `definitionExtractValue` is silently ignored
-
-The SDC IG documents both `valueCanonical` and `valueExpression` as permitted forms. HAPI's CR reads these primitives
-via `IPrimitiveType` and only the canonical/URI forms parse - `valueExpression` is silently dropped, which makes the
-dispatch fall through to observation-based extraction (and you end up at the first FSE in this list). *
-*Use `valueCanonical` (for `definitionExtract`) and `valueUri` (for the `definition` sub-extension),
-not `valueExpression`, until HAPI's CR adds expression support.**
-
-### `ClassNotFoundException: org.hl7.fhir.r4.model.<logical-model-URL>` when extracting to a Logical Model
-
-Symptom: `$extract` with a Questionnaire whose `sdc-questionnaire-definitionExtract` points to a **logical model**
-canonical URL returns an `OperationOutcome` like:
-
-```
-java.lang.IllegalArgumentException: java.lang.ClassNotFoundException:
-  org.hl7.fhir.r4.model.http://hl7belgium.org/fhir/patient-monitoring/StructureDefinition/onco-trastuzumab-questionnaire
-```
-
-Real cause: **HAPI's CR `$extract` implementation only supports core FHIR R4 resource types as extraction targets.** It
-derives the target type from the `definitionExtract` canonical URL and then attempts to load a Java class from the
-`org.hl7.fhir.r4.model` package. For standard types like `Observation` this resolves to
-`org.hl7.fhir.r4.model.Observation` - a real class. For a logical model URL it constructs an invalid class name and
-throws `ClassNotFoundException`.
-
-> ℹ️ This is **not** a StructureDefinition resolution problem. Uploading the `StructureDefinition` resource to the HAPI
-> server (so the canonical URL resolves within the store) does **not** fix it — HAPI's extraction code never reaches the
-> lookup step. Publishing the IG at the canonical URL makes no difference either. The failure is hardcoded in the Java
-> dispatch logic.
-
-**Workarounds:**
-
-- **StructureMap-based extraction**: author a `StructureMap` that transforms `QuestionnaireResponse` into the logical
-  model instance, reference it via `sdc-questionnaire-targetStructureMap`, and call `$extract`. HAPI does support
-  StructureMap-based extraction. Complex to author but spec-compliant.
-- **Client-side assembly**: use Test 1 (definition-based extraction to standard FHIR resources) to get a Bundle of
-  `Observation` resources, then reassemble into the logical model shape on the client using the same element mappings
-  that were defined in the logical model `StructureDefinition`.
-- **Different server**: Tiroserver???
+---
 
 ## Contact
 
