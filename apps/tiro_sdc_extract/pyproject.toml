@@ -1,16 +1,12 @@
 [project]
-name = "fhirquestionnaire-mapper"
+name = "tiro-sdc-extract"
 version = "0.1.0"
-description = "Mapping and labeling FHIR Questionnaires"
+description = "Standalone FHIR SDC $extract service (definition-based extraction)"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "fhir-resources>=7.1.0",
-    "pydantic>=2.0",
     "fastapi>=0.100.0",
-    "requests",
     "uvicorn",
-    "google-auth",
     "python-dotenv",
     "fhir-sdc",
 ]
@@ -26,4 +22,3 @@ dev = [
     "httpx>=0.28.1",
     "pytest>=9.0.3",
 ]
-

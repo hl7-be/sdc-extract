@@ -54,9 +54,11 @@ Two Belgian use cases anchor the atelier:
 
 ```
 sdc-extract/
-├── apps/                   # Q2R Mapper — Angular + FastAPI app for annotating
-│   ├── web/                #   Questionnaires and running $extract
-│   └── api/
+├── apps/
+│   ├── Q2Rmapper/          # Interactive annotation tool (Angular + FastAPI)
+│   │   ├── web/            #   Angular 18 frontend
+│   │   └── api/            #   FastAPI backend (questionnaire mapping + preview extraction)
+│   └── tiro_sdc_extract/   # Standalone FHIR SDC $extract service (Python)
 ├── data/
 │   └── samples/            # Sample Questionnaire and QuestionnaireResponse files
 │       ├── homehosp_q_onco_definitions.json
