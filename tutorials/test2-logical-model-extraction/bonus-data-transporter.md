@@ -52,3 +52,12 @@ This bonus asks you to extend that thinking to the logical model case.
   corresponds to which QuestionnaireResponse?
 - Is Provenance applicable here the same way it is for FHIR resources? What would a Provenance
   resource for a Binary look like?
+
+---
+
+## Share your findings
+
+Copy `submissions/TEMPLATE.md`, rename it to `{your-github-handle-or-team}.md`, fill in what
+you tried and found, and open a pull request targeting `main`.
+
+See [`../CONTRIBUTING.md`](../CONTRIBUTING.md) for the full process.

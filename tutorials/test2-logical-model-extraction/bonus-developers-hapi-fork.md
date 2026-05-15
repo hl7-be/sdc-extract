@@ -70,3 +70,13 @@ Proposed fix design: [`docs/hapi-extract-logical-model-fork-guide.md`](../../doc
 - If you get a working prototype, what would it take to upstream the change to
   `clinical-reasoning`? What tests would the maintainers require?
 - Is this a contribution worth making to the HL7 community?
+
+---
+
+## Share your findings
+
+Copy `submissions/TEMPLATE.md`, rename it to `{your-github-handle-or-team}.md`, fill in what
+you explored and concluded, and open a pull request targeting `main`. For code patches, modified
+`pom.xml` snippets, or other files, put them in `submissions/prototypes/{your-handle}/`.
+
+See [`../CONTRIBUTING.md`](../CONTRIBUTING.md) for the full process.

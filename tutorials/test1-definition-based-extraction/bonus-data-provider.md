@@ -49,3 +49,12 @@ server, see [`docs/general-extractor.md`](../../docs/general-extractor.md).
   would need to change? How would you POST the resulting Bundle?
 - How would you handle errors - should a problem with one answer block the whole Bundle, or just
   skip the affected resource?
+
+---
+
+## Share your findings
+
+Copy `submissions/TEMPLATE.md`, rename it to `{your-github-handle-or-team}.md`, fill in what
+you tried and found, and open a pull request targeting `main`.
+
+See [`../CONTRIBUTING.md`](../CONTRIBUTING.md) for the full process.

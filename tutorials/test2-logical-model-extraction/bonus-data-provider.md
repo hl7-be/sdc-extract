@@ -52,3 +52,13 @@ For how the extractor works and how to run it locally, see
 - If you got a successful `$extract` response from the Tiro server in the base test, decode the
   Binary and compare its JSON with what the Python extractor produces (or would produce). Are
   the element paths equivalent?
+
+---
+
+## Share your findings
+
+Copy `submissions/TEMPLATE.md`, rename it to `{your-github-handle-or-team}.md`, fill in what
+you tried and found, and open a pull request targeting `main`. For code or modified Python files,
+put them in `submissions/prototypes/{your-handle}/`.
+
+See [`../CONTRIBUTING.md`](../CONTRIBUTING.md) for the full process.

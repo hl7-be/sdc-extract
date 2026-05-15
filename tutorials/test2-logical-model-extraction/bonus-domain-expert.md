@@ -58,3 +58,12 @@ Look at the StructureDefinition uploaded by
 - How would you handle versioning - if the logical model changes, what happens to previously
   extracted instances?
 - Who would be responsible for authoring and evolving the logical model in your organisation?
+
+---
+
+## Share your findings
+
+Copy `submissions/TEMPLATE.md`, rename it to `{your-github-handle-or-team}.md`, fill in what
+you tried and found, and open a pull request targeting `main`.
+
+See [`../CONTRIBUTING.md`](../CONTRIBUTING.md) for the full process.

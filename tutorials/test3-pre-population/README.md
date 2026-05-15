@@ -138,3 +138,7 @@ look up when pre-filling - without requiring FHIRPath expressions.
 This direction is not yet documented or tested here.
 
 **Want to help? See [GitHub issue #8](https://github.com/hl7-be/sdc-extract/issues/8).**
+
+To share what you tried or designed during the atelier, copy `submissions/TEMPLATE.md`, rename it
+to `{your-github-handle-or-team}.md`, and open a pull request. See
+[`../CONTRIBUTING.md`](../CONTRIBUTING.md) for the full process.
