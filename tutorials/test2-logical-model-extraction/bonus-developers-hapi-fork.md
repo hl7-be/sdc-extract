@@ -8,9 +8,12 @@ understand the problem, evaluate the proposed fix, and optionally prototype it.
 ---
 
 > [!WARNING]
-> The fix described in [`docs/hapi-extract-logical-model-fork-guide.md`](../../docs/hapi-extract-logical-model-fork-guide.md)
-> is an **untested design sketch** based on reading the upstream source. It has not been
-> implemented or validated.
+> The root cause analysis in [`docs/hapi-extract-logical-model-root-cause.md`](../../docs/hapi-extract-logical-model-root-cause.md)
+> and the fix described in [`docs/hapi-extract-logical-model-fork-guide.md`](../../docs/hapi-extract-logical-model-fork-guide.md)
+> are **unverified**: they are based on reading the upstream source, not on running or debugging
+> live code. The actual failure mode may differ, and there may be additional problems not captured
+> in the analysis. Treat both documents as a starting point for investigation, not a confirmed
+> diagnosis.
 
 ---
 
