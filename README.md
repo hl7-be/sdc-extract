@@ -2,6 +2,8 @@
 
 > **BE FHIR-a-thon - Test atelier: From forms to FHIR**
 > Definition-based extraction in Belgian healthcare
+> 
+> By Tiro.health and UZ Leuven
 
 ---
 
@@ -87,7 +89,11 @@ For the known limitation with logical-model extraction targets on HAPI, see:
 
 ---
 
-## Contact
+## Contact & partners
+
+Partners of this FHIR-a-thon test-atelier are Axians, Amaron, Intersystems and Nexuzhealth.
+
+Want to partner with us? Contact us at 
 
 - [axel.vanraes@tiro.health](mailto:axel.vanraes@tiro.health)
 - [annabel.dompas@uzleuven.be](mailto:annabel.dompas@uzleuven.be)

@@ -1,97 +1,74 @@
-# Test 2 — Extraction to Logical Models
+# Test 2 - Extraction to a Logical Model
 
 **Difficulty:** Advanced  
-**Estimated time:** 45–60 min
+**Estimated time:** 30–45 min  
+**Prerequisite:** complete [Test 1](../test1-definition-based-extraction/README.md) first
 
 ---
 
-## Objective
-
-Extract data from a `QuestionnaireResponse` into a custom data model defined as a FHIR
-**logical model** (`StructureDefinition` with `kind: logical`). The result is a `Binary`
-resource containing raw JSON that conforms to the logical model's element structure — not
-a bundle of FHIR clinical resources.
-
----
-
-## Background
-
-### What is a FHIR Logical Model?
-
-A FHIR logical model is a `StructureDefinition` with `kind: logical` that describes an
-arbitrary data structure — it does not need to correspond to any FHIR resource type. Registries
-(BCR, HD4DP, QERMID) use logical models to specify their submission formats independently of
-standard FHIR clinical resources.
-
-### How does extraction differ from Test 1?
-
-| Aspect                                                 | Test 1 (FHIR resources)                                                                      | Test 2 (Logical model)                                                                                        |
-|--------------------------------------------------------|----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| `.definition` targets                                  | `StructureDefinition#Resource.element` (e.g., `Observation#Observation.valueQuantity.value`) | `StructureDefinition#LogicalModel.element` (e.g., `HomeHospAssessment#HomeHospAssessment.vitals.temperature`) |
-| `sdc-questionnaire-definitionExtract` `valueCanonical` | `http://hl7.org/fhir/StructureDefinition/Observation`                                        | URL of the logical model, e.g., `http://example.org/StructureDefinition/HomeHospAssessment`                   |
-| `Accept` header                                        | `application/fhir+json`                                                                      | **`application/json`**                                                                                        |
-| Response type                                          | `Bundle` of FHIR resources                                                                   | `Binary` containing raw JSON                                                                                  |
-| Output use                                             | POST to FHIR server, query via FHIR search                                                   | Feed to registry-specific system                                                                              |
-
-The critical difference is the **`Accept: application/json`** header. HAPI's CR engine checks
-this header to decide whether to run definition-based extraction into FHIR resources or into
-a logical model structure.
+> [!IMPORTANT]
+> **Logical model extraction does not work on the eHealth testserver (HAPI).** This test
+> requires the **Tiro testserver**.
+>
+> **Tiro testserver credentials: TBD - ask the organisers on the day.**
+>
+> For the technical reason why HAPI cannot do this, see
+> [`docs/hapi-extract-logical-model-root-cause.md`](../../docs/hapi-extract-logical-model-root-cause.md).
 
 ---
 
-## What You Need
+## What this test does
 
-### 1. A logical model Questionnaire
+Instead of extracting into standard FHIR resource types (`Observation`, `DiagnosticReport`…), the
+Questionnaire items point to elements of a **logical model** - a custom data structure defined as
+a FHIR `StructureDefinition` with `kind: logical`. The `$extract` response is a `Binary` resource
+whose `.data` field contains base64-encoded JSON conforming to that logical model.
 
-You need a `Questionnaire` where:
+```
+QuestionnaireResponse  →  $extract  →  Binary (base64 JSON)  →  decode  →  logical model instance
+```
 
-- Each item's `.definition` points to an element path in your logical model, e.g.:
-  ```
-  "definition": "http://example.org/StructureDefinition/HomeHospAssessment#HomeHospAssessment.vitals.temperature"
-  ```
-- The group item that represents the root of the logical model carries:
-  ```json
-  {
-    "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtract",
-    "valueCanonical": "http://example.org/StructureDefinition/HomeHospAssessment"
-  }
-  ```
+Compared to Test 1:
 
-Sample files (to be added):
+| | Test 1 | Test 2 |
+|--|--------|--------|
+| `.definition` targets | Core FHIR resource element (e.g. `Observation#Observation.valueQuantity.value`) | Logical model element (e.g. `HomeHospAssessment#HomeHospAssessment.vitals.temperature`) |
+| `Accept` header | `application/fhir+json` | **`application/json`** |
+| Response | Bundle of FHIR resources | Binary containing raw JSON |
 
-- `data/samples/homehosp_q_opat_logicalmodel.json`
-- `data/samples/homehosp_q_onco_logicalmodel.json`
+The `Accept: application/json` header is what signals to the server that a logical model target is
+intended. If you forget it, the server tries FHIR resource extraction and fails for logical model
+paths.
 
-### 2. A completed QuestionnaireResponse
+---
 
-Reuse the existing samples — the QR structure does not change between Test 1 and Test 2;
-only the Q changes:
+## What you need
 
-- [`data/samples/homehosp_qr_opat.json`](../../data/samples/homehosp_qr_opat.json)
-- [`data/samples/homehosp_qr_onco.json`](../../data/samples/homehosp_qr_onco.json)
+### Server
 
-> **eHealth Test Server:** The server already contains many patients and other FHIR resources.
-> You can substitute any patient from the server — browse via
-> `GET https://hapi.fhir-testserver.be/fhir/${TENANT_ID}/Patient?api_key=${API_KEY}` —
-> and update the `subject.reference` in your QR accordingly.
+Tiro testserver only. Credentials TBD - ask organisers on the day.
 
-### 3. The logical model StructureDefinition
+### Sample data
 
-The `StructureDefinition` with `kind: logical` must be registered on the FHIR server before
-calling `$extract`, so the server can resolve the canonical URL in `.definition` and
-`sdc-questionnaire-definitionExtract`. POST it first:
+Logical model Questionnaires are in [`data/samples/`](../../data/samples/). The
+QuestionnaireResponses from Test 1 are reused directly.
+
+| Scenario | Questionnaire | QuestionnaireResponse |
+|----------|---------------|-----------------------|
+| OPAT | `homehosp_q_opat_logicalmodel.json` | `homehosp_qr_opat.json` |
+| Oncology | `homehosp_q_onco_logicalmodel.json` | `homehosp_qr_onco.json` |
+
+### Logical model StructureDefinitions
+
+Before calling `$extract`, the server must know the logical model. Register the StructureDefinitions:
 
 ```bash
-curl --location "https://hapi.fhir-testserver.be/fhir/${TENANT_ID}/StructureDefinition?api_key=${API_KEY}" \
-  --header "Content-Type: application/fhir+json" \
-  --data "@data/samples/homehosp_logicalmodel.json"
+bash scripts/curls/upload_logicalmodel_structuredefinitions.sh
 ```
 
 ---
 
-## Step 1 — Call `$extract` with `Accept: application/json`
-
-Use the ready-made scripts:
+## Step 1 - Call `$extract`
 
 ```bash
 # OPAT
@@ -101,70 +78,59 @@ bash scripts/curls/working_extraction_opat_logicalmodel.sh
 bash scripts/curls/working_extraction_onco_logicalmodel.sh
 ```
 
-Both scripts ([`working_extraction_opat_logicalmodel.sh`](../../scripts/curls/working_extraction_opat_logicalmodel.sh),
-[`working_extraction_onco_logicalmodel.sh`](../../scripts/curls/working_extraction_onco_logicalmodel.sh))
-are identical to the Test 1 scripts except for one header:
+Note the `Accept: application/json` header in these scripts - this is what tells the server to
+return logical model output rather than a FHIR Bundle.
 
-```
---header 'Accept: application/json'
-```
-
-This signals to HAPI's CR to produce logical model JSON instead of a FHIR Bundle.
+**Expected response:** a `Binary` resource (`resourceType: "Binary"`) with a `data` field
+containing a base64-encoded string.
 
 ---
 
-## Step 2 — Inspect the Binary Response
+## Step 2 - Decode the Binary
 
-The server returns a `Binary` resource. The actual payload is in `Binary.data` (base64-encoded)
-or in `Binary.content` depending on the HAPI version. Decode it:
+Decode the base64 content to inspect the extracted logical model instance:
 
 ```bash
 bash scripts/curls/working_extraction_opat_logicalmodel.sh \
-  | jq -r '.data' | base64 -d | jq .
+  | jq -r '.data' | base64 --decode | jq .
 ```
 
-The decoded JSON should match your logical model's element structure, e.g.:
-
-```json
-{
-  "resourceType": "HomeHospAssessment",
-  "vitals": {
-    "temperature": 37.2,
-    "systolicBP": 120,
-    "diastolicBP": 80,
-    "weight": 72.5
-  },
-  "contraindications": {
-    "present": true,
-    "dyspnea": true
-  }
-}
-```
+The decoded JSON should reflect the structure of the logical model - for example, a
+`vitals.temperature` element for the OPAT scenario.
 
 ---
 
-## Step 3 — Validate Against the Logical Model
+## Step 3 - Validate against the logical model
 
-Validate the decoded JSON against your logical model StructureDefinition using the FHIR
-validator or a registry-specific schema.
+Inspect the decoded JSON and check that the field names and nesting match the element paths
+defined in the `StructureDefinition` (`.snapshot.element[*].path`). Each answer in the QR should
+have landed in the correct element.
 
 ---
 
-## Success Criteria
+## Success criteria
 
-- [ ] `$extract` returns a `Binary` resource (not a `Bundle` or `OperationOutcome`).
+- [ ] `$extract` returns a `Binary` resource (not a Bundle and not an OperationOutcome).
 - [ ] `Binary.data` decodes to valid JSON.
-- [ ] Decoded JSON element paths match the logical model StructureDefinition.
-- [ ] Logical model StructureDefinition can be registered on the test server without errors.
-- [ ] Decoded JSON can be consumed by the registry-specific system (or passes schema validation).
+- [ ] The decoded JSON element paths match the logical model StructureDefinition.
+- [ ] The StructureDefinition was registered on the Tiro server without errors (prerequisite step above).
 
 ---
 
-## Common Errors
+## Troubleshooting
 
-- **Returns a Bundle instead of Binary** — `Accept: application/json` header missing or
-  overridden. Check that no other `Accept` header is set.
-- **`NullPointerException` in `ItemPair.getItem()`** — linkId mismatch between QR and Q.
-  See [FSE section](../../README.md#nullpointerexception-deep-in-itempairgetitem).
-- **StructureDefinition not found** — the canonical URL in `.definition` / `sdc-questionnaire-definitionExtract`
-  doesn't resolve on the server. Register the logical model first (Step 0 above).
+- **Returns a Bundle instead of Binary** → check that `Accept: application/json` is set (not `application/fhir+json`)
+- **StructureDefinition not found on server** → run `upload_logicalmodel_structuredefinitions.sh` first; confirm the canonical URL in the Questionnaire matches the registered SD
+- **LinkId mismatch errors** → same fix as in Test 1 (see [`docs/fse-faq.md`](../../docs/fse-faq.md))
+- **ClassNotFoundException / server error** → this is the known HAPI limitation; you must use the Tiro server (see [`docs/hapi-extract-logical-model-root-cause.md`](../../docs/hapi-extract-logical-model-root-cause.md))
+
+---
+
+## Bonus exercises
+
+These are open-ended exploration prompts - no single right answer, no requirement to finish.
+
+- [Bonus for data providers](bonus-data-provider.md) - implement logical model extraction in Python
+- [Bonus for data transporters](bonus-data-transporter.md) - validation and lifecycle for logical model output
+- [Bonus for domain experts](bonus-domain-expert.md) - design your own logical model
+- [Bonus for developers: fix HAPI](bonus-developers-hapi-fork.md) - prototype a fix for logical model extraction in HAPI upstream

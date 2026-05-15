@@ -1,79 +1,53 @@
-# Test 3 — Pre-population
+# Test 3 - Pre-population
+
+> [!WARNING]
+> ## Work in progress
+>
+> Definition-based pre-population (using `.definition` links rather than FHIRPath expressions,
+> analogous to how Test 1 and Test 2 work for extraction) is **not yet documented or tested** in
+> this repository.
+>
+> **Want to help shape this test? Contribute to [GitHub issue #8](https://github.com/hl7-be/sdc-extract/issues/8).**
+
+---
 
 **Difficulty:** Bonus  
 **Estimated time:** 30–45 min (if time permits)
 
 ---
 
-## Objective
+## What this test does
 
-Automatically populate a `Questionnaire` with existing patient data from a FHIR server,
-reducing clinician data entry. The result is a `QuestionnaireResponse` in `"in-progress"` status
-with fields pre-filled from previously recorded FHIR resources.
-
----
-
-## Background
-
-Pre-population uses the `$populate` operation defined in
-[SDC](https://hl7.org/fhir/uv/sdc/OperationDefinition-Questionnaire-populate.html). The server
-evaluates FHIRPath or CQL expressions embedded in the `Questionnaire` and fetches matching
-data from a FHIR server to fill in answers.
-
-The two main SDC mechanisms for declaring how data should be fetched:
-
-| Mechanism           | Element                                                          | What it does                                                                                                |
-|---------------------|------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| `launchContext`     | `sdc-questionnaire-launchContext` extension on the Questionnaire | Declares named variables (`patient`, `user`, `encounter`) that the rendering app must inject at launch time |
-| `initialExpression` | `sdc-questionnaire-initialExpression` extension on an item       | FHIRPath expression evaluated at populate-time; result becomes the initial answer for that item             |
-| `sourceQueries`     | `sdc-questionnaire-sourceQueries` extension                      | Named FHIR queries whose results are available to expressions                                               |
-
-A typical flow:
+Pre-population uses the `$populate` operation to automatically fill in a `QuestionnaireResponse`
+from existing patient data on a FHIR server. A clinician opens a form and fields are already
+filled with the most recent recorded values - they only need to confirm or correct them before
+submitting.
 
 ```
-App launches with patient context
-        ↓
-POST QuestionnaireResponse/$populate
-  Parameters:
-    - questionnaire (the Q resource)
-    - subject (Patient reference)
-    - context (launchContext variables)
-        ↓
-Server evaluates initialExpression on each item
-        ↓
-Returns QuestionnaireResponse with status = "in-progress"
-  and pre-filled answers where data was found
+Patient data on server  →  $populate  →  pre-filled QuestionnaireResponse (in-progress)
+                                                   ↓
+                                    Clinician completes remaining items
+                                                   ↓
+                                           $extract (Test 1)
 ```
 
 ---
 
-## What You Need
+## What is documented here: expression-based pre-population
 
-### 1. Existing patient data on a FHIR server
+The current sample Questionnaires do not yet carry pre-population extensions. The mechanism that
+works today on the eHealth testserver uses `initialExpression` - a FHIRPath expression embedded
+in each Questionnaire item that the server evaluates at populate-time.
 
-The eHealth Test Server already contains many patients and other FHIR resources — you do not
-need to load your own data first. Browse what is available:
+### Key extensions
 
-```bash
-GET https://hapi.fhir-testserver.be/fhir/${TENANT_ID}/Patient?api_key=${API_KEY}
-GET https://hapi.fhir-testserver.be/fhir/${TENANT_ID}/Observation?api_key=${API_KEY}
-```
+| Extension | Where | What it does |
+|-----------|-------|--------------|
+| `sdc-questionnaire-launchContext` | Questionnaire root | Declares named variables (`patient`, `user`, `encounter`) the app injects at launch |
+| `sdc-questionnaire-initialExpression` | Individual item | FHIRPath expression evaluated at populate-time; result becomes the initial answer |
+| `sdc-questionnaire-sourceQueries` | Questionnaire root | Named FHIR queries whose results are available to expressions |
 
-Pick any patient that has existing `Observation` resources and use that patient ID in your
-`$populate` call. Alternatively, run Test 1 first to POST observations for the sample patient,
-then use those as the pre-population source.
-
-Patient used in the sample QR:
-
-```
-Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a
-```
-
-### 2. A Questionnaire with pre-population expressions
-
-The existing sample Questionnaires in [`data/samples/`](../../data/samples/) do not yet carry
-pre-population extensions. To run this test you need to add `initialExpression` extensions to
-relevant items, e.g. for body temperature:
+### Adding `initialExpression` to an item
 
 ```json
 {
@@ -92,34 +66,32 @@ relevant items, e.g. for body temperature:
 }
 ```
 
-Add a `launchContext` extension at the root of the Questionnaire to declare the patient variable:
+Add a `launchContext` at the Questionnaire root to declare the `patient` variable:
 
 ```json
 {
   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
   "extension": [
-    {
-      "url": "name",
-      "valueCoding": {
-        "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
-        "code": "patient"
-      }
-    },
-    {
-      "url": "type",
-      "valueCode": "Patient"
-    },
-    {
-      "url": "description",
-      "valueString": "The patient whose record is being reviewed"
-    }
+    {"url": "name", "valueCoding": {"system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext", "code": "patient"}},
+    {"url": "type", "valueCode": "Patient"},
+    {"url": "description", "valueString": "The patient whose record is being reviewed"}
   ]
 }
 ```
 
 ---
 
-## Step 1 — Call `$populate`
+## Step 1 - Ensure patient data exists on the server
+
+The eHealth testserver has existing patients with Observation resources. Use one of those, or run
+Test 1 first to POST observations for the sample patient and then use those as the pre-population
+source.
+
+Sample patient used in the QR files: `Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a`
+
+---
+
+## Step 2 - Call `$populate`
 
 ```bash
 curl --location \
@@ -129,41 +101,40 @@ curl --location \
   --data '{
     "resourceType": "Parameters",
     "parameter": [
-      {
-        "name": "questionnaire",
-        "resource": <Q-resource>
-      },
-      {
-        "name": "subject",
-        "valueReference": {"reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"}
-      }
+      {"name": "questionnaire", "resource": <your-questionnaire-with-initialExpression>},
+      {"name": "subject", "valueReference": {"reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"}}
     ]
   }'
 ```
 
----
-
-## Step 2 — Inspect the Returned QuestionnaireResponse
-
-The server returns a `QuestionnaireResponse` with:
-
-- `status: "in-progress"`
-- Answers pre-filled where `initialExpression` resolved to data on the server
-- Items with no matching data left unanswered (not an error)
+**Expected response:** a `QuestionnaireResponse` with `status: "in-progress"` and at least some
+items pre-filled with data from the server.
 
 ---
 
-## Step 3 — Complete and Submit
+## Step 3 - Complete and extract
 
-Hand the pre-filled `QuestionnaireResponse` to a nurse for completion of remaining items.
-After completion, call `$extract` (Test 1) to produce the final FHIR resources.
+Inspect the pre-filled QuestionnaireResponse. Complete the remaining items manually, then call
+`$extract` from Test 1 on the completed QR to produce final FHIR resources.
 
 ---
 
-## Success Criteria
+## Success criteria
 
-- [ ] `$populate` returns a `QuestionnaireResponse` (not an `OperationOutcome`).
+- [ ] `$populate` returns a `QuestionnaireResponse`, not an `OperationOutcome`.
 - [ ] `QuestionnaireResponse.status = "in-progress"`.
 - [ ] At least one item is pre-filled with data retrieved from the FHIR server.
-- [ ] Pre-filled values match what was previously stored (verify against `GET /Observation?patient=<id>&code=<loinc>`).
-- [ ] Completing and extracting the pre-filled QR still produces a valid Bundle (regression check).
+- [ ] Pre-filled values match what was previously stored (verify with `GET /Observation?patient=<id>&code=<loinc>`).
+- [ ] Completing and extracting the pre-filled QR still produces a valid Bundle.
+
+---
+
+## What's next: definition-based pre-population
+
+The SDC spec describes pre-population using `.definition` links (the same links used in Test 1 and
+Test 2 for extraction). In theory, a server could read those links to know which FHIR elements to
+look up when pre-filling - without requiring FHIRPath expressions.
+
+This direction is not yet documented or tested here.
+
+**Want to help? See [GitHub issue #8](https://github.com/hl7-be/sdc-extract/issues/8).**
