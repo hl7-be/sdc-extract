@@ -1,11 +1,16 @@
 # HAPI `$extract` for Logical Models — Forking Approach
 
-> **Status: UNTESTED IDEA.**
-> We have **not** built, run, or verified this fork ourselves. This document
-> is a design sketch derived from reading the upstream source (see
-> [`hapi-extract-logical-model-root-cause.md`](hapi-extract-logical-model-root-cause.md)). Every code change shown
-> below is illustrative — treat it as a starting point for a spike, not as a
-> patch you can paste verbatim.
+> **Status: design verified, not built (2026-05-16).**
+> The central bet of this design (`org.hl7.fhir.r4.elementmodel.Element` can
+> represent a logical-model instance with no generated POJO) was confirmed by
+> the spike at
+> [`tutorials/test2-logical-model-extraction/spike/`](../tutorials/test2-logical-model-extraction/spike/):
+> `Manager.build` on a `kind=LOGICAL` SD returns a usable Element, `setChildValue`
+> auto-creates intermediate parents, and `Manager.compose` produces correct JSON.
+>
+> What is still untested: the patched `ProcessDefinitionItem` itself, the
+> Maven build steps below, integration with `cqf-fhir-cr`'s bundle assembly,
+> and HAPI server wiring. Treat the diffs below as illustrative.
 
 ---
 
