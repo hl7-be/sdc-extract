@@ -11,6 +11,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "422413002",
+          "display": "Ability to store medications (observable entity)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -25,6 +34,15 @@
     "status": "final",
     "subject": {
       "reference": "#patient-placeholder"
+    },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "710977001",
+          "display": "Safe storage of medication",
+          "system": "http://snomed.info/sct"
+        }
+      ]
     }
   },
   {
@@ -39,6 +57,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "396076000",
+          "display": "Medication prefill preparation assessment (procedure)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -54,11 +81,20 @@
     "subject": {
       "reference": "#patient-placeholder"
     },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "373066001",
+          "display": "Yes (qualifier value)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "valueQuantity": {
       "code": "g",
       "system": "http://unitsofmeasure.org",
       "unit": "g",
-      "value": 2
+      "value": 1
     }
   },
   {
@@ -73,6 +109,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "373149000",
+          "display": "Medication administered following procedure (situation)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -87,6 +132,15 @@
     "status": "final",
     "subject": {
       "reference": "#patient-placeholder"
+    },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "373066001",
+          "display": "Yes (qualifier value)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
     }
   },
   {
@@ -124,7 +178,7 @@
       "code": "mm[Hg]",
       "system": "http://unitsofmeasure.org",
       "unit": "mmHg",
-      "value": 6
+      "value": 3
     }
   },
   {
@@ -139,6 +193,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "364554009",
+          "display": "Wound observable (observable entity)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -153,6 +216,15 @@
     "status": "final",
     "subject": {
       "reference": "#patient-placeholder"
+    },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "263654008",
+          "display": "Abnormal (qualifier value)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
     }
   },
   {
@@ -167,6 +239,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "386141001",
+          "display": "Insertion site (morphologic abnormality)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -181,6 +262,15 @@
     "status": "final",
     "subject": {
       "reference": "#patient-placeholder"
+    },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "263654008",
+          "display": "Abnormal (qualifier value)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
     }
   },
   {
@@ -195,6 +285,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "1156071007",
+          "display": "Catheter observable (observable entity)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -209,6 +308,15 @@
     "status": "final",
     "subject": {
       "reference": "#patient-placeholder"
+    },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "17621005",
+          "display": "Normal (qualifier value)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
     }
   },
   {
@@ -223,6 +331,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "271807003",
+          "display": "Eruption of skin (disorder)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -237,6 +354,15 @@
     "status": "final",
     "subject": {
       "reference": "#patient-placeholder"
+    },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "2667000",
+          "display": "Absent (qualifier value)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
     }
   },
   {

@@ -11,6 +11,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "422413002",
+          "display": "Ability to store medications (observable entity)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -20,6 +29,15 @@
     "status": "final",
     "subject": {
       "reference": "#patient-placeholder"
+    },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "710977001",
+          "display": "Safe storage of medication",
+          "system": "http://snomed.info/sct"
+        }
+      ]
     }
   },
   {
@@ -34,6 +52,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "8310-5",
+          "display": "Body temperature",
+          "system": "http://loinc.org"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -63,6 +90,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "395008009",
+          "display": "Medication stopped - contra-indication (situation)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -72,6 +108,15 @@
     "status": "final",
     "subject": {
       "reference": "#patient-placeholder"
+    },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "373066001",
+          "display": "Yes (qualifier value)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
     }
   },
   {
@@ -86,6 +131,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "422587007",
+          "display": "Nausea (finding)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -95,6 +149,15 @@
     "status": "final",
     "subject": {
       "reference": "#patient-placeholder"
+    },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "444431007",
+          "display": "Grade 0 on a scale of 0 to 3 (qualifier value)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
     }
   },
   {
@@ -109,6 +172,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "385796006",
+          "display": "Medication prefill preparation (procedure)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -118,6 +190,15 @@
     "status": "final",
     "subject": {
       "reference": "#patient-placeholder"
+    },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "373066001",
+          "display": "Yes (qualifier value)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
     }
   },
   {
@@ -132,6 +213,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "373149000",
+          "display": "Medication administered following procedure (situation)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -141,6 +231,15 @@
     "status": "final",
     "subject": {
       "reference": "#patient-placeholder"
+    },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "373066001",
+          "display": "Yes (qualifier value)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
     }
   },
   {
@@ -155,6 +254,15 @@
         ]
       }
     ],
+    "code": {
+      "coding": [
+        {
+          "code": "281647001",
+          "display": "Adverse reaction (disorder)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -164,6 +272,15 @@
     "status": "final",
     "subject": {
       "reference": "#patient-placeholder"
+    },
+    "valueCodeableConcept": {
+      "coding": [
+        {
+          "code": "373066001",
+          "display": "Yes (qualifier value)",
+          "system": "http://snomed.info/sct"
+        }
+      ]
     }
   }
 ]

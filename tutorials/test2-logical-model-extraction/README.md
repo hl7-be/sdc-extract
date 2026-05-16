@@ -7,13 +7,10 @@
 ---
 
 > [!IMPORTANT]
-> **Logical model extraction does not work on the eHealth testserver (HAPI).** This test
-> requires the **Tiro testserver**.
->
-> **Tiro testserver credentials: TBD - ask the organisers on the day.**
->
-> For the technical reason why HAPI cannot do this, see
-> [`docs/hapi-extract-logical-model-root-cause.md`](../../docs/hapi-extract-logical-model-root-cause.md).
+> **Logical-model extraction does not work on the eHealth testserver (HAPI).** This test
+> requires the local Tiro testserver — see
+> [`docs/hapi-extract-logical-model-root-cause.md`](../../docs/hapi-extract-logical-model-root-cause.md)
+> for the underlying reason.
 
 ---
 
@@ -21,54 +18,74 @@
 
 Instead of extracting into standard FHIR resource types (`Observation`, `DiagnosticReport`…), the
 Questionnaire items point to elements of a **logical model** - a custom data structure defined as
-a FHIR `StructureDefinition` with `kind: logical`. The `$extract` response is a `Binary` resource
-whose `.data` field contains base64-encoded JSON conforming to that logical model.
+a FHIR `StructureDefinition` with `kind: logical`. The `$extract` response is either the raw JSON
+of that logical-model instance, or a `Binary` resource wrapping the same JSON, depending on the
+`Accept` header you send.
 
 ```
-QuestionnaireResponse  →  $extract  →  Binary (base64 JSON)  →  decode  →  logical model instance
+QuestionnaireResponse  →  $extract  →  raw JSON (or Binary{base64 JSON})  →  validate / load
 ```
 
 Compared to Test 1:
 
 | | Test 1 | Test 2 |
 |--|--------|--------|
-| `.definition` targets | Core FHIR resource element (e.g. `Observation#Observation.valueQuantity.value`) | Logical model element (e.g. `HomeHospAssessment#HomeHospAssessment.vitals.temperature`) |
-| `Accept` header | `application/fhir+json` | **`application/json`** |
-| Response | Bundle of FHIR resources | Binary containing raw JSON |
+| `.definition` targets | Core FHIR resource element (e.g. `Observation#Observation.valueQuantity.value`) | Logical-model element (e.g. `HomeHospAssessment#HomeHospAssessment.vitals.temperature`) |
+| `Accept` header | `application/fhir+json` | `application/json` (raw) **or** `application/fhir+json` (Binary envelope) |
+| Response | `collection` Bundle of FHIR resources | Logical-model instance (raw JSON or Binary-wrapped) |
 
-The `Accept: application/json` header is what signals to the server that a logical model target is
-intended. If you forget it, the server tries FHIR resource extraction and fails for logical model
-paths.
+### Accept-header content negotiation
+
+| `Accept`                  | Response body                                                          |
+|---------------------------|------------------------------------------------------------------------|
+| `application/json`        | Raw decoded logical-model JSON (no envelope, no base64).               |
+| `application/fhir+json`   | A FHIR `Binary` resource with `contentType: application/json` and the logical-model JSON base64-encoded in `data`. |
+| absent or `*/*`           | Defaults to the FHIR `Binary` envelope.                                |
+
+The atelier scripts default to `application/json` so you can pipe the response directly into `jq`.
 
 ---
 
-## What you need
+## Prerequisite - start the Tiro testserver locally
 
-### Server
+Same as Test 1 — boot the local server if you haven't already:
 
-Tiro testserver only. Credentials TBD - ask organisers on the day.
+```bash
+cd apps/tiro_sdc_extract
+uv sync
+uv run uvicorn src.server.app:app --reload --port 8001
+```
 
-### Sample data
+---
 
-Logical model Questionnaires are in [`data/samples/`](../../data/samples/). The
+## Sample data
+
+Logical-model Questionnaires are in [`data/samples/`](../../data/samples/). The
 QuestionnaireResponses from Test 1 are reused directly.
 
-| Scenario | Questionnaire | QuestionnaireResponse |
-|----------|---------------|-----------------------|
-| OPAT | `homehosp_q_opat_logicalmodel.json` | `homehosp_qr_opat.json` |
+| Scenario | Questionnaire                       | QuestionnaireResponse   |
+|----------|-------------------------------------|-------------------------|
+| OPAT     | `homehosp_q_opat_logicalmodel.json` | `homehosp_qr_opat.json` |
 | Oncology | `homehosp_q_onco_logicalmodel.json` | `homehosp_qr_onco.json` |
 
-### Logical model StructureDefinitions
+---
 
-Before calling `$extract`, the server must know the logical model. Register the StructureDefinitions:
+## Step 1 - Register the logical-model StructureDefinitions
+
+The Tiro testserver loads StructureDefinitions from
+`${STRUCTURE_DEFINITIONS_DIR:-data/structure-definitions/}` at startup. Copy the two logical-model
+SDs into that folder:
 
 ```bash
 bash scripts/curls/upload_logicalmodel_structuredefinitions.sh
 ```
 
+Restart the running uvicorn process (or run it with `--reload` which will pick up the new files
+automatically) so the new StructureDefinitions are loaded.
+
 ---
 
-## Step 1 - Call `$extract`
+## Step 2 - Call `$extract`
 
 ```bash
 # OPAT
@@ -78,25 +95,21 @@ bash scripts/curls/working_extraction_opat_logicalmodel.sh
 bash scripts/curls/working_extraction_onco_logicalmodel.sh
 ```
 
-Note the `Accept: application/json` header in these scripts - this is what tells the server to
-return logical model output rather than a FHIR Bundle.
+Both scripts send `Accept: application/json`, so the response is the raw logical-model instance.
+Pretty-print with `jq`:
 
-**Expected response:** a `Binary` resource (`resourceType: "Binary"`) with a `data` field
-containing a base64-encoded string.
+```bash
+bash scripts/curls/working_extraction_opat_logicalmodel.sh | jq .
+```
 
----
-
-## Step 2 - Decode the Binary
-
-Decode the base64 content to inspect the extracted logical model instance:
+If you need the FHIR `Binary` envelope instead (useful when piping into FHIR-aware tooling that
+insists on a resource shape), change the script's `Accept` header to `application/fhir+json` and
+decode the `.data` field:
 
 ```bash
 bash scripts/curls/working_extraction_opat_logicalmodel.sh \
   | jq -r '.data' | base64 --decode | jq .
 ```
-
-The decoded JSON should reflect the structure of the logical model - for example, a
-`vitals.temperature` element for the OPAT scenario.
 
 ---
 
@@ -110,19 +123,26 @@ have landed in the correct element.
 
 ## Success criteria
 
-- [ ] `$extract` returns a `Binary` resource (not a Bundle and not an OperationOutcome).
-- [ ] `Binary.data` decodes to valid JSON.
-- [ ] The decoded JSON element paths match the logical model StructureDefinition.
-- [ ] The StructureDefinition was registered on the Tiro server without errors (prerequisite step above).
+- [ ] `$extract` returns either raw JSON (`Accept: application/json`) or a `Binary` resource
+      (`Accept: application/fhir+json`).
+- [ ] The JSON conforms to the logical model — field paths match `StructureDefinition.snapshot.element[*].path`.
+- [ ] Every QR answer is reflected in the matching element.
 
 ---
 
 ## Troubleshooting
 
-- **Returns a Bundle instead of Binary** → check that `Accept: application/json` is set (not `application/fhir+json`)
-- **StructureDefinition not found on server** → run `upload_logicalmodel_structuredefinitions.sh` first; confirm the canonical URL in the Questionnaire matches the registered SD
-- **LinkId mismatch errors** → same fix as in Test 1 (see [`docs/fse-faq.md`](../../docs/fse-faq.md))
-- **ClassNotFoundException / server error** → this is the known HAPI limitation; you must use the Tiro server (see [`docs/hapi-extract-logical-model-root-cause.md`](../../docs/hapi-extract-logical-model-root-cause.md))
+- **Returns a Bundle with empty entries** → the server thinks the extraction is FHIR-only, which
+  means it couldn't resolve any of the logical-model element paths. Confirm that the relevant
+  StructureDefinition was copied into `STRUCTURE_DEFINITIONS_DIR` and the server was restarted.
+- **422 `OperationOutcome` "produced both FHIR resources and logical-model instances"** → the
+  Questionnaire mixes core-resource targets and logical-model targets in one extraction context;
+  split the groups so each emits a single shape.
+- **Returns the Binary envelope when you expected raw JSON** → check the `Accept` header on the
+  request. `application/json` selects the raw branch; anything else falls back to `Binary`.
+- **`ClassNotFoundException` / server error** → you are talking to HAPI, not the Tiro testserver.
+  Verify the URL points to `http://localhost:8001/api/v2` (see
+  [`docs/hapi-extract-logical-model-root-cause.md`](../../docs/hapi-extract-logical-model-root-cause.md)).
 
 ---
 
@@ -130,7 +150,7 @@ have landed in the correct element.
 
 These are open-ended exploration prompts - no single right answer, no requirement to finish.
 
-- [Bonus for data providers](bonus-data-provider.md) - implement logical model extraction in Python
-- [Bonus for data transporters](bonus-data-transporter.md) - validation and lifecycle for logical model output
+- [Bonus for data providers](bonus-data-provider.md) - implement logical-model extraction in Python
+- [Bonus for data transporters](bonus-data-transporter.md) - validation and lifecycle for logical-model output
 - [Bonus for domain experts](bonus-domain-expert.md) - design your own logical model
-- [Bonus for developers: fix HAPI](bonus-developers-hapi-fork.md) - prototype a fix for logical model extraction in HAPI upstream
+- [Bonus for developers: fix HAPI](bonus-developers-hapi-fork.md) - prototype a fix for logical-model extraction in HAPI upstream

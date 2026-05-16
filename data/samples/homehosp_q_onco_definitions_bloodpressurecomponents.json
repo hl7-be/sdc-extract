@@ -115,6 +115,22 @@
                   }
                 }
               ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'A1_Bewaring').code"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -141,7 +157,7 @@
                   "valueCoding": {
                     "code": "Cel",
                     "system": "http://unitsofmeasure.org",
-                    "display": "°C"
+                    "display": "\u00b0C"
                   }
                 },
                 {
@@ -179,7 +195,7 @@
                     },
                     {
                       "url": "fixed-value",
-                      "valueString": "°C"
+                      "valueString": "\u00b0C"
                     }
                   ]
                 }
@@ -617,6 +633,22 @@
                   }
                 }
               ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'B1_Temperatuur').code"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -975,6 +1007,22 @@
                   "url": "fixed-value",
                   "valueReference": {
                     "reference": "#patient-placeholder"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'C1_Tegenindicatie').code"
                   }
                 }
               ]
@@ -1526,6 +1574,22 @@
                   }
                 }
               ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'D1_Misselijkheid').code"
+                  }
+                }
+              ]
             }
           ]
         }
@@ -1642,6 +1706,22 @@
                   }
                 }
               ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'E1_BereidingCorrect').code"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -1748,6 +1828,22 @@
                   "url": "fixed-value",
                   "valueReference": {
                     "reference": "#patient-placeholder"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'E3_ToedieningCorrect').code"
                   }
                 }
               ]
@@ -2040,6 +2136,22 @@
                   "url": "fixed-value",
                   "valueReference": {
                     "reference": "#patient-placeholder"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'E5_ReactieTijdensObservatieThuis').code"
                   }
                 }
               ]

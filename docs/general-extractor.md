@@ -69,7 +69,7 @@ than aborting the whole extraction.
 | Feature | Python extractor | Server `$extract` |
 |---------|-----------------|-------------------|
 | Definition-based extraction (FHIR resources) | ✅ | ✅ |
-| Logical model extraction | ❌ not implemented | ✅ Tiro server only |
+| Logical model extraction | ❌ not implemented | ✅ Tiro server only (`apps/tiro_sdc_extract/`) |
 | FHIRPath evaluation | ❌ | ✅ |
 | Terminology validation | ❌ | Depends on server |
 | Profile validation on output | ❌ | Depends on server |
@@ -129,10 +129,9 @@ any server that accepts transaction Bundles:
 import requests
 
 response = requests.post(
-    f"https://hapi.fhir-testserver.be/fhir/{TENANT_ID}",
+    "http://your-fhir-server/fhir",
     json=bundle,
     headers={"Content-Type": "application/fhir+json"},
-    params={"api_key": API_KEY},
 )
 response.raise_for_status()
 ```

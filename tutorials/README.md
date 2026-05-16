@@ -16,34 +16,36 @@ No prior experience with SDC extract is assumed. If you are unfamiliar with FHIR
 
 ## Tests
 
-| # | Test | What it produces | Server requirement |
-|---|------|------------------|--------------------|
-| [Test 1](test1-definition-based-extraction/README.md) | Definition-based extraction to FHIR resources | Bundle of `Observation`, `DiagnosticReport`, … | eHealth testserver **or** Tiro testserver |
-| [Test 2](test2-logical-model-extraction/README.md) | Extraction to a logical model | `Binary` containing structured JSON | Tiro testserver **only** |
-| [Test 3](test3-pre-population/README.md) | Pre-population | Pre-filled `QuestionnaireResponse` | eHealth testserver (work in progress) |
+| # | Test | What it produces |
+|---|------|------------------|
+| [Test 1](test1-definition-based-extraction/README.md) | Definition-based extraction to FHIR resources | Bundle of `Observation`, `DiagnosticReport`, … |
+| [Test 2](test2-logical-model-extraction/README.md) | Extraction to a logical model | Raw JSON (or a `Binary` envelope) conforming to the logical model |
+| [Test 3](test3-pre-population/README.md) | Pre-population | Pre-filled `QuestionnaireResponse` (work in progress) |
 
 Start with **Test 1**. Test 2 builds directly on it.
 
 ---
 
-## Servers
+## Server
 
-### eHealth testserver (HAPI)
+Both tests run against the **Tiro testserver** — the reference implementation in
+[`apps/tiro_sdc_extract/`](../apps/tiro_sdc_extract/). No credentials are required.
 
-Base URL: `https://hapi.fhir-testserver.be/fhir/{TENANT_ID}`  
-Authentication: `?api_key={API_KEY}` query parameter
+```bash
+cd apps/tiro_sdc_extract
+uv sync
+uv run uvicorn src.server.app:app --reload --port 8001
+```
 
-Credentials are provided at the hackathon. Copy them into a `.env` file at the repository root -
-the scripts in `scripts/curls/` read from it automatically.
+Base URL: `http://localhost:8001/api/v2`
 
-Supports: Test 1 ✅ | Test 2 ❌ (logical model extraction not supported -
-see [why](../docs/hapi-extract-logical-model-root-cause.md))
+The curl scripts under [`scripts/curls/`](../scripts/curls/) default to that URL. Override with
+`TIRO_BASE_URL` (in your environment or `.env`) if you've deployed the server elsewhere.
 
-### Tiro testserver
+Supports: Test 1 ✅ | Test 2 ✅ | Test 3 ❌ (in progress)
 
-> **Credentials: TBD - ask the organisers on the day.**
-
-Supports: Test 1 ✅ | Test 2 ✅
+> Logical-model extraction is the reason we run our own server: the public HAPI testserver
+> cannot do it — see [the root-cause note](../docs/hapi-extract-logical-model-root-cause.md).
 
 ---
 

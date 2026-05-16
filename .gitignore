@@ -4,3 +4,7 @@
 /apps/Q2Rmapper/web/.angular/
 /apps/Q2Rmapper/web/node_modules/
 /.claude/
+apps/tiro_sdc_extract/src/__pycache__/
+apps/tiro_sdc_extract/tests/__pycache__/
+apps/tiro_sdc_extract/.venv/
+apps/tiro_sdc_extract/**/__pycache__/

@@ -1,12 +1,16 @@
 #!/bin/bash
-# Prerequisite: run upload_logicalmodel_structuredefinitions.sh first to register the StructureDefinitions on the server.
+# Run logical-model $extract for the OPAT scenario against the local Tiro
+# testserver (apps/tiro_sdc_extract on http://localhost:8001 by default).
+# Prerequisite: run upload_logicalmodel_structuredefinitions.sh first.
+# Override the target with TIRO_BASE_URL in your environment or in a .env file
+# at the repo root.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$SCRIPT_DIR/../.."
 DATA_DIR="$ROOT_DIR/data/samples"
 
-# shellcheck source=../../.env
-source "$ROOT_DIR/.env"
+: "${TIRO_BASE_URL:=http://localhost:8001/api/v2}"
+[ -f "$ROOT_DIR/.env" ] && source "$ROOT_DIR/.env"
 
 Q_FILE="${DATA_DIR}/homehosp_q_opat_logicalmodel.json"
 QR_FILE="${DATA_DIR}/homehosp_qr_opat.json"
@@ -22,9 +26,11 @@ trap 'rm -f "$TMPFILE"' EXIT
   printf '}]}'
 } > "$TMPFILE"
 
+# Accept: application/json returns the raw decoded logical-model instance.
+# Use application/fhir+json instead to receive a FHIR Binary envelope.
 echo "=== \$extract (logical model — Q + QR as Parameters) ==="
 curl --location \
-  "https://hapi.fhir-testserver.be/fhir/${TENANT_ID}/QuestionnaireResponse/\$extract?api_key=${API_KEY}" \
+  "${TIRO_BASE_URL}/QuestionnaireResponse/\$extract" \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/fhir+json' \
   --data "@${TMPFILE}"
