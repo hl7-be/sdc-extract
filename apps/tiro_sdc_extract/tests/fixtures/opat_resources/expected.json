@@ -1,5 +1,16 @@
 [
   {
+    "category": [
+      {
+        "coding": [
+          {
+            "code": "survey",
+            "display": "Survey",
+            "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+          }
+        ]
+      }
+    ],
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -10,9 +21,24 @@
         "text": "No idea, this is a test but you can write a lot here."
       }
     ],
-    "resourceType": "Observation"
+    "resourceType": "Observation",
+    "status": "final",
+    "subject": {
+      "reference": "#patient-placeholder"
+    }
   },
   {
+    "category": [
+      {
+        "coding": [
+          {
+            "code": "survey",
+            "display": "Survey",
+            "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+          }
+        ]
+      }
+    ],
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -24,11 +50,29 @@
       }
     ],
     "resourceType": "Observation",
+    "status": "final",
+    "subject": {
+      "reference": "#patient-placeholder"
+    },
     "valueQuantity": {
+      "code": "g",
+      "system": "http://unitsofmeasure.org",
+      "unit": "g",
       "value": 2
     }
   },
   {
+    "category": [
+      {
+        "coding": [
+          {
+            "code": "survey",
+            "display": "Survey",
+            "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+          }
+        ]
+      }
+    ],
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -39,20 +83,62 @@
         "text": "No, because this is a test so that didn't work"
       }
     ],
-    "resourceType": "Observation"
+    "resourceType": "Observation",
+    "status": "final",
+    "subject": {
+      "reference": "#patient-placeholder"
+    }
   },
   {
+    "category": [
+      {
+        "coding": [
+          {
+            "code": "vital-signs",
+            "display": "Vital Signs",
+            "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "coding": [
+        {
+          "code": "8716-3",
+          "display": "Vital signs",
+          "system": "http://loinc.org"
+        }
+      ]
+    },
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
     "resourceType": "Observation",
+    "status": "final",
+    "subject": {
+      "reference": "#patient-placeholder"
+    },
     "valueQuantity": {
+      "code": "mm[Hg]",
+      "system": "http://unitsofmeasure.org",
+      "unit": "mmHg",
       "value": 6
     }
   },
   {
+    "category": [
+      {
+        "coding": [
+          {
+            "code": "exam",
+            "display": "Exam",
+            "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+          }
+        ]
+      }
+    ],
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -63,9 +149,24 @@
         "text": "Test"
       }
     ],
-    "resourceType": "Observation"
+    "resourceType": "Observation",
+    "status": "final",
+    "subject": {
+      "reference": "#patient-placeholder"
+    }
   },
   {
+    "category": [
+      {
+        "coding": [
+          {
+            "code": "exam",
+            "display": "Exam",
+            "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+          }
+        ]
+      }
+    ],
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -76,9 +177,24 @@
         "text": "Test"
       }
     ],
-    "resourceType": "Observation"
+    "resourceType": "Observation",
+    "status": "final",
+    "subject": {
+      "reference": "#patient-placeholder"
+    }
   },
   {
+    "category": [
+      {
+        "coding": [
+          {
+            "code": "exam",
+            "display": "Exam",
+            "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+          }
+        ]
+      }
+    ],
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -89,9 +205,24 @@
         "text": "Test, the catheter tip looks strange"
       }
     ],
-    "resourceType": "Observation"
+    "resourceType": "Observation",
+    "status": "final",
+    "subject": {
+      "reference": "#patient-placeholder"
+    }
   },
   {
+    "category": [
+      {
+        "coding": [
+          {
+            "code": "survey",
+            "display": "Survey",
+            "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+          }
+        ]
+      }
+    ],
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -102,15 +233,34 @@
         "text": "Test, patient appears dejected"
       }
     ],
-    "resourceType": "Observation"
+    "resourceType": "Observation",
+    "status": "final",
+    "subject": {
+      "reference": "#patient-placeholder"
+    }
   },
   {
+    "category": [
+      {
+        "coding": [
+          {
+            "code": "OTH",
+            "display": "Other",
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0074"
+          }
+        ]
+      }
+    ],
     "conclusion": "Test, patient appeared to no longer care for themselves properly",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/DiagnosticReport"
       ]
     },
-    "resourceType": "DiagnosticReport"
+    "resourceType": "DiagnosticReport",
+    "status": "final",
+    "subject": {
+      "reference": "#patient-placeholder"
+    }
   }
 ]
