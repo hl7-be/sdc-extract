@@ -20,15 +20,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-01-08T13:45:38.6348994+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"
     },
     "valueCodeableConcept": {
       "coding": [
@@ -61,15 +67,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-01-08T13:45:38.6348994+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"
     },
     "valueQuantity": {
       "code": "Cel",
@@ -99,15 +111,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-01-08T13:45:38.6348994+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"
     },
     "valueQuantity": {
       "code": "{beats}/min",
@@ -137,15 +155,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-01-08T13:45:38.6348994+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"
     },
     "valueQuantity": {
       "code": "mm[Hg]",
@@ -175,15 +199,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-01-08T13:45:38.6348994+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"
     },
     "valueQuantity": {
       "code": "mm[Hg]",
@@ -213,15 +243,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-01-08T13:45:38.6348994+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"
     },
     "valueQuantity": {
       "code": "kg",
@@ -251,15 +287,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-01-08T13:45:38.6348994+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"
     },
     "valueCodeableConcept": {
       "coding": [
@@ -292,15 +334,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-01-08T13:45:38.6348994+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"
     },
     "valueCodeableConcept": {
       "coding": [
@@ -333,15 +381,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-01-08T13:45:38.6348994+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"
     },
     "valueCodeableConcept": {
       "coding": [
@@ -374,15 +428,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-01-08T13:45:38.6348994+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"
     },
     "valueCodeableConcept": {
       "coding": [
@@ -415,15 +475,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-01-08T13:45:38.6348994+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a"
     },
     "valueCodeableConcept": {
       "coding": [

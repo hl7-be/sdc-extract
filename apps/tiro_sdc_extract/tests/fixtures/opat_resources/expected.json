@@ -20,6 +20,7 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-02-26T15:43:29.4033293+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -30,10 +31,15 @@
         "text": "No idea, this is a test but you can write a lot here."
       }
     ],
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
     },
     "valueCodeableConcept": {
       "coding": [
@@ -66,6 +72,7 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-02-26T15:43:29.4033293+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -76,10 +83,15 @@
         "text": "Test"
       }
     ],
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
     },
     "valueCodeableConcept": {
       "coding": [
@@ -118,6 +130,7 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-02-26T15:43:29.4033293+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -128,10 +141,15 @@
         "text": "No, because this is a test so that didn't work"
       }
     ],
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
     },
     "valueCodeableConcept": {
       "coding": [
@@ -164,15 +182,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-02-26T15:43:29.4033293+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
     },
     "valueQuantity": {
       "code": "Cel",
@@ -202,15 +226,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-02-26T15:43:29.4033293+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
     },
     "valueQuantity": {
       "code": "{beats}/min",
@@ -240,15 +270,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-02-26T15:43:29.4033293+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
     },
     "valueQuantity": {
       "code": "mm[Hg]",
@@ -278,15 +314,21 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-02-26T15:43:29.4033293+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
     },
     "valueQuantity": {
       "code": "mm[Hg]",
@@ -316,6 +358,7 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-02-26T15:43:29.4033293+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -326,10 +369,15 @@
         "text": "Test"
       }
     ],
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
     },
     "valueCodeableConcept": {
       "coding": [
@@ -362,6 +410,7 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-02-26T15:43:29.4033293+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -372,10 +421,15 @@
         "text": "Test"
       }
     ],
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
     },
     "valueCodeableConcept": {
       "coding": [
@@ -408,6 +462,7 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-02-26T15:43:29.4033293+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -418,10 +473,15 @@
         "text": "Test, the catheter tip looks strange"
       }
     ],
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
     },
     "valueCodeableConcept": {
       "coding": [
@@ -454,6 +514,7 @@
         }
       ]
     },
+    "effectiveDateTime": "2026-02-26T15:43:29.4033293+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -464,10 +525,15 @@
         "text": "Test, patient appears dejected"
       }
     ],
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "Observation",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
     },
     "valueCodeableConcept": {
       "coding": [
@@ -492,15 +558,21 @@
       }
     ],
     "conclusion": "Test, patient appeared to no longer care for themselves properly",
+    "effectiveDateTime": "2026-02-26T15:43:29.4033293+01:00",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/StructureDefinition/DiagnosticReport"
       ]
     },
+    "performer": [
+      {
+        "reference": "Practitioner/example-nurse-001"
+      }
+    ],
     "resourceType": "DiagnosticReport",
     "status": "final",
     "subject": {
-      "reference": "#patient-placeholder"
+      "reference": "Patient/2ddad017-8236-4a64-b123-1530261985bd"
     }
   }
 ]
