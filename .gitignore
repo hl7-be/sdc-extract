@@ -8,3 +8,5 @@ apps/tiro_sdc_extract/src/__pycache__/
 apps/tiro_sdc_extract/tests/__pycache__/
 apps/tiro_sdc_extract/.venv/
 apps/tiro_sdc_extract/**/__pycache__/
+/data/bcr/
+/data/qermid/
