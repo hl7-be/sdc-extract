@@ -53,7 +53,7 @@ Same as Test 1 — boot the local server if you haven't already:
 ```bash
 cd apps/tiro_sdc_extract
 uv sync
-uv run uvicorn src.server.app:app --reload --port 8001
+uv run fastapi dev src/server/app.py
 ```
 
 ---
@@ -80,8 +80,8 @@ SDs into that folder:
 bash scripts/curls/upload_logicalmodel_structuredefinitions.sh
 ```
 
-Restart the running uvicorn process (or run it with `--reload` which will pick up the new files
-automatically) so the new StructureDefinitions are loaded.
+`fastapi dev` runs with reload enabled — touch any source file (or restart the process) so the
+loader rebuilds its directory listing and picks up the new StructureDefinitions.
 
 ---
 
@@ -141,7 +141,7 @@ have landed in the correct element.
 - **Returns the Binary envelope when you expected raw JSON** → check the `Accept` header on the
   request. `application/json` selects the raw branch; anything else falls back to `Binary`.
 - **`ClassNotFoundException` / server error** → you are talking to HAPI, not the Tiro testserver.
-  Verify the URL points to `http://localhost:8001/api/v2` (see
+  Verify the URL points to `http://localhost:8000/api/v2` (see
   [`docs/hapi-extract-logical-model-root-cause.md`](../../docs/hapi-extract-logical-model-root-cause.md)).
 
 ---

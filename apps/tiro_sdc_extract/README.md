@@ -21,11 +21,11 @@ From the `tiro_sdc_extract/` directory:
 
 ```bash
 uv sync
-uv run uvicorn src.server.app:app --reload --port 8001
+uv run fastapi dev src/server/app.py
 ```
 
-The service will be available at `http://localhost:8001`.  
-Interactive docs: `http://localhost:8001/docs`
+The service will be available at `http://localhost:8000`.  
+Interactive docs: `http://localhost:8000/docs`
 
 ---
 

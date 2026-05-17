@@ -1,6 +1,6 @@
 #!/bin/bash
 # Run definition-based $extract for the OPAT scenario against the local Tiro
-# testserver (apps/tiro_sdc_extract on http://localhost:8001 by default).
+# testserver (apps/tiro_sdc_extract on http://localhost:8000 by default).
 # Override the target with TIRO_BASE_URL in your environment or in a .env file
 # at the repo root.
 
@@ -8,7 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$SCRIPT_DIR/../.."
 DATA_DIR="$ROOT_DIR/data/samples"
 
-: "${TIRO_BASE_URL:=http://localhost:8001/api/v2}"
+: "${TIRO_BASE_URL:=http://localhost:8000/api/v2}"
 [ -f "$ROOT_DIR/.env" ] && source "$ROOT_DIR/.env"
 
 Q_FILE="${DATA_DIR}/homehosp_q_opat_definitions.json"

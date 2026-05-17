@@ -56,10 +56,10 @@ The test scenarios run against the local Tiro testserver — `apps/tiro_sdc_extr
 ```bash
 cd apps/tiro_sdc_extract
 uv sync
-uv run uvicorn src.server.app:app --reload --port 8001
+uv run fastapi dev src/server/app.py
 ```
 
-`http://localhost:8001/api/v2/metadata` returns a FHIR CapabilityStatement when the server is up.
+`http://localhost:8000/api/v2/metadata` returns a FHIR CapabilityStatement when the server is up.
 No credentials, no `.env` required. Then follow [`tutorials/`](tutorials/README.md).
 
 ---

@@ -5,9 +5,7 @@ description = "Standalone FHIR SDC $extract service (definition-based extraction
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "fastapi>=0.100.0",
-    "uvicorn",
-    "python-dotenv",
+    "fastapi[standard]>=0.112.0",
     "fhir-sdc",
 ]
 

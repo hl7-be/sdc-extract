@@ -34,10 +34,10 @@ Both tests run against the **Tiro testserver** — the reference implementation 
 ```bash
 cd apps/tiro_sdc_extract
 uv sync
-uv run uvicorn src.server.app:app --reload --port 8001
+uv run fastapi dev src/server/app.py
 ```
 
-Base URL: `http://localhost:8001/api/v2`
+Base URL: `http://localhost:8000/api/v2`
 
 The curl scripts under [`scripts/curls/`](../scripts/curls/) default to that URL. Override with
 `TIRO_BASE_URL` (in your environment or `.env`) if you've deployed the server elsewhere.

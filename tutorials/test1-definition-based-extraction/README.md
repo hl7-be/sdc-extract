@@ -23,12 +23,12 @@ No custom mapping code. The Questionnaire **is** the mapping.
 ## Prerequisite - start the Tiro testserver locally
 
 All scripts in this tutorial target the in-repo Tiro testserver at
-`http://localhost:8001/api/v2`. Boot it once:
+`http://localhost:8000/api/v2`. Boot it once:
 
 ```bash
 cd apps/tiro_sdc_extract
 uv sync
-uv run uvicorn src.server.app:app --reload --port 8001
+uv run fastapi dev src/server/app.py
 ```
 
 No credentials, no `.env` required. Leave it running and switch back to the repository root for
