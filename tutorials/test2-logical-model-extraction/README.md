@@ -7,10 +7,10 @@
 ---
 
 > [!IMPORTANT]
-> **Logical-model extraction does not work on the eHealth testserver (HAPI).** This test
-> requires the local Tiro testserver — see
-> [`docs/hapi-extract-logical-model-root-cause.md`](../../docs/hapi-extract-logical-model-root-cause.md)
-> for the underlying reason.
+> **Logical-model extraction does not work on an unpatched HAPI**, so this test runs against the
+> local Tiro testserver. See the
+> [root-cause note](../../docs/hapi-extract-logical-model-root-cause.md) for why, and the
+> [HAPI fork bonus](bonus-developers-hapi-fork.md) for an (untested) patch sketch.
 
 ---
 

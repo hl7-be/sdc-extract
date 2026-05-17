@@ -25,7 +25,6 @@ trap 'rm -f "$TMPFILE"' EXIT
   printf '}]}'
 } > "$TMPFILE"
 
-echo "=== \$extract (Q + QR as Parameters, eHealth testserver) ==="
 curl --location \
   "https://hapi.fhir-testserver.be/fhir/${TENANT_ID}/QuestionnaireResponse/\$extract?api_key=${API_KEY}" \
   --header 'Accept: application/fhir+json' \
