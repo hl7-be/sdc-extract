@@ -1,6 +1,6 @@
 import logging
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Depends
 from fastapi.responses import Response
 from fhir_sdc import extract as sdc_extract
 
@@ -15,6 +15,7 @@ from src.server.utils import (
     RawJSONResponse,
     binary_wrap_json,
     bundle_collection,
+    client_prefers,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -53,7 +54,11 @@ def capability_statement():
 
 
 @router.post("/QuestionnaireResponse/$extract")
-def questionnaire_response_extract(parameters: dict, request: Request) -> Response:
+def questionnaire_response_extract(
+    parameters: dict,
+    prefers_raw_json: bool = Depends(client_prefers("application/json")),
+    prefers_fhir_json: bool = Depends(client_prefers("application/fhir+json")),
+) -> Response:
     """
     FHIR SDC `$extract` operation — definition-based extraction.
 
@@ -137,8 +142,7 @@ def questionnaire_response_extract(parameters: dict, request: Request) -> Respon
 
     if lm_entries:
         payload = lm_entries[0] if len(lm_entries) == 1 else lm_entries
-        accept = request.headers.get("accept", "")
-        if "application/json" in accept and "application/fhir+json" not in accept:
+        if prefers_raw_json and not prefers_fhir_json:
             return RawJSONResponse(payload)
         return FhirJSONResponse(binary_wrap_json(payload))
 

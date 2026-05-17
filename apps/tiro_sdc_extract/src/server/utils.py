@@ -3,9 +3,9 @@ from __future__ import annotations
 
 import base64
 import json
-from typing import Any
+from typing import Any, Callable
 
-from fastapi import HTTPException
+from fastapi import HTTPException, Request
 from fastapi.responses import JSONResponse
 
 
@@ -43,6 +43,35 @@ def bundle_collection(resources: list[dict]) -> dict:
         "type": "collection",
         "entry": [{"resource": r} for r in resources],
     }
+
+
+def client_prefers(media_type: str) -> Callable[[Request], bool]:
+    """FastAPI dependency factory for Accept-header content negotiation.
+
+    The returned dependency resolves to True iff the request's `Accept` header
+    explicitly lists `media_type` (case-insensitive, media-type parameters
+    stripped, q-values ignored). Wildcards (`* / *`) and a missing header
+    both resolve to False.
+
+    Use one dependency per candidate type. The caller composes them to express
+    its negotiation rule — e.g. "raw JSON only when application/json is asked
+    for and the FHIR media type is *not* also asked for":
+
+        @router.post("/...")
+        def endpoint(
+            prefers_raw_json: bool = Depends(client_prefers("application/json")),
+            prefers_fhir_json: bool = Depends(client_prefers("application/fhir+json")),
+        ):
+            ...
+    """
+    target = media_type.lower()
+
+    def _dep(request: Request) -> bool:
+        accept = request.headers.get("accept", "")
+        offers = (part.split(";", 1)[0].strip().lower() for part in accept.split(","))
+        return target in offers
+
+    return _dep
 
 
 def binary_wrap_json(payload: Any) -> dict:
