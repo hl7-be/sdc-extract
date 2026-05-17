@@ -59,20 +59,25 @@ Pick one - the steps are identical for both.
 
 ## Step 1 - Call `$extract`
 
-Run the ready-made script for your scenario:
+Two pairs of ready-made scripts — pick the one for your server:
+
+| Scenario | Tiro testserver (local, default)             | eHealth testserver (HAPI)                                  |
+|----------|----------------------------------------------|------------------------------------------------------------|
+| OPAT     | `scripts/curls/working_extraction_opat.sh`   | `scripts/curls/working_extraction_opat_ehtestserver.sh`   |
+| Oncology | `scripts/curls/working_extraction_onco.sh`   | `scripts/curls/working_extraction_onco_ehtestserver.sh`   |
+
+Run one:
 
 ```bash
-# OPAT
+# Tiro (no creds, server must be running locally)
 bash scripts/curls/working_extraction_opat.sh
 
-# Oncology
-bash scripts/curls/working_extraction_onco.sh
+# eHealth (needs TENANT_ID + API_KEY in .env)
+bash scripts/curls/working_extraction_opat_ehtestserver.sh
 ```
 
-The script combines the Questionnaire and QuestionnaireResponse into a `Parameters` resource and
-POSTs it to `QuestionnaireResponse/$extract`. By default the scripts target the local Tiro
-testserver; to use eHealth instead, edit the URL in the script (or run the eHealth-specific
-helpers under `scripts/curls/*_ehtestserver.sh`).
+Each script combines the Questionnaire and QuestionnaireResponse into a `Parameters` resource and
+POSTs it to `QuestionnaireResponse/$extract` on the chosen server.
 
 **Expected response:** a `transaction` Bundle with one or more entries (`Observation`,
 `DiagnosticReport`, …). If you get an `OperationOutcome` instead, see
