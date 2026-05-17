@@ -72,16 +72,16 @@ QuestionnaireResponses from Test 1 are reused directly.
 
 ## Step 1 - Register the logical-model StructureDefinitions
 
-The Tiro testserver loads StructureDefinitions from
-`${STRUCTURE_DEFINITIONS_DIR:-data/structure-definitions/}` at startup. Copy the two logical-model
-SDs into that folder:
+The core FHIR SDs Test 1 needs (`Observation`, `DiagnosticReport`, …) already ship in
+`data/structure-definitions/`. The two logical-model SDs for OPAT and onco live in
+`data/samples/` and need to be copied into the loader directory:
 
 ```bash
-bash scripts/curls/upload_logicalmodel_structuredefinitions.sh
+bash scripts/curls/register_logicalmodel_structuredefinitions.sh
 ```
 
-`fastapi dev` runs with reload enabled — touch any source file (or restart the process) so the
-loader rebuilds its directory listing and picks up the new StructureDefinitions.
+The server rescans `STRUCTURE_DEFINITIONS_DIR` on every `$extract` request — the next call picks
+the new SDs up automatically, **no server restart needed**.
 
 ---
 

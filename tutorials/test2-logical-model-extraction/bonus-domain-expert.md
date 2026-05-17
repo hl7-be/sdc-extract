@@ -19,7 +19,7 @@ This bonus explores what it takes to design a logical model and connect it to a 
 ## Understand the existing logical model first
 
 Look at the StructureDefinition uploaded by
-`scripts/curls/upload_logicalmodel_structuredefinitions.sh` and compare its element paths to the
+`scripts/curls/register_logicalmodel_structuredefinitions.sh` and compare its element paths to the
 `.definition` values in `data/samples/homehosp_q_opat_logicalmodel.json`.
 
 - How do the element paths in the StructureDefinition correspond to the JSON keys in the decoded

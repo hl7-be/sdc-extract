@@ -2,10 +2,10 @@
 # Register the OPAT and onco logical-model StructureDefinitions with the local
 # Tiro testserver (apps/tiro_sdc_extract).
 #
-# The server loads StructureDefinitions from $STRUCTURE_DEFINITIONS_DIR at
-# startup (default: <repo>/data/structure-definitions/). This script copies the
-# two logical-model SDs into that directory; restart the server afterwards so
-# the new files are picked up.
+# The server rescans $STRUCTURE_DEFINITIONS_DIR (default:
+# <repo>/data/structure-definitions/) on every $extract request, so this
+# script just copies the two logical-model SDs into that directory — the
+# next request picks them up, no server restart needed.
 
 set -e
 
@@ -29,5 +29,5 @@ echo "=== Copying ONCO StructureDefinition into $STRUCTURE_DEFINITIONS_DIR ==="
 cp "$SD_ONCO" "$STRUCTURE_DEFINITIONS_DIR/"
 
 echo ""
-echo "Done. Restart the Tiro testserver so it picks up the new StructureDefinitions,"
-echo "then run working_extraction_opat_logicalmodel.sh / working_extraction_onco_logicalmodel.sh."
+echo "Done. Run working_extraction_opat_logicalmodel.sh / working_extraction_onco_logicalmodel.sh"
+echo "to test extraction — no server restart needed."

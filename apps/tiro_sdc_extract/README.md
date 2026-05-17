@@ -39,6 +39,32 @@ No FHIR server connection is needed — the service is stateless and processes t
 
 ---
 
+## StructureDefinitions
+
+Every `$extract` request rebuilds the loader from `STRUCTURE_DEFINITIONS_DIR` (default `<repo>/data/structure-definitions/`), so:
+
+- Drop new `.json` files into that directory and the **next request picks them up** — no restart, no reload trigger.
+- Each `.json` is read as a single FHIR `StructureDefinition`. Filenames are not significant; the SD is keyed by its `url`.
+- Subdirectories are ignored — keep files flat.
+
+**What ships in `data/structure-definitions/`:**
+
+| File | Used by |
+|---|---|
+| `Observation.json` | Test 1 (definition-based extraction to FHIR `Observation`) |
+| `DiagnosticReport.json` | Test 1 |
+| `DeviceUseStatement.json` | Test 1 |
+
+That's enough to run Test 1 out of the box. For Test 2 (logical-model extraction), copy the two logical-model SDs in `data/samples/` into the loader directory:
+
+```bash
+bash scripts/curls/register_logicalmodel_structuredefinitions.sh
+```
+
+The script is just a `cp` — there is no `PUT StructureDefinition` endpoint on the server.
+
+---
+
 ## API endpoints
 
 | Method | Path | Description |
@@ -71,7 +97,7 @@ No FHIR server connection is needed — the service is stateless and processes t
 
 Any other error returns an `OperationOutcome`.
 
-Both standard FHIR R4 resource types and custom logical models are supported as extraction targets — the corresponding `StructureDefinition` must be present in `STRUCTURE_DEFINITIONS_DIR`. For logical-model extraction, register the SDs first with `scripts/curls/upload_logicalmodel_structuredefinitions.sh` (copies them into the loader directory; restart the server so the new files are picked up).
+Both standard FHIR R4 resource types and custom logical models are supported as extraction targets — the corresponding `StructureDefinition` must be present in `STRUCTURE_DEFINITIONS_DIR`. For logical-model extraction, register the SDs first with `scripts/curls/register_logicalmodel_structuredefinitions.sh` (copies them into the loader directory — the loader rebuilds per request, so no restart needed).
 
 ---
 
