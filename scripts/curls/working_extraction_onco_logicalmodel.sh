@@ -1,7 +1,6 @@
 #!/bin/bash
 # Run logical-model $extract for the oncology scenario against the local Tiro
 # testserver (apps/tiro_sdc_extract on http://localhost:8000 by default).
-# Prerequisite: run register_logicalmodel_structuredefinitions.sh first.
 # Override the target with TIRO_BASE_URL in your environment or in a .env file
 # at the repo root.
 

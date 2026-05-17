@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import base64
 import json
+import uuid
 from typing import Any, Callable
 
 from fastapi import HTTPException, Request
@@ -32,16 +33,30 @@ class OperationOutcomeException(HTTPException):
         )
 
 
-def bundle_collection(resources: list[dict]) -> dict:
-    """Wrap concrete FHIR resources in a `collection` Bundle.
+def bundle_transaction(resources: list[dict]) -> dict:
+    """Wrap concrete FHIR resources in a `transaction` Bundle ready to be
+    POSTed back to a FHIR server (per the SDC `$extract` operation spec).
+
+    Each entry gets a `urn:uuid:` fullUrl so internal references between
+    extracted resources resolve once the server creates them, plus a
+    `request.method = POST` + `request.url = <resourceType>` so the server
+    can execute the transaction.
 
     Callers must filter logical-model instances out beforehand: every entry
     is assumed to have a `resourceType`.
     """
+    entries = []
+    for r in resources:
+        full_url = f"urn:uuid:{uuid.uuid4()}"
+        entries.append({
+            "fullUrl": full_url,
+            "resource": r,
+            "request": {"method": "POST", "url": r["resourceType"]},
+        })
     return {
         "resourceType": "Bundle",
-        "type": "collection",
-        "entry": [{"resource": r} for r in resources],
+        "type": "transaction",
+        "entry": entries,
     }
 
 

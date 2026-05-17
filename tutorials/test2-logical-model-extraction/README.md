@@ -70,22 +70,7 @@ QuestionnaireResponses from Test 1 are reused directly.
 
 ---
 
-## Step 1 - Register the logical-model StructureDefinitions
-
-The core FHIR SDs Test 1 needs (`Observation`, `DiagnosticReport`, …) already ship in
-`data/structure-definitions/`. The two logical-model SDs for OPAT and onco live in
-`data/samples/` and need to be copied into the loader directory:
-
-```bash
-bash scripts/curls/register_logicalmodel_structuredefinitions.sh
-```
-
-The server rescans `STRUCTURE_DEFINITIONS_DIR` on every `$extract` request — the next call picks
-the new SDs up automatically, **no server restart needed**.
-
----
-
-## Step 2 - Call `$extract`
+## Step 1 - Call `$extract`
 
 ```bash
 # OPAT
@@ -113,7 +98,7 @@ bash scripts/curls/working_extraction_opat_logicalmodel.sh \
 
 ---
 
-## Step 3 - Validate against the logical model
+## Step 2 - Validate against the logical model
 
 Inspect the decoded JSON and check that the field names and nesting match the element paths
 defined in the `StructureDefinition` (`.snapshot.element[*].path`). Each answer in the QR should
@@ -133,8 +118,10 @@ have landed in the correct element.
 ## Troubleshooting
 
 - **Returns a Bundle with empty entries** → the server thinks the extraction is FHIR-only, which
-  means it couldn't resolve any of the logical-model element paths. Confirm that the relevant
-  StructureDefinition was copied into `STRUCTURE_DEFINITIONS_DIR` and the server was restarted.
+  means it couldn't resolve any of the logical-model element paths. Confirm that the logical-model
+  StructureDefinitions are present in `STRUCTURE_DEFINITIONS_DIR` (they ship pre-registered in
+  `data/structure-definitions/` — if you changed `STRUCTURE_DEFINITIONS_DIR`, make sure both
+  files are there).
 - **422 `OperationOutcome` "produced both FHIR resources and logical-model instances"** → the
   Questionnaire mixes core-resource targets and logical-model targets in one extraction context;
   split the groups so each emits a single shape.

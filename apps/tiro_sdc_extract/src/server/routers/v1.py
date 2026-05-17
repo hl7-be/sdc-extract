@@ -14,7 +14,7 @@ from src.server.utils import (
     OperationOutcomeException,
     RawJSONResponse,
     binary_wrap_json,
-    bundle_collection,
+    bundle_transaction,
     client_preferred_content_type,
 )
 
@@ -73,7 +73,7 @@ def questionnaire_response_extract(
 
     Response shape depends on what the Questionnaire extracts to:
 
-    - FHIR resources only → a `collection` Bundle
+    - FHIR resources only → a `transaction` Bundle
       (`application/fhir+json`).
     - Logical-model instance(s) only → content-negotiated:
         - `Accept: application/json` → raw JSON of the instance(s).
@@ -148,4 +148,4 @@ def questionnaire_response_extract(
             return RawJSONResponse(payload)
         return FhirJSONResponse(binary_wrap_json(payload))
 
-    return FhirJSONResponse(bundle_collection(fhir_entries))
+    return FhirJSONResponse(bundle_transaction(fhir_entries))

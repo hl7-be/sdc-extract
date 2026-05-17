@@ -13,17 +13,28 @@ pointing to a specific element path of a FHIR StructureDefinition - and assemble
 profiled FHIR resources that can be independently searched and queried.
 
 ```
-QuestionnaireResponse  →  $extract  →  Bundle  →  (optionally) POST  →  FHIR search
+QuestionnaireResponse  →  $extract  →  Bundle  →  POST to server  →  FHIR search
 ```
 
 No custom mapping code. The Questionnaire **is** the mapping.
 
 ---
 
-## Prerequisite - start the Tiro testserver locally
+## What you need
 
-All scripts in this tutorial target the in-repo Tiro testserver at
-`http://localhost:8000/api/v1`. Boot it once:
+### Server
+
+Both servers support Test 1 — pick whichever you have credentials/access for.
+
+| Server             | Base URL                                            | Auth                 |
+|--------------------|-----------------------------------------------------|----------------------|
+| eHealth testserver | `https://hapi.fhir-testserver.be/fhir/{TENANT_ID}`  | `?api_key={API_KEY}` |
+| Tiro testserver    | `http://localhost:8000/api/v1` (local, see below)   | none                 |
+
+For eHealth, copy `TENANT_ID` and `API_KEY` (provided at the hackathon) into a `.env` file at the
+repository root — the scripts pick them up automatically.
+
+For the local Tiro testserver, boot it once from `apps/tiro_sdc_extract/`:
 
 ```bash
 cd apps/tiro_sdc_extract
@@ -31,15 +42,11 @@ uv sync
 uv run fastapi dev src/server/app.py
 ```
 
-No credentials, no `.env` required. Leave it running and switch back to the repository root for
-the rest of the steps. To target a different deployment, set `TIRO_BASE_URL` before running the
-scripts.
+No credentials, no `.env` required. Override with `TIRO_BASE_URL` if you've deployed it elsewhere.
 
----
+### Sample data
 
-## Sample data
-
-Two clinical scenarios are available in [`data/samples/`](../../data/samples/):
+Two clinical scenarios in [`data/samples/`](../../data/samples/):
 
 | Scenario                    | Questionnaire                      | QuestionnaireResponse   |
 |-----------------------------|------------------------------------|-------------------------|
@@ -63,13 +70,15 @@ bash scripts/curls/working_extraction_onco.sh
 ```
 
 The script combines the Questionnaire and QuestionnaireResponse into a `Parameters` resource and
-POSTs it to `QuestionnaireResponse/$extract` on the local Tiro testserver.
+POSTs it to `QuestionnaireResponse/$extract`. By default the scripts target the local Tiro
+testserver; to use eHealth instead, edit the URL in the script (or run the eHealth-specific
+helpers under `scripts/curls/*_ehtestserver.sh`).
 
-**Expected response:** a `collection` Bundle containing one or more entries (`Observation`,
+**Expected response:** a `transaction` Bundle with one or more entries (`Observation`,
 `DiagnosticReport`, …). If you get an `OperationOutcome` instead, see
 [Troubleshooting](#troubleshooting) below.
 
-Pretty-print with `jq` to inspect:
+Pretty-print with `jq`:
 
 ```bash
 bash scripts/curls/working_extraction_opat.sh | jq .
@@ -77,53 +86,53 @@ bash scripts/curls/working_extraction_opat.sh | jq .
 
 ---
 
-## Step 2 - Validate the extracted resources
+## Step 2 - POST the Bundle to the server
 
-Open the Bundle and check that:
+The Bundle is a `transaction` — POST it back to a FHIR server to persist the resources.
 
-- Every entry has the right `resourceType` (`Observation`, `DiagnosticReport`, …).
-- `Observation.status = "final"` and `Observation.category` is populated.
-- `Observation.code` is set — populated either from a fixed value or from the question's `code`
-  via a FHIRPath expression on the group item's
-  `sdc-questionnaire-definitionExtractValue` extension.
-- `Observation.value[x]` matches the answer in the QR.
-
-A quick `jq` filter to list all extracted Observation codes and values:
-
-```bash
-bash scripts/curls/working_extraction_opat.sh \
-  | jq '.entry[].resource | select(.resourceType=="Observation") | {code: .code.coding[0].code, value: (.valueCodeableConcept.coding[0].display // .valueQuantity.value)}'
-```
-
----
-
-## Step 3 (optional) - persist the Bundle to a FHIR server
-
-The local Tiro testserver only implements `$extract` — it does not store or search resources. To
-exercise the full data-transport flow, POST the Bundle to a FHIR server of your choice (HAPI, your
-own instance, …) and query it back:
+Against eHealth:
 
 ```bash
 bash scripts/curls/working_extraction_opat.sh > bundle.json
 
-# Replace with your own server URL:
-curl --location "https://<your-fhir-server>/Bundle" \
+curl --location "https://hapi.fhir-testserver.be/fhir/${TENANT_ID}?api_key=${API_KEY}" \
   --header 'Content-Type: application/fhir+json' \
   --data @bundle.json
 ```
 
-A `200 OK` followed by a successful `GET /Observation?...` confirms the resources are persisted and
-queryable.
+The local Tiro testserver only implements `$extract` — it does not store resources. Against any
+other FHIR server, swap the URL accordingly.
+
+A `200 OK` with a Bundle response confirms the resources were created.
+
+---
+
+## Step 3 - Verify with FHIR search
+
+Confirm the extracted resources are queryable (eHealth example):
+
+```bash
+# Body temperature Observations for the sample patient
+curl "https://hapi.fhir-testserver.be/fhir/${TENANT_ID}/Observation\
+?patient=ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a&code=8310-5&api_key=${API_KEY}"
+
+# DiagnosticReports
+curl "https://hapi.fhir-testserver.be/fhir/${TENANT_ID}/DiagnosticReport\
+?patient=ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a&api_key=${API_KEY}"
+```
+
+You should get back resources whose values match what was in the QuestionnaireResponse.
 
 ---
 
 ## Success criteria
 
 - [ ] `$extract` returns a `Bundle` (not an `OperationOutcome`).
-- [ ] The Bundle contains at least one `Observation`.
+- [ ] The Bundle contains at least one `Observation` referencing the correct patient.
 - [ ] `Observation.status = "final"` and `Observation.category` is populated.
-- [ ] `Observation.code` is set on every Observation (issue #26).
-- [ ] `Observation.value[x]` reflects the answer in the QR.
+- [ ] `Observation.code` is set (from the `sdc-questionnaire-definitionExtractValue` extension).
+- [ ] POSTing the Bundle to a FHIR server returns HTTP 200.
+- [ ] A subsequent FHIR search returns the extracted Observation.
 
 ---
 
@@ -132,12 +141,13 @@ queryable.
 See [`docs/fse-faq.md`](../../docs/fse-faq.md) for the most common errors:
 
 - **`$extract` returns an error about a missing Questionnaire code map** → at least one item must carry the
-  `sdc-questionnaire-definitionExtract` extension
-- **`NullPointerException` in `ItemPair`** → a linkId in the QR does not exist in the Q; check for mismatches
-- **Extracted Observations have empty `.code`** → add `sdc-questionnaire-definitionExtractValue` on the group item for
-  `Observation.code` (either a fixed `valueCodeableConcept` or a FHIRPath `expression` like
-  `%questionnaire.descendants().where(linkId = 'X').code`)
-- **`valueExpression` silently ignored** → confirm you are running rc6 or later (rc5 only supported `fixed-value`)
+  `sdc-questionnaire-definitionExtract` extension.
+- **`NullPointerException` in `ItemPair`** → a linkId in the QR does not exist in the Q; check for mismatches.
+- **Extracted Observations have empty `.code`** → add `sdc-questionnaire-definitionExtractValue` on the group
+  item for `Observation.code` (either a fixed `valueCodeableConcept` or a FHIRPath expression like
+  `%questionnaire.descendants().where(linkId = 'X').code`).
+- **`valueExpression` silently ignored** → the server must support `definitionExtractValue.expression` (Tiro
+  testserver does; some older versions of other servers do not).
 
 ---
 

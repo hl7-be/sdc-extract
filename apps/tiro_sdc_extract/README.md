@@ -2,7 +2,7 @@
 
 **tiro_sdc_extract** is a standalone FHIR SDC `$extract` service that implements [definition-based extraction](https://build.fhir.org/ig/HL7/sdc/extraction.html#definition-based-extraction) as a conformant FHIR REST endpoint.
 
-It exposes `POST /api/v1/QuestionnaireResponse/$extract` and accepts a FHIR `Parameters` resource containing a `Questionnaire` and a `QuestionnaireResponse`. It returns a `collection` Bundle of extracted FHIR resources or logical model instances.
+It exposes `POST /api/v1/QuestionnaireResponse/$extract` and accepts a FHIR `Parameters` resource containing a `Questionnaire` and a `QuestionnaireResponse`. It returns a `transaction` Bundle of extracted FHIR resources or, for logical-model targets, the model instance directly (raw JSON or a `Binary` envelope depending on `Accept`).
 
 This service is separate from the [Q2Rmapper](../Q2Rmapper/README.md) annotation tool. It is the server-side extraction endpoint intended for integration by EHR vendors and care software who want to delegate the `$extract` operation to a shared service.
 
@@ -54,14 +54,10 @@ Every `$extract` request rebuilds the loader from `STRUCTURE_DEFINITIONS_DIR` (d
 | `Observation.json` | Test 1 (definition-based extraction to FHIR `Observation`) |
 | `DiagnosticReport.json` | Test 1 |
 | `DeviceUseStatement.json` | Test 1 |
+| `StructureDefinition-opat-continuous-infusion-questionnaire.json` | Test 2 (OPAT logical model) |
+| `StructureDefinition-onco-trastuzumab-questionnaire.json` | Test 2 (onco logical model) |
 
-That's enough to run Test 1 out of the box. For Test 2 (logical-model extraction), copy the two logical-model SDs in `data/samples/` into the loader directory:
-
-```bash
-bash scripts/curls/register_logicalmodel_structuredefinitions.sh
-```
-
-The script is just a `cp` — there is no `PUT StructureDefinition` endpoint on the server.
+Both Test 1 and Test 2 run out of the box — no registration step.
 
 ---
 
@@ -90,14 +86,14 @@ The script is just a `cp` — there is no `PUT StructureDefinition` endpoint on 
 
 | Extracted result          | `Accept`                          | Response body |
 |---|---|---|
-| FHIR resources only       | `application/fhir+json` (default) | `collection` Bundle |
+| FHIR resources only       | `application/fhir+json` (default) | `transaction` Bundle (ready to POST back to a FHIR server) |
 | Logical-model instance(s) | `application/fhir+json` (default) | FHIR `Binary` wrapping the JSON in base64 |
 | Logical-model instance(s) | `application/json`                | Raw logical-model JSON (no envelope) |
 | Mixed FHIR + logical-model | any                              | `422 OperationOutcome` — split the Questionnaire |
 
 Any other error returns an `OperationOutcome`.
 
-Both standard FHIR R4 resource types and custom logical models are supported as extraction targets — the corresponding `StructureDefinition` must be present in `STRUCTURE_DEFINITIONS_DIR`. For logical-model extraction, register the SDs first with `scripts/curls/register_logicalmodel_structuredefinitions.sh` (copies them into the loader directory — the loader rebuilds per request, so no restart needed).
+Both standard FHIR R4 resource types and custom logical models are supported as extraction targets — the corresponding `StructureDefinition` must be present in `STRUCTURE_DEFINITIONS_DIR` (see [StructureDefinitions](#structuredefinitions) above for what ships in the default directory).
 
 ---
 

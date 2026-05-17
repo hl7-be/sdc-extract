@@ -8,7 +8,7 @@ Each fixture under `tests/fixtures/<name>/` is a quadruple:
 
 If every entry in `expected.json` has a `resourceType`, the fixture is a
 FHIR-resource extraction and the test asserts the response is the matching
-`collection` Bundle. Otherwise the fixture is a logical-model extraction; the
+`transaction` Bundle. Otherwise the fixture is a logical-model extraction; the
 test then requests `Accept: application/json` and asserts the raw JSON body
 matches the expected logical-model instance(s).
 """
@@ -51,10 +51,15 @@ def test_extract(client, fixture: Path):
 
         bundle = r.json()
         assert bundle["resourceType"] == "Bundle"
-        assert bundle["type"] == "collection"
+        assert bundle["type"] == "transaction"
 
         actual = [entry["resource"] for entry in bundle.get("entry", [])]
         assert actual == expected
+
+        # Every transaction entry must carry a urn:uuid fullUrl + request directive.
+        for entry, res in zip(bundle["entry"], actual):
+            assert entry["fullUrl"].startswith("urn:uuid:")
+            assert entry["request"] == {"method": "POST", "url": res["resourceType"]}
     else:
         r = client.post(
             "/api/v1/QuestionnaireResponse/$extract",
