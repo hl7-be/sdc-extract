@@ -36,8 +36,11 @@ Authentication: `?api_key={API_KEY}` query parameter
 Credentials are provided at the hackathon. Copy them into a `.env` file at the repository root —
 the `*_ehtestserver.sh` helper scripts and the eHealth path of Test 1 read from it automatically.
 
-Supports: Test 1 ✅ | Test 2 ❌ (logical-model extraction is not supported — see
-[the root-cause note](../docs/hapi-extract-logical-model-root-cause.md))
+Supports: Test 1 ✅ | Test 2 ❌ out of the box — logical-model extraction fails on an unpatched
+HAPI (see [the root-cause note](../docs/hapi-extract-logical-model-root-cause.md)). A patch is
+sketched in the [HAPI fork bonus](test2-logical-model-extraction/bonus-developers-hapi-fork.md)
+and the accompanying [fork guide](../docs/hapi-extract-logical-model-fork-guide.md) — untested,
+but the entry point if you want to take it on.
 
 ### Tiro testserver
 
