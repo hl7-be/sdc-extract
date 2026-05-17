@@ -83,11 +83,12 @@ The Belgian Cancer Registry (BCR) and QERMID `StructureDefinition`s, `CodeSystem
 `ValueSet`s are not bundled — fetch them on demand:
 
 ```bash
-bash scripts/download_bcr_definitions.sh      # → data/bcr/    (definitions.json.zip)
-bash scripts/download_qermid_definitions.sh   # → data/qermid/ (package.tgz)
+bash scripts/download_bcr_definitions.sh      # → data/bcr/
+bash scripts/download_qermid_definitions.sh   # → data/qermid/
 ```
 
-Outputs are gitignored. Re-run with `--force` to bypass the conditional GET.
+Both scripts pull `definitions.json.zip` from the published IG. Outputs are gitignored. Re-run
+with `--force` to bypass the conditional GET.
 
 ---
 
