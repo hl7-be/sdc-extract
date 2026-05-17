@@ -83,7 +83,10 @@ bash scripts/curls/working_extraction_opat_logicalmodel.sh
 bash scripts/curls/working_extraction_onco_logicalmodel.sh
 ```
 
-Both scripts send `Accept: application/json`, so the response is the raw logical-model instance.
+Both scripts send `Accept: application/json` **on purpose** — not the usual `application/fhir+json`
+you'd send for a FHIR call. With the JSON Accept header the server returns the raw logical-model
+instance, which is what we want to inspect here. The next step shows the alternative path with the
+standard `application/fhir+json` header, which wraps the same JSON in a FHIR `Binary` envelope.
 Pretty-print with `jq`:
 
 ```bash
