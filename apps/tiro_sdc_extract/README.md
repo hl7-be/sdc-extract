@@ -60,9 +60,18 @@ No FHIR server connection is needed — the service is stateless and processes t
 }
 ```
 
-**Response** — a `collection` Bundle on success, or an `OperationOutcome` on error.
+**Response** — content-negotiated based on the request's `Accept` header and the shape of the extracted result:
 
-Both standard FHIR R4 resource types and custom logical models are supported as extraction targets (requires the corresponding `StructureDefinition` to be present in `STRUCTURE_DEFINITIONS_DIR`).
+| Extracted result          | `Accept`                          | Response body |
+|---|---|---|
+| FHIR resources only       | `application/fhir+json` (default) | `collection` Bundle |
+| Logical-model instance(s) | `application/fhir+json` (default) | FHIR `Binary` wrapping the JSON in base64 |
+| Logical-model instance(s) | `application/json`                | Raw logical-model JSON (no envelope) |
+| Mixed FHIR + logical-model | any                              | `422 OperationOutcome` — split the Questionnaire |
+
+Any other error returns an `OperationOutcome`.
+
+Both standard FHIR R4 resource types and custom logical models are supported as extraction targets — the corresponding `StructureDefinition` must be present in `STRUCTURE_DEFINITIONS_DIR`. For logical-model extraction, register the SDs first with `scripts/curls/upload_logicalmodel_structuredefinitions.sh` (copies them into the loader directory; restart the server so the new files are picked up).
 
 ---
 

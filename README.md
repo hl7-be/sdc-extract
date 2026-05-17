@@ -49,6 +49,21 @@ provided in `data/` and `scripts/` so any role can participate even without the 
 
 ---
 
+## Quick start
+
+The test scenarios run against the local Tiro testserver — `apps/tiro_sdc_extract/`. Boot it once:
+
+```bash
+cd apps/tiro_sdc_extract
+uv sync
+uv run uvicorn src.server.app:app --reload --port 8001
+```
+
+`http://localhost:8001/api/v2/metadata` returns a FHIR CapabilityStatement when the server is up.
+No credentials, no `.env` required. Then follow [`tutorials/`](tutorials/README.md).
+
+---
+
 ## Test Scenarios
 
 > **TODO:** Detailed test scenario guides are under development in a separate branch. The table below lists the planned
