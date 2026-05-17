@@ -15,7 +15,7 @@ from src.server.utils import (
     RawJSONResponse,
     binary_wrap_json,
     bundle_collection,
-    client_prefers,
+    client_preferred_content_type,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -56,8 +56,10 @@ def capability_statement():
 @router.post("/QuestionnaireResponse/$extract")
 def questionnaire_response_extract(
     parameters: dict,
-    prefers_raw_json: bool = Depends(client_prefers("application/json")),
-    prefers_fhir_json: bool = Depends(client_prefers("application/fhir+json")),
+    response_content_type: str = Depends(client_preferred_content_type(
+        "application/fhir+json",  # server default
+        "application/json",
+    )),
 ) -> Response:
     """
     FHIR SDC `$extract` operation — definition-based extraction.
@@ -142,7 +144,7 @@ def questionnaire_response_extract(
 
     if lm_entries:
         payload = lm_entries[0] if len(lm_entries) == 1 else lm_entries
-        if prefers_raw_json and not prefers_fhir_json:
+        if response_content_type == "application/json":
             return RawJSONResponse(payload)
         return FhirJSONResponse(binary_wrap_json(payload))
 

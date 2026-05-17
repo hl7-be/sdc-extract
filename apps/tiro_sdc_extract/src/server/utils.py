@@ -45,31 +45,73 @@ def bundle_collection(resources: list[dict]) -> dict:
     }
 
 
-def client_prefers(media_type: str) -> Callable[[Request], bool]:
+def _structured_suffix_supertype(media_type: str) -> str | None:
+    """For an RFC 6838 structured-suffix media type, return the implied
+    supertype (`application/fhir+json` → `application/json`). Otherwise
+    return None."""
+    if "/" not in media_type:
+        return None
+    type_, sub = media_type.split("/", 1)
+    if "+" not in sub:
+        return None
+    _, suffix = sub.rsplit("+", 1)
+    return f"{type_}/{suffix}"
+
+
+def client_preferred_content_type(*server_offers: str) -> Callable[[Request], str]:
     """FastAPI dependency factory for Accept-header content negotiation.
 
-    The returned dependency resolves to True iff the request's `Accept` header
-    explicitly lists `media_type` (case-insensitive, media-type parameters
-    stripped, q-values ignored). Wildcards (`* / *`) and a missing header
-    both resolve to False.
+    The returned dependency resolves to the media type the client wants from
+    the given server-offered list. `server_offers` is the menu this endpoint
+    can produce, in order of *server* preference — the first entry is the
+    fallback when the client expresses no usable preference.
 
-    Use one dependency per candidate type. The caller composes them to express
-    its negotiation rule — e.g. "raw JSON only when application/json is asked
-    for and the FHIR media type is *not* also asked for":
+    Negotiation rules:
+
+    1. If the client's `Accept` header explicitly lists one or more
+       `server_offers`, the most specific listed entry wins. Specificity
+       follows RFC 6838's structured-suffix rule: `application/fhir+json`
+       refines `application/json`, so when both are listed the structured-
+       suffix form is picked.
+    2. Otherwise (no header, `* / *` only, or no overlap), the first entry of
+       `server_offers` is returned.
+
+    Case-insensitive. Media-type parameters and q-values are ignored.
+
+    Example:
 
         @router.post("/...")
         def endpoint(
-            prefers_raw_json: bool = Depends(client_prefers("application/json")),
-            prefers_fhir_json: bool = Depends(client_prefers("application/fhir+json")),
+            content_type: str = Depends(client_preferred_content_type(
+                "application/fhir+json",  # server default
+                "application/json",
+            )),
         ):
-            ...
+            if content_type == "application/json":
+                return RawJSON(...)
+            return FhirBinary(...)
     """
-    target = media_type.lower()
+    if not server_offers:
+        raise ValueError("at least one server offer must be provided")
+    default = server_offers[0]
+    offers_lower = [o.lower() for o in server_offers]
 
-    def _dep(request: Request) -> bool:
+    def _dep(request: Request) -> str:
         accept = request.headers.get("accept", "")
-        offers = (part.split(";", 1)[0].strip().lower() for part in accept.split(","))
-        return target in offers
+        listed = {part.split(";", 1)[0].strip().lower() for part in accept.split(",")}
+        candidates = [
+            server_offers[i] for i, lo in enumerate(offers_lower) if lo in listed
+        ]
+        if not candidates:
+            return default
+        # Drop candidates that another listed entry refines via structured
+        # suffix — if application/json is offered and the client also lists
+        # application/fhir+json, the latter wins.
+        specific = [
+            c for c in candidates
+            if not any(_structured_suffix_supertype(other) == c.lower() for other in listed)
+        ]
+        return specific[0] if specific else candidates[0]
 
     return _dep
 
