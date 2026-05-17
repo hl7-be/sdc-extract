@@ -46,12 +46,16 @@ locally — no credentials needed:
 
 ```bash
 cd apps/tiro_sdc_extract
-uv sync
-uv run fastapi dev src/server/app.py
+uv sync           # install all dependencies from pyproject.toml / uv.lock
+uv run fastapi dev
 ```
 
 Base URL: `http://localhost:8000/api/v1`. Override with `TIRO_BASE_URL` if you've deployed the
 server elsewhere.
+
+See [`apps/tiro_sdc_extract/README.md`](../apps/tiro_sdc_extract/README.md) for full run instructions,
+configuration (e.g. `STRUCTURE_DEFINITIONS_DIR`), API details, and a note on running the server in
+the background.
 
 Supports: Test 1 ✅ | Test 2 ✅
 

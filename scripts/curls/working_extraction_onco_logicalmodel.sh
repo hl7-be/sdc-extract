@@ -27,7 +27,6 @@ trap 'rm -f "$TMPFILE"' EXIT
 
 # Accept: application/json returns the raw decoded logical-model instance.
 # Use application/fhir+json instead to receive a FHIR Binary envelope.
-echo "=== \$extract (logical model — Q + QR as Parameters) ==="
 curl --location \
   "${TIRO_BASE_URL}/QuestionnaireResponse/\$extract" \
   --header 'Accept: application/json' \

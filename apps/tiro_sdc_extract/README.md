@@ -20,12 +20,16 @@ This service is separate from the [Q2Rmapper](../Q2Rmapper/README.md) annotation
 From the `tiro_sdc_extract/` directory:
 
 ```bash
-uv sync
-uv run fastapi dev src/server/app.py
+uv sync           # install all dependencies from pyproject.toml / uv.lock
+uv run fastapi dev
 ```
 
 The service will be available at `http://localhost:8000`.  
 Interactive docs: `http://localhost:8000/docs`
+
+The FastAPI CLI auto-discovers the app — no path argument is needed (and passing one is discouraged).
+
+> **Note:** `uv run fastapi dev` (and `uv run fastapi run`) must be run in the **foreground**. Appending `&` to background the process causes it to exit immediately — the FastAPI CLI attaches to the controlling TTY and won't stay up when detached. To run the server in the background, invoke `uvicorn` directly instead, e.g. `uv run uvicorn main:app &` (`main.py` re-exports `app` from `src/server/app.py`).
 
 ---
 
@@ -121,7 +125,7 @@ tiro_sdc_extract/
 ## Running tests
 
 ```bash
-uv sync
+uv sync           # install all dependencies from pyproject.toml / uv.lock
 uv run pytest
 ```
 

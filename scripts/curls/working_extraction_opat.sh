@@ -25,7 +25,6 @@ trap 'rm -f "$TMPFILE"' EXIT
   printf '}]}'
 } > "$TMPFILE"
 
-echo "=== \$extract (Q + QR as Parameters) ==="
 curl --location \
   "${TIRO_BASE_URL}/QuestionnaireResponse/\$extract" \
   --header 'Accept: application/fhir+json' \

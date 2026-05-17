@@ -38,11 +38,14 @@ For the local Tiro testserver, boot it once from `apps/tiro_sdc_extract/`:
 
 ```bash
 cd apps/tiro_sdc_extract
-uv sync
-uv run fastapi dev src/server/app.py
+uv sync           # install all dependencies from pyproject.toml / uv.lock
+uv run fastapi dev
 ```
 
 No credentials, no `.env` required. Override with `TIRO_BASE_URL` if you've deployed it elsewhere.
+
+Full run instructions, configuration, and background-mode caveats are in
+[`apps/tiro_sdc_extract/README.md`](../../apps/tiro_sdc_extract/README.md).
 
 ### Sample data
 

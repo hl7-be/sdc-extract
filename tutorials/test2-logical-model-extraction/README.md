@@ -52,9 +52,12 @@ Same as Test 1 — boot the local server if you haven't already:
 
 ```bash
 cd apps/tiro_sdc_extract
-uv sync
-uv run fastapi dev src/server/app.py
+uv sync           # install all dependencies from pyproject.toml / uv.lock
+uv run fastapi dev
 ```
+
+Full run instructions, configuration, and background-mode caveats are in
+[`apps/tiro_sdc_extract/README.md`](../../apps/tiro_sdc_extract/README.md).
 
 ---
 
