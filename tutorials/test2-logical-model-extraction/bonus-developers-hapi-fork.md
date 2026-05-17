@@ -62,7 +62,7 @@ Proposed fix design: [`docs/hapi-extract-logical-model-fork-guide.md`](../../doc
   HAPI instance by overriding the dependency version in `dependencyManagement`.
 - Use `scripts/curls/working_extraction_opat_logicalmodel.sh` as a smoke test against your
   local HAPI. Does it work? If not - what broke?
-- Run `scripts/curls/working_extraction_opat.sh` as a regression check - core FHIR resource
+- Run `scripts/curls/working_extraction_opat_tiroserver.sh` as a regression check - core FHIR resource
   extraction must still work.
 
 **Upstream**

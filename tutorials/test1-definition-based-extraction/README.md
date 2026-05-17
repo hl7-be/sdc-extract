@@ -64,16 +64,16 @@ Pick one - the steps are identical for both.
 
 Two pairs of ready-made scripts — pick the one for your server:
 
-| Scenario | Tiro testserver (local, default)             | eHealth testserver (HAPI)                                  |
-|----------|----------------------------------------------|------------------------------------------------------------|
-| OPAT     | `scripts/curls/working_extraction_opat.sh`   | `scripts/curls/working_extraction_opat_ehtestserver.sh`   |
-| Oncology | `scripts/curls/working_extraction_onco.sh`   | `scripts/curls/working_extraction_onco_ehtestserver.sh`   |
+| Scenario | Tiro testserver (local, default)                        | eHealth testserver (HAPI)                                 |
+|----------|---------------------------------------------------------|-----------------------------------------------------------|
+| OPAT     | `scripts/curls/working_extraction_opat_tiroserver.sh`   | `scripts/curls/working_extraction_opat_ehtestserver.sh`   |
+| Oncology | `scripts/curls/working_extraction_onco_tiroserver.sh`   | `scripts/curls/working_extraction_onco_ehtestserver.sh`   |
 
 Run one:
 
 ```bash
 # Tiro (no creds, server must be running locally)
-bash scripts/curls/working_extraction_opat.sh
+bash scripts/curls/working_extraction_opat_tiroserver.sh
 
 # eHealth (needs TENANT_ID + API_KEY in .env)
 bash scripts/curls/working_extraction_opat_ehtestserver.sh
@@ -89,7 +89,7 @@ POSTs it to `QuestionnaireResponse/$extract` on the chosen server.
 Pretty-print with `jq`:
 
 ```bash
-bash scripts/curls/working_extraction_opat.sh | jq .
+bash scripts/curls/working_extraction_opat_tiroserver.sh | jq .
 ```
 
 ---
@@ -101,7 +101,7 @@ The Bundle is a `transaction` — POST it back to a FHIR server to persist the r
 Against eHealth:
 
 ```bash
-bash scripts/curls/working_extraction_opat.sh > bundle.json
+bash scripts/curls/working_extraction_opat_tiroserver.sh > bundle.json
 
 curl --location "https://hapi.fhir-testserver.be/fhir/${TENANT_ID}?api_key=${API_KEY}" \
   --header 'Content-Type: application/fhir+json' \

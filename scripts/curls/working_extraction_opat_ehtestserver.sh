@@ -2,7 +2,7 @@
 # Run definition-based $extract for the OPAT scenario against the eHealth
 # testserver (HAPI). Requires TENANT_ID and API_KEY in .env.
 # For the Tiro testserver variant (no credentials needed), see
-# working_extraction_opat.sh.
+# working_extraction_opat_tiroserver.sh.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$SCRIPT_DIR/../.."

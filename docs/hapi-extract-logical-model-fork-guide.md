@@ -290,7 +290,7 @@ Reuse the curls already in this repo as a smoke-test harness:
 - **Positive case (logical-model, your fork):** same curl against your
   patched HAPI → expect a `Parameters` / `Element`-shaped response.
 - **Regression (core resources still work):**
-  `scripts/curls/working_extraction_opat.sh` and `working_extraction_onco.sh`
+  `scripts/curls/working_extraction_opat_tiroserver.sh` and `working_extraction_onco_tiroserver.sh`
   must still succeed and produce the same Bundle they did before.
 
 If you have time, add a unit test in `clinical-reasoning` itself: pick the

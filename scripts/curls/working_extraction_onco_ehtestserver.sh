@@ -2,7 +2,7 @@
 # Run definition-based $extract for the oncology scenario against the eHealth
 # testserver (HAPI). Requires TENANT_ID and API_KEY in .env.
 # For the Tiro testserver variant (no credentials needed), see
-# working_extraction_onco.sh.
+# working_extraction_onco_tiroserver.sh.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$SCRIPT_DIR/../.."
