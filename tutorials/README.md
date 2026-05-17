@@ -37,7 +37,7 @@ uv sync
 uv run fastapi dev src/server/app.py
 ```
 
-Base URL: `http://localhost:8000/api/v2`
+Base URL: `http://localhost:8000/api/v1`
 
 The curl scripts under [`scripts/curls/`](../scripts/curls/) default to that URL. Override with
 `TIRO_BASE_URL` (in your environment or `.env`) if you've deployed the server elsewhere.

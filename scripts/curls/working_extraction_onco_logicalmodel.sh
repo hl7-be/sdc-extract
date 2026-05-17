@@ -9,7 +9,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$SCRIPT_DIR/../.."
 DATA_DIR="$ROOT_DIR/data/samples"
 
-: "${TIRO_BASE_URL:=http://localhost:8000/api/v2}"
+: "${TIRO_BASE_URL:=http://localhost:8000/api/v1}"
 [ -f "$ROOT_DIR/.env" ] && source "$ROOT_DIR/.env"
 
 Q_FILE="${DATA_DIR}/homehosp_q_onco_logicalmodel.json"

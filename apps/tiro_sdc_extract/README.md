@@ -2,7 +2,7 @@
 
 **tiro_sdc_extract** is a standalone FHIR SDC `$extract` service that implements [definition-based extraction](https://build.fhir.org/ig/HL7/sdc/extraction.html#definition-based-extraction) as a conformant FHIR REST endpoint.
 
-It exposes `POST /api/v2/QuestionnaireResponse/$extract` and accepts a FHIR `Parameters` resource containing a `Questionnaire` and a `QuestionnaireResponse`. It returns a `collection` Bundle of extracted FHIR resources or logical model instances.
+It exposes `POST /api/v1/QuestionnaireResponse/$extract` and accepts a FHIR `Parameters` resource containing a `Questionnaire` and a `QuestionnaireResponse`. It returns a `collection` Bundle of extracted FHIR resources or logical model instances.
 
 This service is separate from the [Q2Rmapper](../Q2Rmapper/README.md) annotation tool. It is the server-side extraction endpoint intended for integration by EHR vendors and care software who want to delegate the `$extract` operation to a shared service.
 
@@ -43,10 +43,10 @@ No FHIR server connection is needed — the service is stateless and processes t
 
 | Method | Path | Description |
 |---|---|---|
-| GET | `/api/v2/metadata` | FHIR CapabilityStatement |
-| POST | `/api/v2/QuestionnaireResponse/$extract` | Definition-based extraction |
+| GET | `/api/v1/metadata` | FHIR CapabilityStatement |
+| POST | `/api/v1/QuestionnaireResponse/$extract` | Definition-based extraction |
 
-### `POST /api/v2/QuestionnaireResponse/$extract`
+### `POST /api/v1/QuestionnaireResponse/$extract`
 
 **Request body** — a FHIR `Parameters` resource:
 

@@ -23,7 +23,7 @@ No custom mapping code. The Questionnaire **is** the mapping.
 ## Prerequisite - start the Tiro testserver locally
 
 All scripts in this tutorial target the in-repo Tiro testserver at
-`http://localhost:8000/api/v2`. Boot it once:
+`http://localhost:8000/api/v1`. Boot it once:
 
 ```bash
 cd apps/tiro_sdc_extract

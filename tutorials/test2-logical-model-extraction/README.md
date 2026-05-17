@@ -141,7 +141,7 @@ have landed in the correct element.
 - **Returns the Binary envelope when you expected raw JSON** → check the `Accept` header on the
   request. `application/json` selects the raw branch; anything else falls back to `Binary`.
 - **`ClassNotFoundException` / server error** → you are talking to HAPI, not the Tiro testserver.
-  Verify the URL points to `http://localhost:8000/api/v2` (see
+  Verify the URL points to `http://localhost:8000/api/v1` (see
   [`docs/hapi-extract-logical-model-root-cause.md`](../../docs/hapi-extract-logical-model-root-cause.md)).
 
 ---

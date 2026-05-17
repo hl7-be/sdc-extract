@@ -59,7 +59,7 @@ uv sync
 uv run fastapi dev src/server/app.py
 ```
 
-`http://localhost:8000/api/v2/metadata` returns a FHIR CapabilityStatement when the server is up.
+`http://localhost:8000/api/v1/metadata` returns a FHIR CapabilityStatement when the server is up.
 No credentials, no `.env` required. Then follow [`tutorials/`](tutorials/README.md).
 
 ---

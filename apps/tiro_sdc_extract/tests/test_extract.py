@@ -1,4 +1,4 @@
-"""End-to-end tests for `POST /api/v2/QuestionnaireResponse/$extract`.
+"""End-to-end tests for `POST /api/v1/QuestionnaireResponse/$extract`.
 
 Each fixture under `tests/fixtures/<name>/` is a quadruple:
     q.json         — Questionnaire input
@@ -45,7 +45,7 @@ def test_extract(client, fixture: Path):
     }
 
     if _is_fhir_fixture(expected):
-        r = client.post("/api/v2/QuestionnaireResponse/$extract", json=body)
+        r = client.post("/api/v1/QuestionnaireResponse/$extract", json=body)
         assert r.status_code == 200, r.json()
         assert r.headers["content-type"].startswith("application/fhir+json")
 
@@ -57,7 +57,7 @@ def test_extract(client, fixture: Path):
         assert actual == expected
     else:
         r = client.post(
-            "/api/v2/QuestionnaireResponse/$extract",
+            "/api/v1/QuestionnaireResponse/$extract",
             json=body,
             headers={"Accept": "application/json"},
         )
@@ -72,7 +72,7 @@ def test_extract(client, fixture: Path):
 
 def test_missing_required_parameters(client):
     r = client.post(
-        "/api/v2/QuestionnaireResponse/$extract",
+        "/api/v1/QuestionnaireResponse/$extract",
         json={"resourceType": "Parameters", "parameter": []},
     )
     assert r.status_code == 400
@@ -84,7 +84,7 @@ def test_missing_required_parameters(client):
 
 def test_non_parameters_body(client):
     r = client.post(
-        "/api/v2/QuestionnaireResponse/$extract",
+        "/api/v1/QuestionnaireResponse/$extract",
         json={"resourceType": "Bundle"},
     )
     assert r.status_code == 400
@@ -94,7 +94,7 @@ def test_non_parameters_body(client):
 
 
 def test_metadata(client):
-    r = client.get("/api/v2/metadata")
+    r = client.get("/api/v1/metadata")
     assert r.status_code == 200
     assert r.headers["content-type"].startswith("application/fhir+json")
     body = r.json()

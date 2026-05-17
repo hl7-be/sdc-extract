@@ -4,7 +4,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 
-from src.server.routers import v2
+from src.server.routers import v1
 from src.server.utils import OperationOutcomeException
 
 logging.basicConfig(level=logging.INFO)
@@ -37,5 +37,5 @@ async def global_exception_handler(request: Request, exc: Exception):
     return JSONResponse(status_code=500, content={"detail": "Internal server error"})
 
 
-app.include_router(v2.router, prefix="/api/v2")
+app.include_router(v1.router, prefix="/api/v1")
 
