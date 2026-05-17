@@ -5,9 +5,7 @@ description = "Standalone FHIR SDC $extract service (definition-based extraction
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "fastapi>=0.100.0",
-    "uvicorn",
-    "python-dotenv",
+    "fastapi[standard]>=0.112.0",
     "fhir-sdc",
 ]
 
@@ -15,7 +13,7 @@ dependencies = [
 managed = true
 
 [tool.uv.sources]
-fhir-sdc = { git = "ssh://git@github.com/tiro-health/fhir-sdc-rs.git", tag = "v0.1.0-rc5" }
+fhir-sdc = { git = "ssh://git@github.com/tiro-health/fhir-sdc-rs.git", tag = "v0.1.0-rc6" }
 
 [dependency-groups]
 dev = [

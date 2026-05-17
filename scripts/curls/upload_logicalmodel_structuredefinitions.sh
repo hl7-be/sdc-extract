@@ -1,27 +1,33 @@
 #!/bin/bash
+# Register the OPAT and onco logical-model StructureDefinitions with the local
+# Tiro testserver (apps/tiro_sdc_extract).
+#
+# The server rescans $STRUCTURE_DEFINITIONS_DIR (default:
+# <repo>/data/structure-definitions/) on every $extract request, so this
+# script just copies the two logical-model SDs into that directory — the
+# next request picks them up, no server restart needed.
+
+set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$SCRIPT_DIR/../.."
 DATA_DIR="$ROOT_DIR/data/samples"
+SD_DIR_DEFAULT="$ROOT_DIR/data/structure-definitions"
 
-# shellcheck source=../../.env
-source "$ROOT_DIR/.env"
+: "${STRUCTURE_DEFINITIONS_DIR:=$SD_DIR_DEFAULT}"
+[ -f "$ROOT_DIR/.env" ] && source "$ROOT_DIR/.env"
+
+mkdir -p "$STRUCTURE_DEFINITIONS_DIR"
 
 SD_OPAT="${DATA_DIR}/StructureDefinition-opat-continuous-infusion-questionnaire.json"
 SD_ONCO="${DATA_DIR}/StructureDefinition-onco-trastuzumab-questionnaire.json"
 
-echo "=== Uploading OPAT StructureDefinition ==="
-curl --location --request PUT \
-  "https://hapi.fhir-testserver.be/fhir/${TENANT_ID}/StructureDefinition/opat-continuous-infusion-questionnaire?api_key=${API_KEY}" \
-  --header 'Content-Type: application/fhir+json' \
-  --data "@${SD_OPAT}"
+echo "=== Copying OPAT StructureDefinition into $STRUCTURE_DEFINITIONS_DIR ==="
+cp "$SD_OPAT" "$STRUCTURE_DEFINITIONS_DIR/"
+
+echo "=== Copying ONCO StructureDefinition into $STRUCTURE_DEFINITIONS_DIR ==="
+cp "$SD_ONCO" "$STRUCTURE_DEFINITIONS_DIR/"
 
 echo ""
-echo "=== Uploading ONCO StructureDefinition ==="
-curl --location --request PUT \
-  "https://hapi.fhir-testserver.be/fhir/${TENANT_ID}/StructureDefinition/onco-trastuzumab-questionnaire?api_key=${API_KEY}" \
-  --header 'Content-Type: application/fhir+json' \
-  --data "@${SD_ONCO}"
-
-echo ""
-echo "=== Done. Run working_extraction_opat_logicalmodel.sh / working_extraction_onco_logicalmodel.sh to test extraction. ==="
+echo "Done. Run working_extraction_opat_logicalmodel.sh / working_extraction_onco_logicalmodel.sh"
+echo "to test extraction — no server restart needed."

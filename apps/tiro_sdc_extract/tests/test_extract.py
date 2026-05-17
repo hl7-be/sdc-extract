@@ -1,10 +1,16 @@
-"""End-to-end tests for `POST /api/v2/QuestionnaireResponse/$extract`.
+"""End-to-end tests for `POST /api/v1/QuestionnaireResponse/$extract`.
 
 Each fixture under `tests/fixtures/<name>/` is a quadruple:
     q.json         — Questionnaire input
     qr.json        — QuestionnaireResponse input
-    sd.json        — StructureDefinition (loaded into the server's SD folder by conftest)
+    sd/*.json      — StructureDefinitions (loaded into the server's SD folder by conftest)
     expected.json  — list of resources the extractor should produce
+
+If every entry in `expected.json` has a `resourceType`, the fixture is a
+FHIR-resource extraction and the test asserts the response is the matching
+`transaction` Bundle. Otherwise the fixture is a logical-model extraction; the
+test then requests `Accept: application/json` and asserts the raw JSON body
+matches the expected logical-model instance(s).
 """
 from __future__ import annotations
 
@@ -18,6 +24,10 @@ from tests.conftest import fixture_dirs
 
 def _load(path: Path) -> dict | list:
     return json.loads(path.read_text())
+
+
+def _is_fhir_fixture(expected: list[dict]) -> bool:
+    return bool(expected) and all("resourceType" in r for r in expected)
 
 
 @pytest.mark.parametrize("fixture", fixture_dirs(), ids=lambda p: p.name)
@@ -34,22 +44,40 @@ def test_extract(client, fixture: Path):
         ],
     }
 
-    r = client.post("/api/v2/QuestionnaireResponse/$extract", json=body)
-    assert r.status_code == 200, r.json()
-    assert r.headers["content-type"].startswith("application/fhir+json")
+    if _is_fhir_fixture(expected):
+        r = client.post("/api/v1/QuestionnaireResponse/$extract", json=body)
+        assert r.status_code == 200, r.json()
+        assert r.headers["content-type"].startswith("application/fhir+json")
 
-    bundle = r.json()
-    assert bundle["resourceType"] == "Bundle"
-    assert bundle["type"] == "collection"
+        bundle = r.json()
+        assert bundle["resourceType"] == "Bundle"
+        assert bundle["type"] == "transaction"
 
-    actual = [entry["resource"] for entry in bundle.get("entry", [])]
-    expected_resources = [r for r in expected if "resourceType" in r]
-    assert actual == expected_resources
+        actual = [entry["resource"] for entry in bundle.get("entry", [])]
+        assert actual == expected
+
+        # Every transaction entry must carry a urn:uuid fullUrl + request directive.
+        for entry, res in zip(bundle["entry"], actual):
+            assert entry["fullUrl"].startswith("urn:uuid:")
+            assert entry["request"] == {"method": "POST", "url": res["resourceType"]}
+    else:
+        r = client.post(
+            "/api/v1/QuestionnaireResponse/$extract",
+            json=body,
+            headers={"Accept": "application/json"},
+        )
+        assert r.status_code == 200, r.json()
+        assert r.headers["content-type"].startswith("application/json")
+
+        # The router unwraps single-entry logical-model results to the
+        # instance itself; multi-entry stays as an array.
+        expected_payload = expected[0] if len(expected) == 1 else expected
+        assert r.json() == expected_payload
 
 
 def test_missing_required_parameters(client):
     r = client.post(
-        "/api/v2/QuestionnaireResponse/$extract",
+        "/api/v1/QuestionnaireResponse/$extract",
         json={"resourceType": "Parameters", "parameter": []},
     )
     assert r.status_code == 400
@@ -61,7 +89,7 @@ def test_missing_required_parameters(client):
 
 def test_non_parameters_body(client):
     r = client.post(
-        "/api/v2/QuestionnaireResponse/$extract",
+        "/api/v1/QuestionnaireResponse/$extract",
         json={"resourceType": "Bundle"},
     )
     assert r.status_code == 400
@@ -71,7 +99,7 @@ def test_non_parameters_body(client):
 
 
 def test_metadata(client):
-    r = client.get("/api/v2/metadata")
+    r = client.get("/api/v1/metadata")
     assert r.status_code == 200
     assert r.headers["content-type"].startswith("application/fhir+json")
     body = r.json()

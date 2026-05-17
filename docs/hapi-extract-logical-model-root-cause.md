@@ -258,7 +258,10 @@ referenced via `definitionExtract` will hit the `Class.forName` failure.
    `StructureDefinition`.
 3. **A different server.** Any server whose extractor builds the target
    instance from `StructureDefinition` metadata rather than reflecting on
-   generated POJOs (e.g. Tiroserver — to be confirmed).
+   generated POJOs — the Tiro testserver in this repo
+   (`apps/tiro_sdc_extract/`) does this, resolving logical-model `definition`
+   paths against the `StructureDefinition`s loaded from
+   `STRUCTURE_DEFINITIONS_DIR`.
 
 ---
 

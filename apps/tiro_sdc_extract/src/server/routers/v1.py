@@ -1,6 +1,7 @@
 import logging
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from fastapi.responses import Response
 from fhir_sdc import extract as sdc_extract
 
 from src.server.fhir_parameters import (
@@ -11,7 +12,10 @@ from src.server.structure_definitions import get_structure_definition_loader
 from src.server.utils import (
     FhirJSONResponse,
     OperationOutcomeException,
-    bundle_collection,
+    RawJSONResponse,
+    binary_wrap_json,
+    bundle_transaction,
+    client_preferred_content_type,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -25,11 +29,11 @@ def capability_statement():
     return {
         "resourceType": "CapabilityStatement",
         "status": "active",
-        "date": "2026-05-07",
+        "date": "2026-05-17",
         "kind": "instance",
-        "software": {"name": "fhirquestionnaire-mapper", "version": "0.1.0"},
+        "software": {"name": "tiro-sdc-extract", "version": "0.1.0"},
         "fhirVersion": "4.0.1",
-        "format": ["application/fhir+json"],
+        "format": ["application/fhir+json", "application/json"],
         "rest": [
             {
                 "mode": "server",
@@ -49,8 +53,14 @@ def capability_statement():
     }
 
 
-@router.post("/QuestionnaireResponse/$extract", response_class=FhirJSONResponse)
-def questionnaire_response_extract(parameters: dict):
+@router.post("/QuestionnaireResponse/$extract")
+def questionnaire_response_extract(
+    parameters: dict,
+    response_content_type: str = Depends(client_preferred_content_type(
+        "application/fhir+json",  # server default
+        "application/json",
+    )),
+) -> Response:
     """
     FHIR SDC `$extract` operation — definition-based extraction.
 
@@ -61,7 +71,16 @@ def questionnaire_response_extract(parameters: dict):
     StructureDefinitions are loaded from the server-side folder configured via
     `STRUCTURE_DEFINITIONS_DIR` (default `<repo>/data/structure-definitions/`).
 
-    Returns a `collection` Bundle of extracted resources.
+    Response shape depends on what the Questionnaire extracts to:
+
+    - FHIR resources only → a `transaction` Bundle
+      (`application/fhir+json`).
+    - Logical-model instance(s) only → content-negotiated:
+        - `Accept: application/json` → raw JSON of the instance(s).
+        - anything else → a FHIR `Binary` wrapping the JSON in base64.
+    - Mixed (both FHIR resources and logical-model instances) → 422
+      `OperationOutcome`. Split the Questionnaire so each extraction context
+      yields one shape.
     """
     try:
         qr = load_questionnaire_response(parameters)
@@ -102,4 +121,31 @@ def questionnaire_response_extract(parameters: dict):
     if fatals:
         raise OperationOutcomeException(status_code=422, issues=fatals)
 
-    return bundle_collection(result["resources"])
+    resources = result["resources"]
+    fhir_entries = [r for r in resources if "resourceType" in r]
+    lm_entries = [r for r in resources if "resourceType" not in r]
+
+    if fhir_entries and lm_entries:
+        raise OperationOutcomeException(
+            status_code=422,
+            issues=[
+                {
+                    "severity": "error",
+                    "code": "invariant",
+                    "diagnostics": (
+                        "Extraction produced both FHIR resources and "
+                        "logical-model instances. This server returns one "
+                        "shape per request — split the Questionnaire so "
+                        "each extraction context yields a single shape."
+                    ),
+                }
+            ],
+        )
+
+    if lm_entries:
+        payload = lm_entries[0] if len(lm_entries) == 1 else lm_entries
+        if response_content_type == "application/json":
+            return RawJSONResponse(payload)
+        return FhirJSONResponse(binary_wrap_json(payload))
+
+    return FhirJSONResponse(bundle_transaction(fhir_entries))

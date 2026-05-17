@@ -109,9 +109,58 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject"
                 },
                 {
-                  "url": "fixed-value",
-                  "valueReference": {
-                    "reference": "#patient-placeholder"
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.subject"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'A1_Bewaring').code"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.performer"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.author"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.effectiveDateTime"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.authored"
                   }
                 }
               ]
@@ -141,7 +190,7 @@
                   "valueCoding": {
                     "code": "Cel",
                     "system": "http://unitsofmeasure.org",
-                    "display": "°C"
+                    "display": "\u00b0C"
                   }
                 },
                 {
@@ -179,7 +228,7 @@
                     },
                     {
                       "url": "fixed-value",
-                      "valueString": "°C"
+                      "valueString": "\u00b0C"
                     }
                   ]
                 }
@@ -300,9 +349,10 @@
                       "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject"
                     },
                     {
-                      "url": "fixed-value",
-                      "valueReference": {
-                        "reference": "#patient-placeholder"
+                      "url": "expression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%resource.subject"
                       }
                     }
                   ]
@@ -324,6 +374,38 @@
                             "display": "Blood pressure systolic and diastolic"
                           }
                         ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+                  "extension": [
+                    {
+                      "url": "definition",
+                      "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.performer"
+                    },
+                    {
+                      "url": "expression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%resource.author"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+                  "extension": [
+                    {
+                      "url": "definition",
+                      "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.effectiveDateTime"
+                    },
+                    {
+                      "url": "expression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%resource.authored"
                       }
                     }
                   ]
@@ -611,9 +693,58 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject"
                 },
                 {
-                  "url": "fixed-value",
-                  "valueReference": {
-                    "reference": "#patient-placeholder"
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.subject"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'B1_Temperatuur').code"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.performer"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.author"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.effectiveDateTime"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.authored"
                   }
                 }
               ]
@@ -972,9 +1103,58 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject"
                 },
                 {
-                  "url": "fixed-value",
-                  "valueReference": {
-                    "reference": "#patient-placeholder"
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.subject"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'C1_Tegenindicatie').code"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.performer"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.author"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.effectiveDateTime"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.authored"
                   }
                 }
               ]
@@ -1520,17 +1700,65 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject"
                 },
                 {
-                  "url": "fixed-value",
-                  "valueReference": {
-                    "reference": "#patient-placeholder"
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.subject"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'D1_Misselijkheid').code"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.performer"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.author"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.effectiveDateTime"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.authored"
                   }
                 }
               ]
             }
           ]
         }
-      ],
-      "extension": []
+      ]
     },
     {
       "linkId": "Opdracht",
@@ -1636,9 +1864,58 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject"
                 },
                 {
-                  "url": "fixed-value",
-                  "valueReference": {
-                    "reference": "#patient-placeholder"
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.subject"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'E1_BereidingCorrect').code"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.performer"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.author"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.effectiveDateTime"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.authored"
                   }
                 }
               ]
@@ -1745,9 +2022,58 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject"
                 },
                 {
-                  "url": "fixed-value",
-                  "valueReference": {
-                    "reference": "#patient-placeholder"
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.subject"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'E3_ToedieningCorrect').code"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.performer"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.author"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.effectiveDateTime"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.authored"
                   }
                 }
               ]
@@ -2037,17 +2363,65 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject"
                 },
                 {
-                  "url": "fixed-value",
-                  "valueReference": {
-                    "reference": "#patient-placeholder"
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.subject"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%questionnaire.descendants().where(linkId = 'E5_ReactieTijdensObservatieThuis').code"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.performer"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.author"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.effectiveDateTime"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.authored"
                   }
                 }
               ]
             }
           ]
         }
-      ],
-      "extension": []
+      ]
     },
     {
       "linkId": "Kwaliteitsopvolging",
@@ -2115,44 +2489,47 @@
               "valueUri": "http://hl7.org/fhir/StructureDefinition/DiagnosticReport#DiagnosticReport.subject"
             },
             {
-              "url": "fixed-value",
-              "valueReference": {
-                "reference": "#patient-placeholder"
+              "url": "expression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%resource.subject"
+              }
+            }
+          ]
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+          "extension": [
+            {
+              "url": "definition",
+              "valueUri": "http://hl7.org/fhir/StructureDefinition/DiagnosticReport#DiagnosticReport.performer"
+            },
+            {
+              "url": "expression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%resource.author"
+              }
+            }
+          ]
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue",
+          "extension": [
+            {
+              "url": "definition",
+              "valueUri": "http://hl7.org/fhir/StructureDefinition/DiagnosticReport#DiagnosticReport.effectiveDateTime"
+            },
+            {
+              "url": "expression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%resource.authored"
               }
             }
           ]
         }
       ]
     }
-  ],
-  "contained": [
-    {
-      "resourceType": "Patient",
-      "id": "patient-placeholder",
-      "meta": {
-        "tag": [
-          {
-            "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationValue",
-            "code": "SUBSETTED",
-            "display": "subsetted"
-          }
-        ]
-      },
-      "identifier": [
-        {
-          "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-          "value": "UNKNOWN"
-        }
-      ],
-      "name": [
-        {
-          "family": "Unknown",
-          "given": [
-            "Patient"
-          ]
-        }
-      ]
-    }
-  ],
-  "extension": []
+  ]
 }
