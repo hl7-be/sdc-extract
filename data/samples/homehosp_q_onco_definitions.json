@@ -42,8 +42,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "A2_MedicationStorageSpecify",
@@ -60,8 +59,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             }
           ],
           "extension": [
@@ -1024,8 +1022,7 @@
               ],
               "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueQuantity.value"
             }
-          ],
-          "extension": []
+          ]
         },
         {
           "linkId": "Contraindications",
@@ -1060,8 +1057,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "C2_ContraindicationSpecify",
@@ -1077,8 +1073,7 @@
                     "display": "Yes (qualifier value)"
                   }
                 }
-              ],
-              "extension": []
+              ]
             },
             {
               "linkId": "C3_FeverChills",
@@ -1108,8 +1103,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "C4_LowBloodPressure",
@@ -1139,8 +1133,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "C5_ElevatedOrIrregularHeartRate",
@@ -1170,8 +1163,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "C6_WeightGain",
@@ -1201,8 +1193,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "C7_Edema",
@@ -1232,8 +1223,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "C8_SevereDyspnea",
@@ -1263,8 +1253,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "C9_Other",
@@ -1277,8 +1266,7 @@
                   "display": "Administration of drug or medicament contraindicated (situation)"
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             },
             {
               "linkId": "C10_ContactCareTeam",
@@ -1294,8 +1282,7 @@
                     "display": "Yes (qualifier value)"
                   }
                 }
-              ],
-              "extension": []
+              ]
             },
             {
               "linkId": "C11_Decision",
@@ -1319,8 +1306,7 @@
                   "valueString": "other"
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "C12_DecisionSpecify",
@@ -1340,8 +1326,7 @@
                   "answerString": "other"
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             }
           ],
           "extension": [
@@ -1495,8 +1480,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "D2_Vomiting",
@@ -1539,8 +1523,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "D3_DecreasedAppetite",
@@ -1583,8 +1566,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "D4_Diarrhea",
@@ -1627,8 +1609,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "D5_Constipation",
@@ -1671,8 +1652,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "D6_Fatigue",
@@ -1715,8 +1695,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "D7_Pain",
@@ -1759,8 +1738,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "D8_SkinRash",
@@ -1803,8 +1781,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "D9_PsychosocialBurden",
@@ -1847,8 +1824,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "D10_Dyspnea",
@@ -1891,8 +1867,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "D11_Edema",
@@ -1935,8 +1910,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "D12_OtherObservations",
@@ -1949,8 +1923,7 @@
                   "display": "General well-being finding (finding)"
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             }
           ],
           "extension": [
@@ -2058,8 +2031,7 @@
             }
           ]
         }
-      ],
-      "extension": []
+      ]
     },
     {
       "linkId": "Assignment",
@@ -2099,8 +2071,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "E2_ContactCareTeam",
@@ -2116,8 +2087,7 @@
                     "display": "No (qualifier value)"
                   }
                 }
-              ],
-              "extension": []
+              ]
             }
           ],
           "extension": [
@@ -2258,8 +2228,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "E4_SpecifyNo",
@@ -2276,8 +2245,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             }
           ],
           "extension": [
@@ -2418,8 +2386,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "E6a_Fever",
@@ -2459,8 +2426,7 @@
                     "display": "No (qualifier value)"
                   }
                 }
-              ],
-              "extension": []
+              ]
             },
             {
               "linkId": "E6b_Nausea",
@@ -2500,8 +2466,7 @@
                     "display": "No (qualifier value)"
                   }
                 }
-              ],
-              "extension": []
+              ]
             },
             {
               "linkId": "E6c_TightnessSensation",
@@ -2541,8 +2506,7 @@
                     "display": "No (qualifier value)"
                   }
                 }
-              ],
-              "extension": []
+              ]
             },
             {
               "linkId": "E6d_Chills",
@@ -2582,8 +2546,7 @@
                     "display": "No (qualifier value)"
                   }
                 }
-              ],
-              "extension": []
+              ]
             },
             {
               "linkId": "E6e_InfluenzaLikeSyndrome",
@@ -2623,8 +2586,7 @@
                     "display": "No (qualifier value)"
                   }
                 }
-              ],
-              "extension": []
+              ]
             }
           ],
           "extension": [
@@ -2732,8 +2694,7 @@
             }
           ]
         }
-      ],
-      "extension": []
+      ]
     },
     {
       "linkId": "QualityMonitoring",
@@ -2751,8 +2712,7 @@
               "display": "Comments on own writing (finding)"
             }
           ],
-          "definition": "http://hl7.org/fhir/StructureDefinition/DiagnosticReport#DiagnosticReport.conclusion",
-          "extension": []
+          "definition": "http://hl7.org/fhir/StructureDefinition/DiagnosticReport#DiagnosticReport.conclusion"
         }
       ],
       "extension": [
@@ -2844,6 +2804,5 @@
         }
       ]
     }
-  ],
-  "extension": []
+  ]
 }

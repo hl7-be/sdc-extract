@@ -42,8 +42,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "45Indienopmerkingenofbezorgdheidspecifieer",
@@ -60,8 +59,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             }
           ],
           "extension": [
@@ -201,8 +199,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "31Indienneegelievecontactoptenemenmethetzorgteaminhetziekenhuis",
@@ -218,8 +215,7 @@
                     "display": "No (qualifier value)"
                   }
                 }
-              ],
-              "extension": []
+              ]
             },
             {
               "linkId": "24GewichtvanvolleInfusornetvoornieuwetoediening",
@@ -366,8 +362,7 @@
                   "display": "Medication prefill preparation management (procedure)"
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             }
           ],
           "extension": [
@@ -508,8 +503,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "95Indienneenspecifieer",
@@ -526,8 +520,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             }
           ],
           "extension": [
@@ -1188,8 +1181,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "77Indienafwijkendspecifieer",
@@ -1205,8 +1197,7 @@
                     "display": "Abnormal (qualifier value)"
                   }
                 }
-              ],
-              "extension": []
+              ]
             },
             {
               "linkId": "18Bloederig",
@@ -1235,8 +1226,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "46Etterig",
@@ -1265,8 +1255,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "88Los",
@@ -1295,8 +1284,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "48Sereus",
@@ -1325,8 +1313,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "99Vochtig",
@@ -1355,8 +1342,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "48Andereindienvantoepassing",
@@ -1369,8 +1355,7 @@
                   "display": "Wound dressing observable (observable entity)"
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             }
           ],
           "extension": [
@@ -1511,8 +1496,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "67Indienafwijkendspecifieer",
@@ -1528,8 +1512,7 @@
                     "display": "Abnormal (qualifier value)"
                   }
                 }
-              ],
-              "extension": []
+              ]
             },
             {
               "linkId": "32Blaarvorming",
@@ -1558,8 +1541,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "45Rood",
@@ -1588,8 +1570,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "100Haematoom",
@@ -1618,8 +1599,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "2Etter",
@@ -1648,8 +1628,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "58Korstvorming",
@@ -1678,8 +1657,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "15Zwelling",
@@ -1708,8 +1686,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "95Extravasatieinfiltratie",
@@ -1738,8 +1715,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "45Andereindienvantoepassing",
@@ -1752,8 +1728,7 @@
                   "display": "Wound observable (observable entity)"
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             }
           ],
           "extension": [
@@ -1894,8 +1869,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "45Indienafwijkendspecifieer",
@@ -1911,8 +1885,7 @@
                     "display": "Abnormal (qualifier value)"
                   }
                 }
-              ],
-              "extension": []
+              ]
             },
             {
               "linkId": "catheter-type",
@@ -1962,8 +1935,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/DeviceUseStatement#DeviceUseStatement.device",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/DeviceUseStatement#DeviceUseStatement.device"
             },
             {
               "linkId": "59Bloedaspiratie",
@@ -1999,8 +1971,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "10Infusie",
@@ -2036,8 +2007,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "55Beschadigdekatheter",
@@ -2066,15 +2036,13 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "62Andereindienvantoepassing",
               "text": "Andere: (indien van toepassing)",
               "type": "string",
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             }
           ],
           "extension": [
@@ -2228,8 +2196,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "99Jeuk",
@@ -2272,8 +2239,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "11Blarenloslatenvandehuid",
@@ -2316,8 +2282,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "20Misselijkheid",
@@ -2360,8 +2325,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "37Braken",
@@ -2404,8 +2368,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "37Diarree",
@@ -2448,8 +2411,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "18Obstipatie",
@@ -2492,8 +2454,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "68Verminderdeeetlust",
@@ -2536,8 +2497,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "74Pijnbijtoediening",
@@ -2580,8 +2540,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "41Pijnalgemeen",
@@ -2624,8 +2583,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "57Moe",
@@ -2668,8 +2626,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "24Rillingen",
@@ -2712,8 +2669,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "1Candidiaseschimmelinfectie",
@@ -2756,8 +2712,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "48Gewrichtspijn",
@@ -2800,8 +2755,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "80Ademhalingsproblemen",
@@ -2844,8 +2798,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "79Zwellinggezichttong",
@@ -2888,8 +2841,7 @@
                   }
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept"
             },
             {
               "linkId": "77Iseranderesymptoomlastofzijnerandererelevanteklinischeenofpsychosocialeobservaties\ngelievebijklinischebezorgdheidcontacttenemenmethetzorgteaminhetziekenhuis",
@@ -2902,8 +2854,7 @@
                   "display": "General well-being finding (finding)"
                 }
               ],
-              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text",
-              "extension": []
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.note.text"
             }
           ],
           "extension": [
@@ -3011,8 +2962,7 @@
             }
           ]
         }
-      ],
-      "extension": []
+      ]
     },
     {
       "linkId": "Kwaliteitsopvolging",
@@ -3030,8 +2980,7 @@
               "display": "Comments on own writing (finding)"
             }
           ],
-          "definition": "http://hl7.org/fhir/StructureDefinition/DiagnosticReport#DiagnosticReport.conclusion",
-          "extension": []
+          "definition": "http://hl7.org/fhir/StructureDefinition/DiagnosticReport#DiagnosticReport.conclusion"
         }
       ],
       "extension": [
@@ -3123,6 +3072,5 @@
         }
       ]
     }
-  ],
-  "extension": []
+  ]
 }
