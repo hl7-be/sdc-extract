@@ -77,6 +77,19 @@ sdc-extract/
 └── tutorials/   # Step-by-step test guides (in progress)
 ```
 
+### Registry logical models
+
+The Belgian Cancer Registry (BCR) and QERMID `StructureDefinition`s, `CodeSystem`s, and
+`ValueSet`s are not bundled — fetch them on demand:
+
+```bash
+bash scripts/download_bcr_definitions.sh      # → data/bcr/
+bash scripts/download_qermid_definitions.sh   # → data/qermid/
+```
+
+Both scripts pull `definitions.json.zip` from the published IG. Outputs are gitignored. Re-run
+with `--force` to bypass the conditional GET.
+
 ---
 
 ## Troubleshooting
