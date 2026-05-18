@@ -54,3 +54,12 @@ The full design discussion is in
   source `QuestionnaireResponse`? Try constructing one manually.
 - Can you query for "all resources extracted from QR X" on the eHealth testserver using
   Provenance and reverse chaining?
+
+---
+
+## Share your findings
+
+Copy `submissions/TEMPLATE.md`, rename it to `{your-github-handle-or-team}.md`, fill in what
+you tried and found, and open a pull request targeting `main`.
+
+See [`../CONTRIBUTING.md`](../CONTRIBUTING.md) for the full process.

@@ -79,3 +79,12 @@ And fixed values like `Observation.code` and `Observation.status` are set via
 - What tooling would make this sustainable at scale?
 - What happens when a StructureDefinition is updated - do all Questionnaires using it need to be
   reviewed?
+
+---
+
+## Share your findings
+
+Copy `submissions/TEMPLATE.md`, rename it to `{your-github-handle-or-team}.md`, fill in what
+you tried and found, and open a pull request targeting `main`.
+
+See [`../CONTRIBUTING.md`](../CONTRIBUTING.md) for the full process.

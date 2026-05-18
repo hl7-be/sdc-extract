@@ -80,6 +80,14 @@ The roles below are a loose guide; feel free to explore across them:
 
 ---
 
+## Contributing
+
+Found a bug? Built a prototype? Want to share what you tried? Drop your findings in the
+`submissions/` folder of the relevant test and open a pull request. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for the workflow and file naming convention.
+
+---
+
 ## Other resources in this repository
 
 - [`docs/fse-faq.md`](../docs/fse-faq.md) - common errors and fixes
