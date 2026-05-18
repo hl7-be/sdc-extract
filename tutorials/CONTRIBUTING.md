@@ -7,7 +7,7 @@ Contributions live in `submissions/` folders inside each test directory.
 
 ## How to submit
 
-1. **Fork the repository** on GitHub (or clone and create a branch).
+1. **Fork the repository** on GitHub.
 2. **Copy** the `TEMPLATE.md` from the relevant test's `submissions/` folder.
 3. **Rename** the copy to `{your-github-handle-or-team-name}.md`
    (e.g. `team-alpha.md` or `jsmith.md`).

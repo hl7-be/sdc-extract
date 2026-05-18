@@ -16,7 +16,7 @@ FastAPI backend for annotating FHIR Questionnaires with SNOMED CT codes and FHIR
 From the `Q2Rmapper/api/` directory:
 
 ```bash
-uv run uvicorn src.server.app:app --reload --port 8000
+uv run python -m uvicorn src.server.app:app --reload --port 8000
 ```
 
 The API will be available at `http://localhost:8000`.  
