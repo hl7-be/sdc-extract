@@ -3,6 +3,7 @@
 /apps/Q2Rmapper/api/.venv/
 /apps/Q2Rmapper/web/.angular/
 /apps/Q2Rmapper/web/node_modules/
+/apps/Q2Rmapper/docker-compose.override.yml
 /.claude/
 apps/tiro_sdc_extract/src/__pycache__/
 apps/tiro_sdc_extract/tests/__pycache__/
