@@ -22,13 +22,25 @@ Q2Rmapper/
 
 The easiest way to run Q2Rmapper — no Node or Python setup required.
 
+### Prerequisites
+
+- **Docker Desktop** — or **Rancher Desktop** with the container engine set to **dockerd (Moby)** (not containerd).  
+  In Rancher Desktop: *Preferences → Container Engine → dockerd (Moby)*.
+
 ### 1. Configure environment
 
 ```bash
 cd apps/Q2Rmapper
 cp api/.env.example api/.env
-# Edit api/.env: set FHIR_BASE_URL (and optionally FHIR_API_KEY, etc. -- ehealth HAPI testserver is already available in the app)
+# Edit api/.env: set FHIR_BASE_URL (and optionally FHIR_API_KEY, SNOMED_URL, etc.)
 ```
+
+> **Important — SNOMED URL format:**  
+> Set `SNOMED_URL` to the base URL up to and including `/fhir/ValueSet` — do **not** include `/$expand`.  
+> The code appends `/$expand` automatically.  
+> Including `$expand` in the `.env` value will cause Docker Compose to treat it as an unset variable and silently break the URL.  
+> ✅ Correct: `SNOMED_URL=https://snowstorm.example.com/snowstorm/snomed-ct/fhir/ValueSet`  
+> ❌ Wrong: `SNOMED_URL=https://snowstorm.example.com/snowstorm/snomed-ct/fhir/ValueSet/$expand`
 
 ### 2. Build and start
 
@@ -53,6 +65,32 @@ docker run -p 8000:8000 \
   -e FHIR_BASE_URL=https://hapi.fhir.org/baseR4 \
   q2rmapper
 ```
+
+### Troubleshooting
+
+**`open //./pipe/docker_engine: cannot find the file` (Windows)**  
+Docker daemon is not running. Start Docker Desktop or Rancher Desktop and wait for it to be ready. In Rancher Desktop, verify the container engine is set to **dockerd (Moby)** under *Preferences → Container Engine*.
+
+**SNOMED search returns empty results or 504 Gateway Timeout**  
+If your Snowstorm server is on an internal corporate network (only reachable via VPN), Docker containers running in WSL2 (Rancher Desktop / Docker Desktop) do **not** automatically route traffic through the Windows VPN tunnel.
+
+To add your organisation's DNS servers, copy the override example and fill in your values:
+```bash
+cp docker-compose.override.yml.example docker-compose.override.yml
+# Edit docker-compose.override.yml: add your internal DNS servers and search domains
+```
+`docker-compose.override.yml` is gitignored — it will not be committed.
+
+If DNS alone doesn't fix it (routing is the real issue):
+1. Ensure your VPN is connected on Windows.
+2. As a workaround, run the **backend natively on Windows** (where VPN routing works):
+   ```bash
+   cd apps/Q2Rmapper/api
+   uv run uvicorn src.server.app:app --reload --port 8000
+   ```
+
+**`WARNING: The "expand" variable is not set`**  
+Your `api/.env` contains `$expand` in the `SNOMED_URL` value. Docker Compose interpolates `$` in env files. Remove `/$expand` from the URL — the code appends it automatically (see SNOMED URL format note above).
 
 ---
 

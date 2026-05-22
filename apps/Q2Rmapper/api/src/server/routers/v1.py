@@ -2,6 +2,7 @@ import logging
 import os
 
 import requests
+import urllib3
 from fastapi import APIRouter, Depends, HTTPException, Request
 
 from src.core.processor import QuestionnaireProcessor
@@ -22,7 +23,8 @@ from src.server.fhir_validator import extract_valid_paths, get_structure_definit
 LOGGER = logging.getLogger(__name__)
 
 SNOMED_URL = os.environ.get("SNOMED_URL", "")
-SNOMED_CERT_PATH = os.environ.get("SNOMED_CERT_PATH")
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning) #only for prototyping
 
 router = APIRouter()
 
@@ -222,11 +224,17 @@ def search_snomed_concept(query: str, ecl: str | None = None):
     Search Snowstorm using FHIR $expand + ECL.
     Returns first 10 SNOMED CT concepts.
     If ECL is provided, limit results to that hierarchy (e.g. <<123037004).
-    Configure via environment variables: SNOMED_URL, SNOMED_CERT_PATH.
+    Configure via environment variable: SNOMED_URL (must point to the $expand endpoint).
     """
     if not SNOMED_URL:
         LOGGER.warning("SNOMED_URL not configured; returning empty results")
         return []
+
+    # Ensure the URL targets the $expand operation — the $ can be dropped by some
+    # env file parsers, so we append it defensively if missing.
+    expand_url = SNOMED_URL.rstrip("/")
+    if not expand_url.endswith("$expand"):
+        expand_url = expand_url + "/$expand"
 
     ecl_expression = ecl if ecl else "<<138875005"
     params = {
@@ -234,10 +242,9 @@ def search_snomed_concept(query: str, ecl: str | None = None):
         "filter": query,
         "_count": 10,
     }
-    verify = SNOMED_CERT_PATH if SNOMED_CERT_PATH else True
 
     try:
-        response = requests.get(SNOMED_URL, params=params, verify=verify)
+        response = requests.get(expand_url, params=params, verify=False)
         response.raise_for_status()
     except requests.RequestException as e:
         LOGGER.warning("SNOMED search failed: %s", e)
@@ -251,4 +258,9 @@ def search_snomed_concept(query: str, ecl: str | None = None):
             "display": entry.get("display"),
             "system": entry.get("system"),
         })
+
+    if not items:
+        LOGGER.debug("SNOMED search returned no results. resourceType=%s, url=%s",
+                     vs.get("resourceType"), expand_url)
+
     return items
