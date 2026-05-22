@@ -1,0 +1,24 @@
+# Git internals
+.git
+
+# Python
+**/.venv
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/.fhir_cache
+
+# Node / Angular
+**/node_modules
+**/.angular
+**/dist
+
+# IDE / OS
+.idea
+**/.DS_Store
+
+# Secrets
+**/.env
+
+# Data
+data/
