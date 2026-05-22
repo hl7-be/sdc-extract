@@ -19,7 +19,7 @@ export interface SnomedItem {
   display: string;
 }
 
-export const BASE_URL = 'http://localhost:8000/api/v1';
+export const BASE_URL = '/api/v1';
 
 @Injectable({ providedIn: 'root' })
 export class FhirQuestionnaireMapperService {

@@ -50,6 +50,21 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 app.include_router(v1.router, prefix="/api/v1")
 
+# Serve the Angular SPA when a pre-built static/ directory is present (Docker image).
+# In local development the directory doesn't exist and the API runs as-is.
+_static_dir = Path(__file__).parent.parent.parent / "static"
+if _static_dir.exists():
+    from fastapi.responses import FileResponse
+    from fastapi.staticfiles import StaticFiles
+
+    # Serve hashed JS/CSS/assets directly
+    app.mount("/", StaticFiles(directory=str(_static_dir)), name="static-files")
+
+    # SPA fallback: any path not matched above returns index.html so Angular routing works
+    @app.exception_handler(404)
+    async def spa_fallback(request: Request, exc: Exception):
+        return FileResponse(str(_static_dir / "index.html"))
+
 
 # uvicorn src.server.app:app --reload --port 8000
 if __name__ == "__main__":

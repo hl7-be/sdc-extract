@@ -1,0 +1,17 @@
+services:
+  q2rmapper:
+    build:
+      context: ../..
+      dockerfile: apps/Q2Rmapper/Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: ./api/.env
+        required: false
+    environment:
+      - FHIR_BASE_URL=${FHIR_BASE_URL:-https://hapi.fhir.org/baseR4}
+      - FHIR_API_KEY=${FHIR_API_KEY:-}
+      - GOOGLE_SERVICE_ACCOUNT_FILE=${GOOGLE_SERVICE_ACCOUNT_FILE:-}
+      - SNOMED_URL=${SNOMED_URL:-}
+      - SNOMED_CERT_PATH=${SNOMED_CERT_PATH:-}
+      - MAPPING_STATUS_SYSTEM=${MAPPING_STATUS_SYSTEM:-}

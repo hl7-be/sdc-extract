@@ -10,8 +10,48 @@ It is part of the [FHIR SDC extract atelier](../../README.md).
 
 ```
 Q2Rmapper/
-├── api/    # FastAPI backend — see api/README.md
-└── web/    # Angular 18 frontend — see web/README.md
+├── api/               # FastAPI backend — see api/README.md
+├── web/               # Angular 18 frontend — see web/README.md
+├── Dockerfile         # Multi-stage build (frontend + backend in one image)
+└── docker-compose.yml # One-command run
+```
+
+---
+
+## Running with Docker (recommended)
+
+The easiest way to run Q2Rmapper — no Node or Python setup required.
+
+### 1. Configure environment
+
+```bash
+cd apps/Q2Rmapper
+cp api/.env.example api/.env
+# Edit api/.env: set FHIR_BASE_URL (and optionally FHIR_API_KEY, etc. -- ehealth HAPI testserver is already available in the app)
+```
+
+### 2. Build and start
+
+```bash
+# From apps/Q2Rmapper/
+docker compose up --build
+```
+
+Open **http://localhost:8000** in your browser.
+
+To rebuild after code changes: `docker compose up --build`  
+To stop: `docker compose down`
+
+#### Without Docker Compose
+
+```bash
+# Build from the repository root
+docker build -f apps/Q2Rmapper/Dockerfile -t q2rmapper .
+
+# Run, passing env vars inline
+docker run -p 8000:8000 \
+  -e FHIR_BASE_URL=https://hapi.fhir.org/baseR4 \
+  q2rmapper
 ```
 
 ---
