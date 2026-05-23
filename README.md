@@ -27,8 +27,8 @@ Two Belgian use cases anchor the atelier:
   (`Observation`, `DiagnosticReport`, `MedicationStatement`) flow into the patient record. Directly linked to the
   FOD-funded home hospitalization pilot (UZ Leuven, Wit-Gele Kruis, Corilus, nexuzhealth - running since January 2026).
 - **Registry population:** a clinician submits a QERMID implant registration or cancer notification (BCR). Output is
-  validated against registry `StructureDefinition`s and forwarded to the receiving infrastructure. Relevant for
-  Sciensano/HealthData.be (HD4DP), Belgian Cancer Registry, and BSP.
+  validated against registry `StructureDefinition`s and forwarded to the receiving infrastructure. Relevant for Tiro.health and for people involved in 
+  Sciensano/HealthData.be (HD4DP), Belgian Cancer Registry and other registries
 
 ---
 
