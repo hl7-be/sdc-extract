@@ -17,6 +17,10 @@ By linking `Questionnaire` items to `StructureDefinition`s via the `.definition`
 converts form responses into Bundles of profiled FHIR resources - making the Questionnaire both the form specification
 and the extraction specification.
 
+> **New to FHIR SDC?** Read [`docs/sdc-overview.md`](docs/sdc-overview.md) first — a short primer on the core
+> resources, the `$populate` / `$extract` operations, and the bidirectional `Questionnaire.item.definition` link
+> that ties them together.
+
 ---
 
 ## Scope & Use Cases
