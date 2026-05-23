@@ -47,11 +47,10 @@ A resource instance is "valid" only insofar as it conforms to its `StructureDefi
 
 ![StructureDefinition as blueprint: one definition, many conforming Observation instances](./sdc-resource-blueprint.png)
 
-Profiles (e.g. `BeObservation`, `QERMID-Implant`) are themselves `StructureDefinition`s that
-further constrain a base resource — narrowing cardinalities, requiring specific code systems,
-fixing values. In an SDC pipeline, the same blueprint that validates a resource at write time
-is also the contract that `$populate` and `$extract` follow when moving data through the
-form.
+Profiles (e.g. `BeObservation`) are themselves `StructureDefinition`s that further constrain
+a base resource — narrowing cardinalities, requiring specific code systems, fixing values.
+In an SDC pipeline, the same blueprint that validates a resource at write time is also the
+contract that `$populate` and `$extract` follow when moving data through the form.
 
 > Source: [`sdc-resource-blueprint.excalidraw`](./sdc-resource-blueprint.excalidraw)
 
@@ -127,11 +126,12 @@ extraction and population behaviour come for free once the questionnaire is anno
 
 Definition-based extraction can target two kinds of structures:
 
-- **Profiled FHIR resources** — e.g. a BeObservation or a QERMID implant report. This is
+- **Profiled FHIR resources** — e.g. a `BeObservation`. This is
   [Test 1](../tutorials/test1-definition-based-extraction/README.md) in the tutorials and
   works on any compliant SDC server.
 - **Logical models** — `StructureDefinition`s with `kind = logical`, used by registries that
-  need a flat JSON shape rather than a graph of FHIR resources. This is
+  need a flat JSON shape rather than a graph of FHIR resources. The QERMID implant registry
+  uses this pattern. This is
   [Test 2](../tutorials/test2-logical-model-extraction/README.md). Supported by the Tiro
   test server; HAPI does not yet support it
   (see [`hapi-extract-logical-model-root-cause.md`](hapi-extract-logical-model-root-cause.md)).
