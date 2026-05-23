@@ -38,6 +38,25 @@ server** stores the resulting resources; it doesn't need to know anything SDC-sp
 
 ---
 
+## StructureDefinition — the blueprint of a FHIR resource
+
+Every FHIR resource — every `Observation`, every `Patient`, every `MedicationStatement` — is
+defined by a `StructureDefinition`. It is the blueprint: which elements exist, their data
+types and cardinality, the value sets they bind to, and any constraints they must satisfy.
+A resource instance is "valid" only insofar as it conforms to its `StructureDefinition`.
+
+![StructureDefinition as blueprint: one definition, many conforming Observation instances](./sdc-resource-blueprint.png)
+
+Profiles (e.g. `BeObservation`, `QERMID-Implant`) are themselves `StructureDefinition`s that
+further constrain a base resource — narrowing cardinalities, requiring specific code systems,
+fixing values. In an SDC pipeline, the same blueprint that validates a resource at write time
+is also the contract that `$populate` and `$extract` follow when moving data through the
+form.
+
+> Source: [`sdc-resource-blueprint.excalidraw`](./sdc-resource-blueprint.excalidraw)
+
+---
+
 ## Core resources
 
 | Resource | Role | Authored by |
