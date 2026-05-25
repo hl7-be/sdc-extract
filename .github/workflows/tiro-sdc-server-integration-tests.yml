@@ -1,0 +1,45 @@
+name: tiro-sdc-server-integration-tests
+
+# Build the wrapper image locally on the runner and exercise it through the
+# pytest integration suite. Nothing is pushed — participants are expected to
+# build the image themselves (see apps/tiro_sdc_server/README.md).
+
+on:
+  pull_request:
+    paths:
+      - 'apps/tiro_sdc_server/**'
+      - '.github/workflows/tiro-sdc-server-integration-tests.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'apps/tiro_sdc_server/**'
+      - '.github/workflows/tiro-sdc-server-integration-tests.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build wrapper image (single-arch, load into local daemon)
+        uses: docker/build-push-action@v5
+        with:
+          context: apps/tiro_sdc_server
+          load: true
+          tags: tiro-sdc-server:ci
+          secrets: |
+            license=${{ secrets.SDC_SERVER_LICENSE }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Run integration tests
+        env:
+          TIRO_SDC_SERVER_IMAGE: tiro-sdc-server:ci
+        run: |
+          uv run --no-project --with httpx --with pytest \
+              pytest apps/tiro_sdc_server/tests/ -v

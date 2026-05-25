@@ -8,28 +8,23 @@ that bakes in:
   continuous-infusion questionnaire, the onco trastuzumab questionnaire).
 - A JWT license valid until **2026-06-15**.
 
-The resulting image is published as multi-arch (linux/amd64 + linux/arm64)
-to `ghcr.io/hl7-be/tiro-sdc-server`. Pull and run, no auth, no license
-file to plumb:
+There's no published image — participants **build it locally**. The base
+engine image is public on Tiro's GAR (`tiro-sdc-server:v0.1.0-rc2`); the
+license JWT comes from `engineering@tiro.health` via Google Secret
+Manager (or someone hands you a `license.jwt` file directly).
 
-```bash
-docker run --rm -p 8000:8000 ghcr.io/hl7-be/tiro-sdc-server:latest
-curl http://localhost:8000/api/v1/metadata
-```
-
-After 2026-06-15 the container will refuse to start —
-`License expired: Signature has expired`. Cut a new tag if you need it for
-longer.
+After 2026-06-15 the wrapper will refuse to start —
+`License expired: Signature has expired`. Mint a new JWT and rebuild.
 
 ## What the wrapper layers on the upstream image
 
 ```
-ghcr.io/hl7-be/tiro-sdc-server
+tiro-sdc-server:dev  (your locally-built image)
   └── (this Dockerfile)
         ├── /app/data/structure-definitions/     ← the 5 SDs below
         └── /etc/sdc-server/license.jwt          ← demo JWT
               ▲
-              FROM europe-west1-docker.pkg.dev/tiroapp-4cb17/public/tiro-sdc-server:vX.Y.Z
+              FROM europe-west1-docker.pkg.dev/tiroapp-4cb17/public/tiro-sdc-server:v0.1.0-rc2
               (the engine: FastAPI + fhir-sdc Rust core + JWT verifier)
 ```
 
@@ -51,11 +46,13 @@ Inherited from the upstream image:
 You need:
 
 - gcloud auth with `secretmanager.secretAccessor` on
-  `atticus-license-signing-key` (granted to `engineering@tiro.health`)
-- Docker with Buildx
+  `atticus-license-signing-key` (granted to `engineering@tiro.health`),
+  **or** a `license.jwt` file someone else minted for you.
+- Docker with Buildx.
+
+If you have gcloud access, mint a fresh license:
 
 ```bash
-# 1. Mint a fresh test license (1 day is enough for local work).
 KEY=$(mktemp); trap 'shred -u "$KEY" 2>/dev/null || rm -f "$KEY"' EXIT
 gcloud secrets versions access latest \
     --secret=atticus-license-signing-key --project=tiroapp-4cb17 > "$KEY"
@@ -65,13 +62,17 @@ uv run --no-project --with cryptography --with pyjwt \
     python ../../../fhir-a-thon-sdc-server/scripts/mint_license.py \
     --private-key "$KEY" \
     --subject "local-dev" \
-    --days 1 \
+    --days 21 \
     --out /tmp/dev-license.jwt
+```
 
-# 2. Build the wrapper image.
+If you've been handed a `license.jwt`, just use it directly. Then build:
+
+```bash
 docker buildx build apps/tiro_sdc_server \
     --secret id=license,src=/tmp/dev-license.jwt \
     -t tiro-sdc-server:dev .
+
 shred -u /tmp/dev-license.jwt 2>/dev/null || rm -f /tmp/dev-license.jwt
 ```
 
@@ -79,27 +80,30 @@ To pin a specific upstream version:
 
 ```bash
 docker buildx build apps/tiro_sdc_server \
-    --build-arg BASE_TAG=v0.1.0-rc2 \
+    --build-arg BASE_TAG=v0.1.0-rc3 \
     --secret id=license,src=/tmp/dev-license.jwt \
     -t tiro-sdc-server:dev .
 ```
 
+## Running
+
+```bash
+docker run --rm -p 8000:8000 tiro-sdc-server:dev
+curl http://localhost:8000/api/v1/metadata
+```
+
 ## Integration tests
 
-`apps/tiro_sdc_server/tests/` boots the image and exercises the OPAT +
-onco fixtures over HTTP. Build the image first, then:
+`apps/tiro_sdc_server/tests/` boots the image you just built and
+exercises the OPAT + onco fixtures over HTTP:
 
 ```bash
 cd apps/tiro_sdc_server
 uv run --no-project --with httpx --with pytest pytest
 ```
 
-Override the image with `TIRO_SDC_SERVER_IMAGE` env if you want to test
-against a tagged build instead of `tiro-sdc-server:dev`.
+Override the image with the `TIRO_SDC_SERVER_IMAGE` env if you want to
+test against a tagged build instead of `tiro-sdc-server:dev`.
 
-## Publishing
-
-Pushed automatically by
-[`.github/workflows/tiro-sdc-server-image.yml`](../../.github/workflows/tiro-sdc-server-image.yml)
-on every push to `main` and every `v*` tag. The license is supplied via
-the GitHub Actions secret `SDC_SERVER_LICENSE`.
+CI runs the same suite on every PR (see
+[`.github/workflows/tiro-sdc-server-integration-tests.yml`](../../.github/workflows/tiro-sdc-server-integration-tests.yml)).
