@@ -1,15 +1,20 @@
-"""End-to-end tests for `POST /api/v1/QuestionnaireResponse/$extract`.
+"""Container-level integration tests for `POST /api/v1/QuestionnaireResponse/$extract`.
 
-Each fixture under `tests/fixtures/<name>/` is a quadruple:
+Each fixture under `tests/fixtures/<name>/` is a triple plus historical SDs:
     q.json         — Questionnaire input
     qr.json        — QuestionnaireResponse input
-    sd/*.json      — StructureDefinitions (loaded into the server's SD folder by conftest)
     expected.json  — list of resources the extractor should produce
+    sd/*.json      — informational: same SDs that are baked into the wrapper
+                      image at /app/data/structure-definitions/
+
+The conftest spins up the wrapper container (`TIRO_SDC_SERVER_IMAGE`, default
+`tiro-sdc-server:dev`) and the `client` fixture is an `httpx.Client` pointed
+at it. Build the image yourself first — see ../README.md.
 
 If every entry in `expected.json` has a `resourceType`, the fixture is a
 FHIR-resource extraction and the test asserts the response is the matching
 `transaction` Bundle. Otherwise the fixture is a logical-model extraction; the
-test then requests `Accept: application/json` and asserts the raw JSON body
+test requests `Accept: application/json` and asserts the raw JSON body
 matches the expected logical-model instance(s).
 """
 from __future__ import annotations
