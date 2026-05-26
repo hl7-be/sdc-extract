@@ -31,8 +31,6 @@ jobs:
           context: apps/tiro_sdc_server
           load: true
           tags: tiro-sdc-server:ci
-          secrets: |
-            license=${{ secrets.SDC_SERVER_LICENSE }}
 
       - name: Install uv
         uses: astral-sh/setup-uv@v3
