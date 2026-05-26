@@ -6,14 +6,11 @@ that bakes in:
 - The 5 StructureDefinitions for the BE FHIR-a-thon demos
   (`Observation`, `DiagnosticReport`, `DeviceUseStatement`, the OPAT
   continuous-infusion questionnaire, the onco trastuzumab questionnaire).
-- A demo JWT license valid until **2026-06-15**, fetched at build time
-  from a public GitHub gist (URL in [`Dockerfile`](Dockerfile)'s
-  `LICENSE_URL` build arg).
+- A demo JWT license valid until **2026-06-15**.
 
 Participants **build it locally** on top of the public
 `Tiro-health/sdc-server` image. After 2026-06-15 the container refuses
-to start (`License expired: Signature has expired`) — mint a fresh JWT,
-update the gist, rebuild.
+to start with `License expired` — ping Tiro for a fresh image.
 
 ## Endpoints
 
@@ -31,24 +28,7 @@ docker build . -t tiro-sdc-server:dev
 ```
 
 The build tracks `tiro-sdc-server:latest` upstream. Override with
-`--build-arg BASE_TAG=<tag>` to pin a specific version, or
-`--build-arg LICENSE_URL=<gist-raw-url>` to use a different license.
-
-### Rotating the license (Tiro maintainers)
-
-```bash
-KEY=$(mktemp); trap 'shred -u "$KEY" 2>/dev/null || rm -f "$KEY"' EXIT
-gcloud secrets versions access latest \
-    --secret=atticus-license-signing-key --project=tiroapp-4cb17 > "$KEY"
-uv run --no-project --with cryptography --with pyjwt python \
-    ../../../fhir-a-thon-sdc-server/scripts/mint_license.py \
-    --private-key "$KEY" --subject "hl7-be-fhirathon-2026-06" \
-    --days 20 --out /tmp/license.jwt
-
-# Replace the gist content in place so the URL stays stable
-gh gist edit <gist-id> /tmp/license.jwt
-shred -u /tmp/license.jwt
-```
+`--build-arg BASE_TAG=<tag>` to pin a specific version.
 
 ## Running
 
