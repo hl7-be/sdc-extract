@@ -23,6 +23,42 @@ and the extraction specification.
 
 ---
 
+## Quick start with Docker
+
+The full local environment — a **HAPI** FHIR server, the conformant **`$extract`** API, and the **Q2Rmapper**
+mapping app — runs from a single root `docker-compose.yml`. The only prerequisite is
+[Docker Desktop](https://www.docker.com/products/docker-desktop/) (or Rancher Desktop with the **dockerd (Moby)**
+engine).
+
+```bash
+cp .env.example .env          # defaults work out of the box; edit ports/targets if needed
+docker compose --profile full up --build
+```
+
+| Service | URL | Role |
+|---------|-----|------|
+| HAPI FHIR server | http://localhost:8080/fhir | Receives Bundles, validates against `StructureDefinition`s |
+| SDC `$extract` API | http://localhost:8000/api/v1 | `POST /QuestionnaireResponse/$extract` |
+| Q2Rmapper UI | http://localhost:4200 | Annotate Questionnaires, preview extraction |
+
+On startup a one-shot loader seeds HAPI with the five atelier `StructureDefinition`s.
+
+The three services are independent, so you can start just what you need:
+
+```bash
+docker compose --profile full   up --build   # HAPI + extract API + mapper
+docker compose --profile server up --build   # HAPI + extract API
+docker compose --profile mapper up --build   # mapping app only
+```
+
+> **Mapper-only note:** with `--profile mapper`, HAPI is not running, so set `MAPPER_FHIR_BASE_URL` in `.env`
+> to a reachable server (e.g. `https://hapi.fhir.org/baseR4`) before starting.
+
+Stop everything with `docker compose --profile full down`. Host ports and the mapper's FHIR target are
+configurable in `.env`.
+
+---
+
 ## Scope & Use Cases
 
 Two Belgian use cases anchor the atelier:
@@ -74,7 +110,8 @@ sdc-extract/
 │   ├── Q2Rmapper/          # Interactive annotation tool (Angular + FastAPI)
 │   │   ├── web/            #   Angular 18 frontend
 │   │   └── api/            #   FastAPI backend (questionnaire mapping + preview extraction)
-│   └── tiro_sdc_extract/   # Standalone FHIR SDC $extract service (Python)
+│   └── tiro_sdc_server/    # Conformant FHIR SDC $extract service (Docker image)
+├── docker-compose.yml  # One-command full local environment (see Quick start)
 ├── data/        # Sample Questionnaire and QuestionnaireResponse files
 ├── docs/        # Investigation notes, troubleshooting, and design documents
 ├── scripts/     # Shell scripts for calling FHIR servers

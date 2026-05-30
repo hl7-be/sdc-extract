@@ -1,0 +1,72 @@
+# Full local environment for the BE FHIR-a-thon SDC extract atelier.
+#
+# The three services are independent, so profiles let you start subsets:
+#
+#   docker compose --profile full   up --build   # HAPI + extract API + mapper
+#   docker compose --profile server up --build   # HAPI + extract API
+#   docker compose --profile mapper up --build   # mapping app only
+#
+# Host ports and the mapper's FHIR target are configurable via .env
+# (copy .env.example to .env first). Stop everything with:
+#
+#   docker compose --profile full down
+
+name: sdc-extract
+
+services:
+  # ── HAPI FHIR server (data transport / validation target) ──────────────
+  hapi:
+    image: hapiproject/hapi:latest
+    profiles: ["server", "full"]
+    ports:
+      - "${HAPI_PORT:-8080}:8080"
+    environment:
+      hapi.fhir.fhir_version: R4
+      hapi.fhir.allow_multiple_delete: "true"
+    restart: unless-stopped
+
+  # ── One-shot loader: seeds the 5 atelier StructureDefinitions into HAPI ─
+  # Polls HAPI until it is ready, PUTs each StructureDefinition, then exits.
+  # Idempotent — safe to re-run on every `up`.
+  hapi-loader:
+    image: alpine:3.20
+    profiles: ["server", "full"]
+    depends_on:
+      - hapi
+    environment:
+      HAPI_BASE_URL: http://hapi:8080/fhir
+    volumes:
+      - ./apps/tiro_sdc_server/structure-definitions:/sd:ro
+      - ./scripts/docker/load-structure-definitions.sh:/load.sh:ro
+    entrypoint: ["/bin/sh", "/load.sh"]
+    restart: "no"
+
+  # ── Conformant SDC $extract service ────────────────────────────────────
+  # Endpoints under /api/v1 (e.g. /api/v1/QuestionnaireResponse/$extract).
+  extract:
+    build:
+      context: ./apps/tiro_sdc_server
+      dockerfile: Dockerfile
+    profiles: ["server", "full"]
+    ports:
+      - "${EXTRACT_PORT:-8000}:8000"
+    restart: unless-stopped
+
+  # ── Q2Rmapper mapping app (Angular + FastAPI, one image) ───────────────
+  # Listens on 8000 inside the container; mapped to MAPPER_PORT on the host
+  # to avoid clashing with the extract service.
+  mapper:
+    build:
+      context: .
+      dockerfile: apps/Q2Rmapper/Dockerfile
+    profiles: ["mapper", "full"]
+    ports:
+      - "${MAPPER_PORT:-4200}:8000"
+    environment:
+      # In the full stack this points at the bundled HAPI service.
+      # For `--profile mapper` alone, override MAPPER_FHIR_BASE_URL in .env
+      # to a reachable server (e.g. https://hapi.fhir.org/baseR4).
+      FHIR_BASE_URL: ${MAPPER_FHIR_BASE_URL:-http://hapi:8080/fhir}
+      FHIR_API_KEY: ${MAPPER_FHIR_API_KEY:-}
+      SNOMED_URL: ${MAPPER_SNOMED_URL:-}
+    restart: unless-stopped
