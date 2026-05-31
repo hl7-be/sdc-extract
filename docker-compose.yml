@@ -3,8 +3,13 @@
 # The three services are independent, so profiles let you start subsets:
 #
 #   docker compose --profile full   up --build   # HAPI + extract API + mapper
-#   docker compose --profile server up --build   # HAPI + extract API
+#   docker compose --profile hapi   up --build   # HAPI server (seeded) only
+#   docker compose --profile tiro   up --build   # conformant $extract API only
 #   docker compose --profile mapper up --build   # mapping app only
+#
+# Combine profiles to run a subset together, e.g.:
+#
+#   docker compose --profile hapi --profile tiro up --build
 #
 # Host ports and the mapper's FHIR target are configurable via .env
 # (copy .env.example to .env first). Stop everything with:
@@ -17,7 +22,7 @@ services:
   # ── HAPI FHIR server (data transport / validation target) ──────────────
   hapi:
     image: hapiproject/hapi:latest
-    profiles: ["server", "full"]
+    profiles: ["hapi", "full"]
     ports:
       - "${HAPI_PORT:-8080}:8080"
     environment:
@@ -30,7 +35,7 @@ services:
   # Idempotent — safe to re-run on every `up`.
   hapi-loader:
     image: alpine:3.20
-    profiles: ["server", "full"]
+    profiles: ["hapi", "full"]
     depends_on:
       - hapi
     environment:
@@ -47,9 +52,9 @@ services:
     build:
       context: ./apps/tiro_sdc_server
       dockerfile: Dockerfile
-    profiles: ["server", "full"]
+    profiles: ["tiro", "full"]
     ports:
-      - "${EXTRACT_PORT:-8000}:8000"
+      - "${TIRO_PORT:-8000}:8000"
     restart: unless-stopped
 
   # ── Q2Rmapper mapping app (Angular + FastAPI, one image) ───────────────

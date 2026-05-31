@@ -16,7 +16,7 @@ profiled FHIR resources that can be independently searched and queried.
 QuestionnaireResponse  →  $extract  →  Bundle  →  POST to server  →  FHIR search
 ```
 
-No custom mapping code. The Questionnaire **is** the mapping.
+No extra mapping code. The Questionnaire **is** the mapping.
 
 ---
 
@@ -34,18 +34,20 @@ Both servers support Test 1 — pick whichever you have credentials/access for.
 For eHealth, copy `TENANT_ID` and `API_KEY` (provided at the hackathon) into a `.env` file at the
 repository root — the scripts pick them up automatically.
 
-For the local Tiro testserver, boot it once from `apps/tiro_sdc_extract/`:
+For the local Tiro testserver, start it from the repository root with the `tiro` Docker Compose
+profile:
 
 ```bash
-cd apps/tiro_sdc_extract
-uv sync           # install all dependencies from pyproject.toml / uv.lock
-uv run fastapi dev
+docker compose --profile tiro up --build
 ```
 
-No credentials, no `.env` required. Override with `TIRO_BASE_URL` if you've deployed it elsewhere.
+This builds and runs the conformant `$extract` service on `http://localhost:8000/api/v1`. The first
+build pulls the upstream image and may take a minute; subsequent starts are fast. It also ships
+interactive Swagger docs at [`http://localhost:8000/docs`](http://localhost:8000/docs), where you
+can call `$extract` straight from the browser with the "Try it out" button instead of curl.
 
-Full run instructions, configuration, and background-mode caveats are in
-[`apps/tiro_sdc_extract/README.md`](../../apps/tiro_sdc_extract/README.md).
+Full build/run instructions, configuration, and integration-test notes are in
+[`apps/tiro_sdc_server/README.md`](../../apps/tiro_sdc_server/README.md).
 
 ### Sample data
 
@@ -79,8 +81,7 @@ bash scripts/curls/working_extraction_opat_tiroserver.sh
 bash scripts/curls/working_extraction_opat_ehtestserver.sh
 ```
 
-Each script combines the Questionnaire and QuestionnaireResponse into a `Parameters` resource and
-POSTs it to `QuestionnaireResponse/$extract` on the chosen server.
+Each script combines the Questionnaire and QuestionnaireResponse into a `Parameters` resource and POSTs it to `QuestionnaireResponse/$extract` on the chosen server.
 
 **Expected response:** a `transaction` Bundle with one or more entries (`Observation`,
 `DiagnosticReport`, …). If you get an `OperationOutcome` instead, see
@@ -107,9 +108,6 @@ curl --location "https://hapi.fhir-testserver.be/fhir/${TENANT_ID}?api_key=${API
   --header 'Content-Type: application/fhir+json' \
   --data @bundle.json
 ```
-
-The local Tiro testserver only implements `$extract` — it does not store resources. Against any
-other FHIR server, swap the URL accordingly.
 
 A `200 OK` with a Bundle response confirms the resources were created.
 

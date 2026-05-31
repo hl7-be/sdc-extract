@@ -47,9 +47,12 @@ The three services are independent, so you can start just what you need:
 
 ```bash
 docker compose --profile full   up --build   # HAPI + extract API + mapper
-docker compose --profile server up --build   # HAPI + extract API
+docker compose --profile hapi   up --build   # HAPI server (seeded) only
+docker compose --profile tiro   up --build   # conformant $extract API only
 docker compose --profile mapper up --build   # mapping app only
 ```
+
+Combine profiles to run a subset together, e.g. `docker compose --profile hapi --profile tiro up --build`.
 
 > **Mapper-only note:** with `--profile mapper`, HAPI is not running, so set `MAPPER_FHIR_BASE_URL` in `.env`
 > to a reachable server (e.g. `https://hapi.fhir.org/baseR4`) before starting.
