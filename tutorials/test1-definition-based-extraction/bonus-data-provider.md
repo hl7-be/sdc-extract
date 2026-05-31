@@ -9,14 +9,28 @@ and optionally improve.
 
 ## Context
 
-The repository contains a standalone Python implementation of definition-based extraction at
-[`apps/Q2Rmapper/api/src/core/extractor.py`](../../apps/Q2Rmapper/api/src/core/extractor.py).
-It is designed for environments where calling `$extract` on a server is not possible - for
-example, when using the Google Healthcare FHIR API (which does not expose `$extract`), or when
-building a FHIR facade that needs to assemble resources client-side.
+You have a `Questionnaire` and a completed `QuestionnaireResponse`, and you need the extracted
+FHIR resources - but you don't have a fully-featured FHIR server or facade that implements the
+`$extract` operation for you. This is common with the Google Healthcare FHIR API (which does not
+expose `$extract`), or with a thin FHIR facade over a proprietary database. There are two ways to
+get the extraction done.
 
-For a detailed description of how the extractor works and how to run it locally without any
-server, see [`docs/general-extractor.md`](../../docs/general-extractor.md).
+**Approach 1 — embed the extractor in your backend.** The repository contains a standalone Python
+implementation of definition-based extraction at
+[`apps/Q2Rmapper/api/src/core/extractor.py`](../../apps/Q2Rmapper/api/src/core/extractor.py). It
+is a self-contained module: hand it the Questionnaire and QuestionnaireResponse, get back a
+`Bundle`, no network involved. For how it works and how to run it locally, see
+[`docs/general-extractor.md`](../../docs/general-extractor.md).
+
+**Approach 2 — delegate to an `$extract` service over HTTP.** Instead of carrying the logic
+yourself, your backend can call a separate service that already implements the operation. That
+service can run wherever you like - a Tiro container in your own infrastructure (the
+[`apps/tiro_sdc_server`](../../apps/tiro_sdc_server) testserver in this repo runs exactly that way)
+or the hosted Tiro.health server. Your backend just forwards the `Questionnaire` +
+`QuestionnaireResponse` and persists the `Bundle` that comes back.
+
+Embedding keeps everything in-process with no network hop; delegating keeps the extraction logic -
+and its future updates - out of your codebase, at the cost of an HTTP call and its latency.
 
 ---
 
@@ -47,6 +61,10 @@ server, see [`docs/general-extractor.md`](../../docs/general-extractor.md).
 
 - If you were integrating this into an EHR system that has a FHIR facade but not an actual FHIR server, what
   would need to change? How would you POST the resulting Bundle?
+- Embed vs. delegate: when would you bundle this extractor into your backend, and when would you
+  instead call a separate `$extract` service over HTTP (a Tiro container you host yourself, or the
+  hosted Tiro.health server)? Weigh things like deployment footprint, latency, and who owns the
+  extraction logic.
 - How would you handle errors - should a problem with one answer block the whole Bundle, or just
   skip the affected resource?
 
