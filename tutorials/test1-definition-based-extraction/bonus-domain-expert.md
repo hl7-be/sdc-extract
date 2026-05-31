@@ -70,7 +70,7 @@ And fixed values like `Observation.code` and `Observation.status` are set via
 **Use a registry StructureDefinition**
 
 - If you have access to a registry StructureDefinition (e.g. from Sciensano, HealthData.be, or
-  BCR), try using one of its elements as a definition target. What does extraction produce?
+  BCR), try using one of its elements as a definition target. What does extraction produce? 
 
 **Discuss**
 
@@ -79,6 +79,8 @@ And fixed values like `Observation.code` and `Observation.status` are set via
 - What tooling would make this sustainable at scale?
 - What happens when a StructureDefinition is updated - do all Questionnaires using it need to be
   reviewed?
+- Do you think a FHIR Questionnaires + SDC extraction could be an interesting transition path for FHIR adoption for registries?
+
 
 ---
 
