@@ -36,7 +36,15 @@ Authentication: `?api_key={API_KEY}` query parameter
 Credentials are provided at the hackathon. Copy them into a `.env` file at the repository root —
 the `*_ehtestserver.sh` helper scripts and the eHealth path of Test 1 read from it automatically.
 
-Supports: Test 1 ✅ | Test 2 ❌ out of the box — logical-model extraction fails on an unpatched
+Supports: Test 1 ✅ | Test 2 ❌ out of the box (logical-model extraction fails on an unpatched HAPI). See next section for a patched HAPI server.
+
+### Local installed HAPI server
+
+```bash
+docker compose --profile hapi up --build
+```
+
+Supports: Test 1 ✅ | Test 2 ❌ out of the box (logical-model extraction fails on an unpatched)
 HAPI (see [the root-cause note](../docs/hapi-extract-logical-model-root-cause.md)). A patch is
 sketched in the [HAPI fork bonus](test2-logical-model-extraction/bonus-developers-hapi-fork.md)
 and the accompanying [fork guide](../docs/hapi-extract-logical-model-fork-guide.md) — untested,
@@ -48,14 +56,8 @@ The reference implementation in [`apps/tiro_sdc_extract/`](../apps/tiro_sdc_extr
 locally — no credentials needed:
 
 ```bash
-cd apps/tiro_sdc_extract
-uv sync           # install all dependencies from pyproject.toml / uv.lock
-uv run fastapi dev
+docker compose --profile tiro up --build
 ```
-
-Base URL: `http://localhost:8000/api/v1`. Override with `TIRO_BASE_URL` if you've deployed the
-server elsewhere.
-
 See [`apps/tiro_sdc_extract/README.md`](../apps/tiro_sdc_extract/README.md) for full run instructions,
 configuration (e.g. `STRUCTURE_DEFINITIONS_DIR`), API details, and a note on running the server in
 the background.
