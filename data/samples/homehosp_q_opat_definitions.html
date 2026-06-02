@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="nl-BE">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tiro.health renderer</title>
+
+  <!-- Tiro.health Web SDK — https://sdk.tiro.health/web -->
+  <script src="https://cdn.tiro.health/sdk/latest/tiro-web-sdk.iife.js"></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #f6f7f9; color: #1a1d21; }
+    header { padding: 1rem 1.5rem; background: #fff; border-bottom: 1px solid #e3e6ea; }
+    header h1 { margin: 0; font-size: 1.1rem; }
+    header p { margin: 0.25rem 0 0; font-size: 0.85rem; color: #6b7280; }
+    main { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 1.5rem; max-width: 1400px; margin: 1.5rem auto; padding: 0 1.5rem; }
+    @media (max-width: 960px) { main { grid-template-columns: 1fr; } }
+    .panel { background: #fff; border: 1px solid #e3e6ea; border-radius: 10px; padding: 1.25rem; }
+    .panel > h2 { margin: 0 0 1rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; }
+    tiro-form-filler, tiro-narrative { display: block; width: 100%; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="title">Questionnaire</h1>
+    <p id="subtitle"></p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Form</h2>
+      <div id="form-container"></div>
+    </section>
+    <section class="panel">
+      <h2>Clinical narrative</h2>
+      <div id="narrative-container"></div>
+    </section>
+  </main>
+
+  <script>
+    // This file has no canonical URL on a server the SDK can resolve, so we
+    // load the sibling JSON (same basename) and hand the resource to the
+    // <tiro-form-filler> inline. Build the elements only AFTER the resource is
+    // in hand so the component upgrades with the questionnaire already present.
+    const jsonUrl = location.href.replace(/\.html(\?.*|#.*)?$/, ".json");
+    document.getElementById("subtitle").textContent = jsonUrl.split("/").pop();
+
+    fetch(jsonUrl)
+      .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status + " for " + jsonUrl); return r.json(); })
+      .then((questionnaire) => {
+        if (questionnaire.title) document.getElementById("title").textContent = questionnaire.title;
+
+        const filler = document.createElement("tiro-form-filler");
+        filler.id = "form";
+        filler.setAttribute("sdc-endpoint-address", "https://sdc.tiro.health/fhir/r5");
+
+        const slot = document.createElement("script");
+        slot.type = "application/fhir+json";
+        slot.slot = "questionnaire";
+        slot.textContent = JSON.stringify(questionnaire);
+        filler.appendChild(slot);
+
+        // Property fallback in case this SDK build prefers a property over the slot.
+        try { filler.questionnaire = questionnaire; } catch (_) {}
+
+        filler.addEventListener("tiro-submit", (e) =>
+          console.log("QuestionnaireResponse:", e.detail?.response ?? e.detail));
+
+        document.getElementById("form-container").appendChild(filler);
+
+        const narrative = document.createElement("tiro-narrative");
+        narrative.setAttribute("for", "form");
+        document.getElementById("narrative-container").appendChild(narrative);
+      })
+      .catch((err) => {
+        document.getElementById("title").textContent = "Failed to load";
+        document.getElementById("subtitle").textContent = String(err);
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
