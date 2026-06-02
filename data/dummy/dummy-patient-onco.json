@@ -1,0 +1,12 @@
+{
+  "resourceType": "Patient",
+  "id": "ad1cf7a8-8d18-475e-8277-98d5b1bb7d6a",
+  "name": [
+    {
+      "family": "Testpatiënt",
+      "given": ["Onco"]
+    }
+  ],
+  "gender": "unknown",
+  "birthDate": "1980-01-01"
+}

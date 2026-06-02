@@ -125,10 +125,15 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
                 },
                 {
-                  "url": "expression",
-                  "valueExpression": {
-                    "language": "text/fhirpath",
-                    "expression": "%questionnaire.descendants().where(linkId = 'A1_MedicationStorage').code"
+                  "url": "fixed-value",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://snomed.info/sct",
+                        "code": "422413002",
+                        "display": "Ability to store medications (observable entity)"
+                      }
+                    ]
                   }
                 }
               ]
@@ -428,10 +433,15 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
                 },
                 {
-                  "url": "expression",
-                  "valueExpression": {
-                    "language": "text/fhirpath",
-                    "expression": "%questionnaire.descendants().where(linkId = 'B1_MedicationFullyDissolved').code"
+                  "url": "fixed-value",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://snomed.info/sct",
+                        "code": "396076000",
+                        "display": "Medication prefill preparation assessment (procedure)"
+                      }
+                    ]
                   }
                 }
               ]
@@ -586,10 +596,15 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
                 },
                 {
-                  "url": "expression",
-                  "valueExpression": {
-                    "language": "text/fhirpath",
-                    "expression": "%questionnaire.descendants().where(linkId = 'C1_AdministrationCorrect').code"
+                  "url": "fixed-value",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://snomed.info/sct",
+                        "code": "373149000",
+                        "display": "Medication administered following procedure (situation)"
+                      }
+                    ]
                   }
                 }
               ]
@@ -1585,10 +1600,15 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
                 },
                 {
-                  "url": "expression",
-                  "valueExpression": {
-                    "language": "text/fhirpath",
-                    "expression": "%questionnaire.descendants().where(linkId = 'E1_DressingObservation').code"
+                  "url": "fixed-value",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://snomed.info/sct",
+                        "code": "364554009",
+                        "display": "Wound observable (observable entity)"
+                      }
+                    ]
                   }
                 }
               ]
@@ -1958,10 +1978,15 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
                 },
                 {
-                  "url": "expression",
-                  "valueExpression": {
-                    "language": "text/fhirpath",
-                    "expression": "%questionnaire.descendants().where(linkId = 'F1_InsertionSiteObservation').code"
+                  "url": "fixed-value",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://snomed.info/sct",
+                        "code": "386141001",
+                        "display": "Insertion site (morphologic abnormality)"
+                      }
+                    ]
                   }
                 }
               ]
@@ -2348,10 +2373,15 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
                 },
                 {
-                  "url": "expression",
-                  "valueExpression": {
-                    "language": "text/fhirpath",
-                    "expression": "%questionnaire.descendants().where(linkId = 'G1_CatheterObservation').code"
+                  "url": "fixed-value",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://snomed.info/sct",
+                        "code": "1156071007",
+                        "display": "Catheter observable (observable entity)"
+                      }
+                    ]
                   }
                 }
               ]
@@ -3160,10 +3190,15 @@
                   "valueUri": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code"
                 },
                 {
-                  "url": "expression",
-                  "valueExpression": {
-                    "language": "text/fhirpath",
-                    "expression": "%questionnaire.descendants().where(linkId = 'H1_SkinRash').code"
+                  "url": "fixed-value",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://snomed.info/sct",
+                        "code": "271807003",
+                        "display": "Eruption of skin (disorder)"
+                      }
+                    ]
                   }
                 }
               ]

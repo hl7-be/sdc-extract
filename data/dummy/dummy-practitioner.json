@@ -1,0 +1,10 @@
+{
+  "resourceType": "Practitioner",
+  "id": "example-nurse-001",
+  "name": [
+    {
+      "family": "Testverpleegkundige",
+      "given": ["Example"]
+    }
+  ]
+}

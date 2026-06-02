@@ -1,0 +1,12 @@
+{
+  "resourceType": "Patient",
+  "id": "2ddad017-8236-4a64-b123-1530261985bd",
+  "name": [
+    {
+      "family": "Testpatiënt",
+      "given": ["OPAT"]
+    }
+  ],
+  "gender": "unknown",
+  "birthDate": "1980-01-01"
+}

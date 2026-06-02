@@ -1,0 +1,18 @@
+# Copy this file to docker-compose.override.yml (gitignored) and fill in your values.
+# Docker Compose automatically merges docker-compose.override.yml with docker-compose.yml.
+# Use this file for organisation-specific settings that should not be committed.
+
+services:
+  q2rmapper:
+    # If your Snowstorm/FHIR server is on an internal network behind a VPN,
+    # the Docker container (running in WSL2) may not resolve internal hostnames.
+    # Add your organisation's DNS servers and search domains here.
+    #
+    # Example for an organisation using internal DNS:
+    # dns:
+    #   - 192.168.1.53       # primary internal DNS
+    #   - 8.8.8.8            # fallback public DNS
+    # dns_search:
+    #   - corp.example.com
+    dns: []
+    dns_search: []
