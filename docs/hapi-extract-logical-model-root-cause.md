@@ -8,6 +8,13 @@ This document captures the source-level root cause, the exact lines responsible,
 and the practical implications for the home-hospitalization / registry use cases
 described in [`README.md`](../README.md).
 
+> **Verified 2026-05-16** against `cqframework/clinical-reasoning@389c88d` and
+> `hapifhir/hapi-fhir@12d973d`: method bodies, the `Class.forName` site, and the
+> absence of any logical-model branch all match this analysis. The runtime stack
+> trace below is still inferred from source, not observed against a live HAPI
+> instance. A spike for the proposed fix lives at
+> [`tutorials/test2-logical-model-extraction/spike/`](../tutorials/test2-logical-model-extraction/spike/).
+
 ---
 
 ## TL;DR

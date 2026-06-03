@@ -7,13 +7,15 @@ understand the problem, evaluate the proposed fix, and optionally prototype it.
 
 ---
 
-> [!WARNING]
-> The root cause analysis in [`docs/hapi-extract-logical-model-root-cause.md`](../../docs/hapi-extract-logical-model-root-cause.md)
-> and the fix described in [`docs/hapi-extract-logical-model-fork-guide.md`](../../docs/hapi-extract-logical-model-fork-guide.md)
-> are **unverified**: they are based on reading the upstream source, not on running or debugging
-> live code. The actual failure mode may differ, and there may be additional problems not captured
-> in the analysis. Treat both documents as a starting point for investigation, not a confirmed
-> diagnosis.
+> [!NOTE]
+> Status (verified 2026-05-16):
+> - Static root-cause analysis in [`docs/hapi-extract-logical-model-root-cause.md`](../../docs/hapi-extract-logical-model-root-cause.md): **confirmed** against `cqframework/clinical-reasoning@389c88d` and `hapifhir/hapi-fhir@12d973d` (method bodies, `Class.forName` site, no logical-model branch anywhere).
+> - Central bet of the fork design (`org.hl7.fhir.r4.elementmodel.Element` can represent a logical-model instance with no POJO): **verified** via the spike at [`spike/`](spike/). Build, compose, programmatic write, and intermediate-parent auto-creation all work.
+>
+> What remains unverified:
+> - Live runtime stack trace (inferred from source, not observed against a real HAPI deployment).
+> - Full QR walk reproducing `expected.json` byte-for-byte (repeating cardinality, slicing).
+> - Integration with `cqf-fhir-cr`'s bundle assembly and HAPI server wiring.
 
 ---
 
