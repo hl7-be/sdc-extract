@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SDC $extract → bundle view · Tiro.health</title>
+
+  <!-- <tiro-bundle-view> is React-based, so React must be on the page BEFORE
+       the SDK (the form-filler/narrative elements don't need it, but the
+       bundle view does). -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <!-- Pinned to the version the web-sdk-tutorial documents <tiro-bundle-view> against. -->
+  <script src="https://cdn.tiro.health/sdk/v0.3.0-rc.5/tiro-web-sdk.iife.js"></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #f6f7f9; color: #1a1d21; }
+    header { padding: 1rem 1.5rem; background: #fff; border-bottom: 1px solid #e3e6ea; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    header h1 { margin: 0; font-size: 1.1rem; flex: 1 1 auto; }
+    header .controls { display: flex; gap: 0.75rem; align-items: center; }
+    select, button { font: inherit; }
+    select { padding: 0.4rem 0.6rem; border: 1px solid #cbd2d9; border-radius: 8px; background: #fff; }
+    button.run { padding: 0.45rem 1.1rem; background: #18181b; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+    button.run:hover { background: #3f3f46; }
+    button.run:disabled { opacity: 0.55; cursor: default; }
+    main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; max-width: 1500px; margin: 1.5rem auto; padding: 0 1.5rem; }
+    @media (max-width: 1000px) { main { grid-template-columns: 1fr; } }
+    .panel { background: #fff; border: 1px solid #e3e6ea; border-radius: 10px; padding: 1.25rem; }
+    .panel > h2 { margin: 0 0 1rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; }
+    tiro-form-filler, tiro-bundle-view { display: block; width: 100%; }
+    .status { font-size: 0.85rem; color: #6b7280; margin: 0 0 1rem; min-height: 1.2em; }
+    .status.error { color: #b42318; }
+    details { margin-top: 1rem; font-size: 0.8rem; }
+    details summary { cursor: pointer; color: #6b7280; }
+    pre.raw { background: #1e1e2e; color: #cdd6f4; border-radius: 8px; padding: 1rem; overflow: auto; max-height: 420px; font-size: 0.78rem; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SDC <code>$extract</code> → bundle view</h1>
+    <div class="controls">
+      <label for="scenario">Scenario:</label>
+      <select id="scenario">
+        <option value="opat">OPAT — continuous infusion</option>
+        <option value="onco">Onco — trastuzumab</option>
+      </select>
+      <button class="run" id="run">Run $extract</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Questionnaire (pre-filled from the sample response — edit, then run)</h2>
+      <div id="form-container"></div>
+    </section>
+    <section class="panel">
+      <h2>Extracted bundle</h2>
+      <p class="status" id="status">Pick a scenario and press “Run $extract”.</p>
+      <div id="bundle-container"></div>
+      <details id="raw-wrap" hidden>
+        <summary>Raw response JSON</summary>
+        <pre class="raw" id="raw"></pre>
+      </details>
+    </section>
+  </main>
+
+  <script>
+    // Definition-based scenarios that ship with both a Questionnaire (carrying
+    // sdc-questionnaire-definitionExtract config) and a sample response.
+    const SCENARIOS = {
+      opat: {
+        questionnaire: "data/samples/homehosp_q_opat_definitions.json",
+        response: "data/samples/homehosp_qr_opat.json",
+      },
+      onco: {
+        questionnaire: "data/samples/homehosp_q_onco_definitions.json",
+        response: "data/samples/homehosp_qr_onco.json",
+      },
+    };
+
+    const els = {
+      scenario: document.getElementById("scenario"),
+      run: document.getElementById("run"),
+      status: document.getElementById("status"),
+      form: document.getElementById("form-container"),
+      bundle: document.getElementById("bundle-container"),
+      rawWrap: document.getElementById("raw-wrap"),
+      raw: document.getElementById("raw"),
+    };
+
+    let current = { questionnaire: null, response: null }; // loaded resources
+
+    function setStatus(msg, isError) {
+      els.status.textContent = msg;
+      els.status.classList.toggle("error", !!isError);
+    }
+
+    async function loadScenario(key) {
+      const cfg = SCENARIOS[key];
+      els.form.replaceChildren();
+      els.bundle.replaceChildren();
+      els.rawWrap.hidden = true;
+      setStatus("Loading questionnaire…");
+
+      const [questionnaire, response] = await Promise.all([
+        fetch(cfg.questionnaire).then((r) => r.json()),
+        fetch(cfg.response).then((r) => r.json()),
+      ]);
+      current = { questionnaire, response };
+
+      const filler = document.createElement("tiro-form-filler");
+      filler.id = "form";
+      // Pre-fill with the sample response so "Run" extracts real answers.
+      filler.setAttribute("initial-response", JSON.stringify(response));
+
+      const slot = document.createElement("script");
+      slot.type = "application/fhir+json";
+      slot.slot = "questionnaire";
+      slot.textContent = JSON.stringify(questionnaire);
+      filler.appendChild(slot);
+      try { filler.questionnaire = questionnaire; } catch (_) {}
+
+      els.form.appendChild(filler);
+      setStatus("Edit answers if you like, then press “Run $extract”.");
+    }
+
+    async function runExtract() {
+      const filler = document.getElementById("form");
+      // Prefer the live answers from the form; fall back to the sample response.
+      let response = current.response;
+      if (filler && typeof filler.getResponse === "function") {
+        const live = filler.getResponse();
+        if (live) response = live;
+      }
+
+      const body = {
+        resourceType: "Parameters",
+        parameter: [
+          { name: "questionnaire-response", resource: response },
+          { name: "questionnaire", resource: current.questionnaire },
+        ],
+      };
+
+      els.run.disabled = true;
+      setStatus("Running $extract…");
+      els.bundle.replaceChildren();
+      els.rawWrap.hidden = true;
+
+      try {
+        const res = await fetch("/extract", {
+          method: "POST",
+          headers: { "Content-Type": "application/fhir+json", "Accept": "application/fhir+json" },
+          body: JSON.stringify(body),
+        });
+        const bundle = await res.json();
+
+        els.raw.textContent = JSON.stringify(bundle, null, 2);
+        els.rawWrap.hidden = false;
+
+        if (bundle.resourceType === "OperationOutcome") {
+          const issue = (bundle.issue || [])[0] || {};
+          throw new Error((issue.details && issue.details.text) || issue.diagnostics || "Extraction failed");
+        }
+
+        const count = (bundle.entry || []).length;
+        setStatus(`Extracted a ${bundle.type || ""} Bundle with ${count} entr${count === 1 ? "y" : "ies"}.`);
+
+        const view = document.createElement("tiro-bundle-view");
+        els.bundle.appendChild(view);
+        // Set .bundle only after the element upgrades, or it shadows Lit's
+        // reactive accessor and never renders.
+        customElements.whenDefined("tiro-bundle-view").then(() => { view.bundle = bundle; });
+      } catch (err) {
+        setStatus("Error: " + err.message + " (is the R4 extract backend running? see scripts/render-server.py)", true);
+        console.error(err);
+      } finally {
+        els.run.disabled = false;
+      }
+    }
+
+    els.scenario.addEventListener("change", () => loadScenario(els.scenario.value));
+    els.run.addEventListener("click", runExtract);
+    loadScenario(els.scenario.value);
+  </script>
+</body>
+</html>
