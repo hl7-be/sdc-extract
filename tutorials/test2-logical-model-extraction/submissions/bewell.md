@@ -1,6 +1,6 @@
 # Submission — [BeWell Innovations](https://github.com/bewellinnovations)
 
-**Role(s):** data provider
+**Role(s):** data provider  
 **Test:** Test 2 — Extraction to a logical model  
 **Date:** 2026-06-03
 
@@ -8,8 +8,10 @@
 
 ## What we tried
 
-- Step 1, $extract: used OPAT sample QuestionnaireResponse and logical model (`Questionnaire`) with Tiro test server, worked.
-- Step 2, validate: the output is shown below. We spot-checked a couple of data points and traced them from the `QuestionnaireResponse`, via its defined `definition`, to the resulting logical model element (output JSON).
+Referring to the steps in the README of tutorial/test 2:
+
+- Step 1, `$extract`: used OPAT sample QuestionnaireResponse and logical model (`Questionnaire`) with Tiro test server, worked.
+- Step 2, validate: the output is shown below. We spot-checked a couple of data points and traced them from the `QuestionnaireResponse`, via its defined `definition` in the logical model (`Questionnaire`), to the resulting logical model element (output JSON).
 
 ```json
 {
@@ -99,21 +101,25 @@ We ran a couple of spot checks tracing information from the `QuestionnaireRespon
 ### Trace 1: free-text catheter observation
 
 - The `QuestionnaireResponse`…
-  - … contains a `linkId` `CatheterObservation` ("Catheter observation") which contains a `linkId` `G6_Other` ("Other: (if applicable)").
-  - … contains a `answer.valueString`: *"Test, the catheter tip looks strange"*
+  - … contains a `linkId` `CatheterObservation` ("Catheter observation")…
+  - … which contains a `linkId` `G6_Other` ("Other: (if applicable)")…
+  - … which contains a `answer.valueString`: *"Test, the catheter tip looks strange"*
 - Likewise, the logical model (`Questionnaire`):
-  - … contains a `linkId` `CatheterObservation` ("Catheter observation"), which contains a `linkId` `G6_Other` ("Other: (if applicable)").
+  - … contains a `linkId` `CatheterObservation` ("Catheter observation")…
+  - … which contains a `linkId` `G6_Other` ("Other: (if applicable)")…
   - … contains a `definition`: http://hl7belgium.org/fhir/patient-monitoring/StructureDefinition/opat-continuous-infusion-questionnaire#opat-continuous-infusion-questionnaire.nursingAssessment.catheterObservation.other
 - ✅ The `value` of the logical model element (output JSON) indeed contains a path `nursingAssessment.catheterObservation.other` with the value *"Test, the catheter tip looks strange"*
 
-### Trace 2: coded value (SNOMED)
+### Trace 2: coded value (SNOMED) side-effect
 
-- The `QuestionnaireResponse` contains:
-  - … a `linkId` `SideEffects` ("Side Effects"), which contains a `linkId` `H14_JointPain` ("Joint pain").
-  - … contains a `answer.valueCoding.code`: *"24484000"* ("Severe (qualifier value)")
+- The `QuestionnaireResponse`:
+  - … contains a `linkId` `SideEffects` ("Side Effects")…
+  - … which contains a `linkId` `H14_JointPain` ("Joint pain")…
+  - … which contains a `answer.valueCoding.code`: *"24484000"* ("Severe (qualifier value)")
 - Likewise, the logical model (`Questionnaire`):
-  - … contains a `linkId` `SideEffects` ("Side Effects"), which contains a `linkId` `H14_JointPain` ("Joint pain").
-  - … contains a `definition`: http://hl7belgium.org/fhir/patient-monitoring/StructureDefinition/opat-continuous-infusion-questionnaire#opat-continuous-infusion-questionnaire.nursingAssessment.sideEffects.jointPain
+  - … contains a `linkId` `SideEffects` ("Side Effects")…
+  - … which contains a `linkId` `H14_JointPain` ("Joint pain")…
+  - … which contains a `definition`: http://hl7belgium.org/fhir/patient-monitoring/StructureDefinition/opat-continuous-infusion-questionnaire#opat-continuous-infusion-questionnaire.nursingAssessment.sideEffects.jointPain
 - ✅ The `value` of the logical model element (output JSON) indeed contains a path `nursingAssessment.sideEffects.jointPain` with the value *"24484000"* ("Severe (qualifier value)")
 
 ## Bugs or gaps noticed
