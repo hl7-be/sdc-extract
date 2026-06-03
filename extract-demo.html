@@ -59,8 +59,10 @@
       <h2>Extracted bundle</h2>
       <p class="status" id="status">Pick a scenario and press “Run $extract”.</p>
       <div id="bundle-container"></div>
+      <!-- Only shown on error: <tiro-bundle-view> has its own "View Bundle JSON"
+           toggle for the success case, so we don't duplicate it here. -->
       <details id="raw-wrap" hidden>
-        <summary>Raw response JSON</summary>
+        <summary>Error response (raw JSON)</summary>
         <pre class="raw" id="raw"></pre>
       </details>
     </section>
@@ -156,10 +158,10 @@
         });
         const bundle = await res.json();
 
-        els.raw.textContent = JSON.stringify(bundle, null, 2);
-        els.rawWrap.hidden = false;
-
         if (bundle.resourceType === "OperationOutcome") {
+          // No bundle view will render, so surface the raw outcome for debugging.
+          els.raw.textContent = JSON.stringify(bundle, null, 2);
+          els.rawWrap.hidden = false;
           const issue = (bundle.issue || [])[0] || {};
           throw new Error((issue.details && issue.details.text) || issue.diagnostics || "Extraction failed");
         }
