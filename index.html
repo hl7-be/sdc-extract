@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="nl-BE">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mondholte-tumoren · Tiro.health renderer</title>
+
+  <!--
+    Tiro.health Web SDK — https://sdk.tiro.health/web
+    The IIFE bundle registers the <tiro-form-filler> and <tiro-narrative>
+    custom elements. No build step required.
+  -->
+  <script src="https://cdn.tiro.health/sdk/latest/tiro-web-sdk.iife.js"></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: #f6f7f9;
+      color: #1a1d21;
+    }
+    header {
+      padding: 1rem 1.5rem;
+      background: #fff;
+      border-bottom: 1px solid #e3e6ea;
+    }
+    header h1 { margin: 0; font-size: 1.1rem; }
+    header p { margin: 0.25rem 0 0; font-size: 0.85rem; color: #6b7280; }
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: 1.5rem;
+      max-width: 1400px;
+      margin: 1.5rem auto;
+      padding: 0 1.5rem;
+    }
+    @media (max-width: 960px) { main { grid-template-columns: 1fr; } }
+    .panel {
+      background: #fff;
+      border: 1px solid #e3e6ea;
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    .panel > h2 {
+      margin: 0 0 1rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #6b7280;
+    }
+    tiro-form-filler, tiro-narrative { display: block; width: 100%; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mondholte-tumoren</h1>
+    <p>Rendered with the Tiro.health Web SDK · <code>data/samples/Questionnaire-mondholte-tumoren.json</code></p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Form</h2>
+      <!--
+        The questionnaire is referenced by its canonical URL (it was authored
+        in Tiro and is published on templates.tiro.health). The SDK resolves it
+        against the SDC backend below. Append "|<version>" to pin a version.
+
+        To render a LOCAL / edited copy instead of the published one, drop the
+        `questionnaire` attribute and slot the resource inline (serve over http
+        so the fetch works — see the bottom of this file):
+
+          <tiro-form-filler id="form" sdc-endpoint-address="https://sdc.tiro.health/fhir/r5">
+            <script type="application/fhir+json" slot="questionnaire"> ...resource JSON... </script>
+          </tiro-form-filler>
+      -->
+      <tiro-form-filler
+        id="form"
+        questionnaire="http://templates.tiro.health/templates/049555af4ddf4a74b7d2572f7000b12c"
+        sdc-endpoint-address="https://sdc.tiro.health/fhir/r5">
+      </tiro-form-filler>
+    </section>
+
+    <section class="panel">
+      <h2>Clinical narrative</h2>
+      <tiro-narrative for="form"></tiro-narrative>
+    </section>
+  </main>
+
+  <script>
+    // Log the captured QuestionnaireResponse so you can copy it for $extract.
+    const form = document.getElementById('form');
+    form.addEventListener('tiro-submit', (event) => {
+      console.log('QuestionnaireResponse:', event.detail?.response ?? event.detail);
+    });
+  </script>
+
+  <!--
+    Optional: render the local file in this repo instead of the published
+    template. Remove the `questionnaire` attribute above, then uncomment this
+    block and serve the repo over http (`python3 -m http.server` from the repo
+    root, then open http://localhost:8000/).
+
+    <script>
+      fetch('data/samples/Questionnaire-mondholte-tumoren.json')
+        .then((r) => r.json())
+        .then((questionnaire) => {
+          const slot = document.createElement('script');
+          slot.type = 'application/fhir+json';
+          slot.slot = 'questionnaire';
+          slot.textContent = JSON.stringify(questionnaire);
+          document.getElementById('form').appendChild(slot);
+        });
+    </script>
+  -->
+</body>
+</html>
